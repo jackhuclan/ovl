@@ -1,0 +1,12 @@
+<Project>
+  <!--
+    本目录下的工程是自 marvel/OpenInteVega 原样搬入的遗留源码（vendor）。
+    它们保留各自的内联 PackageReference 版本号，因此必须豁免仓库根的中央包管理（CPM）；
+    同时不继承根 Directory.Build.props 的 net10.0/Nullable 等默认值，保持 marvel 原构建行为。
+    后续若将某工程正式重构纳入 Ovl.* 体系，再逐个迁回 CPM。
+  -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+</Project>

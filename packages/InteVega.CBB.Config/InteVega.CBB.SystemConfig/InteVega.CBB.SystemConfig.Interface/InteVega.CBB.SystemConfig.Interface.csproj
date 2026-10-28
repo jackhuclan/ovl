@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<Version>1.0.0.7</Version>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  <Description>
+	  ---------------- V1.0.0.3-------------------------------------
+	  添加IConfigLoader接口
+  </Description>
+  </PropertyGroup>
+
+</Project>

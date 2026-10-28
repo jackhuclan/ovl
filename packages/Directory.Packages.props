@@ -1,0 +1,10 @@
+<Project>
+  <!--
+    隔离根目录 Directory.Packages.props 的中央包管理：SDK 只导入距工程最近的此文件。
+    packages/ 下的 vendor 遗留源码保留各自内联 PackageReference 版本（见 Directory.Build.props 注释）。
+  -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+</Project>

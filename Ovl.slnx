@@ -6,4 +6,11 @@
   <Project Path="src/Ovl.UI.Common.ViewModels/Ovl.UI.Common.ViewModels.csproj" />
   <Project Path="src/Ovl.UI.ViewModels/Ovl.UI.ViewModels.csproj" />
   <Project Path="tests/Ovl.Biz.Common.Tests/Ovl.Biz.Common.Tests.csproj" />
+  <!-- 自 marvel/OpenInteVega 搬入的业务/配置层源码（只搬用到的；缺失源码的 Common/Db 以 nexus 包引用替代） -->
+  <Project Path="packages/IntellVega.CBB.EasyConfig/IntellVega.CBB.EasyConfig/IntellVega.CBB.EasyConfig.csproj" />
+  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe/InteVega.CBB.Recipe.csproj" />
+  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Interface/InteVega.CBB.Recipe.Interface.csproj" />
+  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Model/InteVega.CBB.Recipe.Model.csproj" />
+  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.csproj" />
+  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.Interface/InteVega.CBB.SystemConfig.Interface.csproj" />
 </Solution>

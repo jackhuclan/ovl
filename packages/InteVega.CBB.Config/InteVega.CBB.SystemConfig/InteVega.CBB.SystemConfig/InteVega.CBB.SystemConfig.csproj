@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Platforms>AnyCPU;x64</Platforms>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Version>1.0.0.6</Version>
+	  <Description>
+		  ---------------- V1.0.0.3-------------------------------------
+		  添加IConfigLoader接口
+	  </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TestModel1.cs" />
+    <Compile Remove="TestModel2.cs" />
+    <Compile Remove="TestModel3.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IntellVega.CBB.Module" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\IntellVega.CBB.EasyConfig\IntellVega.CBB.EasyConfig\IntellVega.CBB.EasyConfig.csproj" />
+    <ProjectReference Include="..\InteVega.CBB.SystemConfig.Interface\InteVega.CBB.SystemConfig.Interface.csproj" />
+  </ItemGroup>
+
+</Project>
