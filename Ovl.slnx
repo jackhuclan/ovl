@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/Ovl.Biz.Common/Ovl.Biz.Common.csproj" />
+  <Project Path="src/Ovl.Biz.Services/Ovl.Biz.Services.csproj" />
+  <Project Path="tests/Ovl.Biz.Common.Tests/Ovl.Biz.Common.Tests.csproj" />
+</Solution>

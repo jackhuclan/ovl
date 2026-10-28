@@ -1,0 +1,25 @@
+## .NET
+bin/
+obj/
+out/
+publish/
+artifacts/
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+
+## 机密与本地配置（不入库）
+config.json
+appsettings.*.local.json
+*.pfx
+*.snk
+
+## WorkBuddy
+.workbuddy/
+
+## 日志与临时文件
+*.log
+*.tmp
+TestResults/
