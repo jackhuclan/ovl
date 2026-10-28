@@ -43,10 +43,22 @@
 - [x] Sidebar 首项「Home」并默认选中；Loaded/Unloaded 触发器（Microsoft.Xaml.Behaviors.Wpf）
 - 验收：编译 0 警告 0 错误，48/48 测试通过（新增 5 个桩状态机测试），冒烟启动正常 ✅
 
-### M3b 原版样式原样迁移（待办）
+### M3b 原版样式原样迁移
 
-- 原版 mainview.xaml（1879 行）+ mainviewmodel.cs（1970 行）+ Marvel.Main/Resources/Themes 五个资源字典（Button/Label/DataGrid/Border/TextBlock）
-- 前置依赖：引入 HandyControl 包；厂内 InteVega.CBB.ComUI 控件需 nexus 凭据或本地 dll；Prism Behaviors → Microsoft.Xaml.Behaviors.Wpf 改写
+#### M3b-1 样式资源就绪 ✅（2026-10-28）
+
+- [x] 五个主题字典逐字迁入 `src/Ovl.UI.Common/Resources/Themes/`（Button 758 / DataGrid 862 / Label 327 / Border 107 / TextBlock 7 行），样式数值零改动
+- [x] 图标模板字典 `Resources/Icons/IconTemplateDictionary.xaml`（560 行、110 个模板）逐字迁入
+- [x] 本地 `CustomIcon`（`Ovl.UI.Common.Controls.Icon`）：Kind 枚举与模板键与厂内完全一致 → 图标视觉不变
+- [x] 厂内依赖本地等价替换：`OtvCVT`/`OtbReCVT` 转换器、`EnumRunState` 枚举（全量成员 + Description）
+- [x] 原版 3 个转换器迁入（仅改命名空间）；引入 HandyControl 3.5.0
+- 验收：编译 0 警告 0 错误，48/48 测试通过 ✅；运行时字典装载验证随 M3b-2 视图接入一并确认
+
+#### M3b-2 视图与 VM 迁移（待办，与 M5 合并）
+
+- 原版 mainview.xaml（1879 行）与 mainviewmodel.cs（1970 行）
+- 阻塞点：96 处绑定，其中 `JobRuningDataList.*` 为 DataDisplay 深层数据模型（统计/原始数据集合 + 可见性开关），须先完成 M5 DataDisplay 数据模型
+- 未解决的外部控件：`controls:CtlAutoNo`（ComUI 自动编号，2 处，可用 DataGrid 行号替代）、`dataDisplay:BasicData`（1 处）
 - 迁入时 XAML 样式按约束原样保留，仅调整命名空间与命令绑定
 
 ## M4 Recipe 体系迁移

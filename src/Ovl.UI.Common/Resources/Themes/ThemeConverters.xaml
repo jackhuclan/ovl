@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="clr-namespace:Ovl.UI.Common.Converters">
+
+    <!--  本地等价实现，替代厂内 InteVega.CBB.ComUI/Themes/Converters.xaml（键名保持一致）  -->
+    <conv:ObjectToVisibilityConverter x:Key="OtvCVT" />
+    <conv:ObjectToBooleanReverseConverter x:Key="OtbReCVT" />
+    <conv:BooleanToVisibilityConverter x:Key="Boolean2VisibilityConverter" />
+
+</ResourceDictionary>

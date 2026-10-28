@@ -8,6 +8,8 @@
   <ItemGroup>
     <!-- MVVM -->
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <!-- UI 控件库（与遗留主界面一致，仅用其主题资源） -->
+    <PackageVersion Include="HandyControl" Version="3.5.0" />
     <!-- 配置与日志（微软官方） -->
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />

@@ -1,0 +1,862 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:icon="clr-namespace:Ovl.UI.Common.Controls.Icon">
+    <!--  单元格样式  -->
+    <Style TargetType="DataGrid">
+        <Setter Property="BorderBrush" Value="#D5E0E6" />
+        <Setter Property="BorderThickness" Value="1,1,0,0" />
+        <Setter Property="CanUserResizeColumns" Value="True" />
+        <Setter Property="Foreground" Value="#444" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalGridLinesBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="#D5E0E6" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalGridLinesBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="#D5E0E6" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--  标题栏  -->
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="MinWidth" Value="60" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Foreground" Value="#444" />
+        <Setter Property="FontWeight" Value="Black" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="SeparatorVisibility" Value="Visible" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridColumnHeader">
+                    <Border
+                        x:Name="BackgroundBorder"
+                        Width="Auto"
+                        BorderBrush="#E6E7EA"
+                        BorderThickness="0,0,1,1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter
+                                Margin="5,2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <Path
+                                x:Name="SortArrow"
+                                Grid.Column="2"
+                                Width="8"
+                                Height="6"
+                                Margin="0,0,50,0"
+                                VerticalAlignment="Center"
+                                Data="M0,0 L1,0 0.5,1 z"
+                                Fill="White"
+                                RenderTransformOrigin="1,1"
+                                Stretch="Fill"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Height" Value="25" />
+    </Style>
+    <!--  行样式  -->
+    <!--<Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="#fff" />
+        <Setter Property="Foreground" Value="#666" />
+        <Setter Property="Height" Value="32" />
+        <Style.Triggers>
+    -->
+    <!--  隔行换色  -->
+    <!--
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#fff" />
+
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#fff" />
+            </Trigger>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
+
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="#fff" />
+        <Setter Property="Foreground" Value="#666" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+        <Setter Property="ValidationErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="Red"
+                        Text="!" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                    <Grid
+                        x:Name="DGR_Border"
+                        Width="Auto"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="True">
+                        <SelectiveScrollingGrid x:Name="selectiveScrollingGrid">
+                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </SelectiveScrollingGrid.ColumnDefinitions>
+                            <SelectiveScrollingGrid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </SelectiveScrollingGrid.RowDefinitions>
+                            <Border
+                                x:Name="bdCell"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left">
+                                <DataGridCellsPresenter
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <DataGridDetailsPresenter
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                Visibility="{TemplateBinding DetailsVisibility}" />
+                            <DataGridRowHeader
+                                Grid.RowSpan="2"
+                                SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                Visibility="Collapsed" />
+                        </SelectiveScrollingGrid>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="bdCell" Property="Background" Value="{DynamicResource Brush_PA_CSW_DataGridItemDefaultHighlight}" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!--  隔行换色  -->
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#fff" />
+
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#fff" />
+            </Trigger>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--  行样式  -->
+    <Style x:Key="DefaultDataGridRow" TargetType="DataGridRow">
+        <Setter Property="Background" Value="#fff" />
+        <!--<Setter Property="Foreground" Value="#666" />-->
+        <Setter Property="Height" Value="32" />
+        <Style.Triggers>
+            <!--  隔行换色  -->
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#fff" />
+
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#fff" />
+            </Trigger>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <!--<Setter Property="Foreground" Value="red"/>-->
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--  -单元格样式  -->
+    <Style TargetType="DataGridCell">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Grid Height="auto" VerticalAlignment="Stretch">
+                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="#666" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  -单元格样式  -->
+    <Style x:Key="TargetDataGridCellStyle" TargetType="DataGridCell">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Grid Height="auto" VerticalAlignment="Center">
+                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+
+    <Style x:Key="JobListDataGridStyle" TargetType="DataGrid">
+        <Setter Property="BorderBrush" Value="#D5E0E6" />
+        <Setter Property="BorderThickness" Value="1,1,0,0" />
+        <Setter Property="CanUserResizeColumns" Value="False" />
+        <Setter Property="Foreground" Value="#444" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalGridLinesBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="#D5E0E6" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalGridLinesBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="#D5E0E6" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DataGridRowStyleBase" TargetType="DataGridRow">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#666" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+        <Setter Property="ValidationErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="Red"
+                        Text="!" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                    <Grid
+                        x:Name="DGR_Border"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="True">
+                        <SelectiveScrollingGrid x:Name="selectiveScrollingGrid">
+                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </SelectiveScrollingGrid.ColumnDefinitions>
+                            <SelectiveScrollingGrid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </SelectiveScrollingGrid.RowDefinitions>
+                            <Border
+                                x:Name="bdCell"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                Background="Transparent">
+                                <DataGridCellsPresenter
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <!--<DataGridDetailsPresenter
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                             Visibility="{TemplateBinding DetailsVisibility}" />
+              <DataGridRowHeader
+                             Grid.RowSpan="2"
+                             SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                             Visibility="Collapsed" />-->
+                        </SelectiveScrollingGrid>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="bdCell" Property="Background" Value="{DynamicResource Brush_PA_CSW_DataGridItemDefaultHighlight}" />
+                        </DataTrigger>
+                       
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!--  隔行换色  -->
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#fff" />
+
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#fff" />
+            </Trigger>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--  行样式  -->
+    <Style
+        x:Key="MenuDataGridRowStyle"
+        BasedOn="{StaticResource DataGridRowStyleBase}"
+        TargetType="DataGridRow">
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu
+                    Width="140"
+                    IsEnabled="{Binding EditEnable}"
+                    Visibility="{Binding EditEnable, Converter={StaticResource Boolean2VisibilityConverter}}">
+                    <MenuItem Command="{Binding EditJobCommand}" Style="{DynamicResource TreeMenuItem}">
+                        <MenuItem.Header>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <icon:CustomIcon
+                                    Width="16"
+                                    Height="16"
+                                    Kind="ButtonEditIcon"
+                                    Style="{StaticResource MainMenuIcon}" />
+                                <TextBlock
+                                    Margin="12,8,0,0"
+                                    FontSize="12"
+                                    Text="Edit Job" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Command="{Binding AddJobCommand}" Style="{DynamicResource TreeMenuItem}">
+                        <MenuItem.Header>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <icon:CustomIcon
+                                    Width="16"
+                                    Height="16"
+                                    Kind="RecipeAdd"
+                                    Style="{StaticResource MainMenuIcon}" />
+                                <TextBlock
+                                    Margin="12,8,0,0"
+                                    FontSize="12"
+                                    Text="Insert Job" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Command="{Binding MoveUpJobCommand}" Style="{DynamicResource TreeMenuItem}">
+                        <MenuItem.Header>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <icon:CustomIcon
+                                    Width="16"
+                                    Height="16"
+                                    Kind="MoveUpIcon"
+                                    Style="{StaticResource MainMenuIcon}" />
+                                <TextBlock
+                                    Margin="12,8,0,0"
+                                    FontSize="12"
+                                    Text="Move Up" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Command="{Binding MoveDownJobCommand}" Style="{DynamicResource TreeMenuItem}">
+                        <MenuItem.Header>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <icon:CustomIcon
+                                    Width="16"
+                                    Height="16"
+                                    Foreground="#0F54C6"
+                                    Kind="MoveDownIcon"
+                                    Style="{StaticResource MainMenuIcon}" />
+                                <TextBlock
+                                    Margin="12,8,0,0"
+                                    FontSize="12"
+                                    Text="Move down" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Command="{Binding DeleteJobCommand}" Style="{DynamicResource TreeMenuItem}">
+                        <MenuItem.Header>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <icon:CustomIcon
+                                    Width="16"
+                                    Height="16"
+                                    Foreground="#D37C11"
+                                    Kind="RecipeDelete"
+                                    Style="{StaticResource MainMenuIcon}" />
+                                <TextBlock
+                                    Margin="12,8,0,0"
+                                    FontSize="12"
+                                    Text="Delete Job" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding LoadPortCommand}"
+                        IsEnabled="{Binding LoadPortEnable}"
+                        Style="{DynamicResource TreeMenuItem}">
+                        <MenuItem.Header>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <icon:CustomIcon
+                                    Width="16"
+                                    Height="16"
+                                    Kind="WaferHandler"
+                                    Style="{StaticResource MainMenuIcon}" />
+                                <TextBlock
+                                    Margin="12,8,0,0"
+                                    FontSize="12"
+                                    Text="Load Port" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding UnLoadPortCommand}"
+                        IsEnabled="{Binding UnLoadPortEnable}"
+                        Style="{DynamicResource TreeMenuItem}">
+                        <MenuItem.Header>
+                            <StackPanel
+                                Margin="0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                                <icon:CustomIcon
+                                    Width="16"
+                                    Height="16"
+                                    Kind="WaferHandler"
+                                    Style="{StaticResource MainMenuIcon}" />
+                                <TextBlock
+                                    Margin="12,8,0,0"
+                                    FontSize="12"
+                                    Text="Unload Port" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="TestListDataGridRowStyle" TargetType="DataGridRow">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Foreground" Value="#666" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+        <Setter Property="ValidationErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="Red"
+                        Text="!" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                    <Grid
+                        x:Name="DGR_Border"
+                        Width="Auto"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="True">
+                        <SelectiveScrollingGrid x:Name="selectiveScrollingGrid">
+                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </SelectiveScrollingGrid.ColumnDefinitions>
+                            <SelectiveScrollingGrid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </SelectiveScrollingGrid.RowDefinitions>
+                            <Border
+                                x:Name="bdCell"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Background="Transparent">
+                                <DataGridCellsPresenter
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <DataGridDetailsPresenter
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                Visibility="{TemplateBinding DetailsVisibility}" />
+                            <DataGridRowHeader
+                                Grid.RowSpan="2"
+                                SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                Visibility="Collapsed" />
+                        </SelectiveScrollingGrid>
+                        <Grid.ContextMenu>
+                            <ContextMenu Width="140">
+                                <MenuItem
+                                    Command="{Binding OpenTestCommand}"
+                                    Style="{DynamicResource TreeMenuItem}"
+                                    Visibility="Collapsed">
+                                    <MenuItem.Header>
+                                        <StackPanel
+                                            Margin="0"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <icon:CustomIcon
+                                                Width="16"
+                                                Height="16"
+                                                Kind="ButtonEditIcon"
+                                                Style="{StaticResource MainMenuIcon}" />
+                                            <TextBlock
+                                                Margin="12,8,0,0"
+                                                FontSize="12"
+                                                Text="Open Test" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Command="{Binding TrainTestCommand}" Style="{DynamicResource TreeMenuItem}">
+                                    <MenuItem.Header>
+                                        <StackPanel
+                                            Margin="0"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <icon:CustomIcon
+                                                Width="16"
+                                                Height="16"
+                                                Kind="RecipeAdd"
+                                                Style="{StaticResource MainMenuIcon}" />
+                                            <TextBlock
+                                                Margin="12,8,0,0"
+                                                FontSize="12"
+                                                Text="Train Test" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Command="{Binding CopyTestCommand}" Style="{DynamicResource TreeMenuItem}">
+                                    <MenuItem.Header>
+                                        <StackPanel
+                                            Margin="0"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <icon:CustomIcon
+                                                Width="16"
+                                                Height="16"
+                                                Kind="RecipeCopy"
+                                                Style="{StaticResource MainMenuIcon}" />
+                                            <TextBlock
+                                                Margin="12,8,0,0"
+                                                FontSize="12"
+                                                Text="Copy Test" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Command="{Binding RenameTestCommand}" Style="{DynamicResource TreeMenuItem}">
+                                    <MenuItem.Header>
+                                        <StackPanel
+                                            Margin="0"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <icon:CustomIcon
+                                                Width="16"
+                                                Height="16"
+                                                Foreground="#0F54C6"
+                                                Kind="ButtonEditIcon"
+                                                Style="{StaticResource MainMenuIcon}" />
+                                            <TextBlock
+                                                Margin="12,8,0,0"
+                                                FontSize="12"
+                                                Text="Rename" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem
+                                    Command="{Binding EnableTestCommand}"
+                                    IsEnabled="{Binding TestInfo.IsEnable, Converter={StaticResource OtbReCVT}}"
+                                    Style="{DynamicResource TreeMenuItem}">
+                                    <!--  OtvCVT  -->
+                                    <MenuItem.Header>
+                                        <StackPanel
+                                            Margin="0"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <Viewbox Width="16" Height="16">
+                                                <Image Source="{DynamicResource enabletest}" />
+                                            </Viewbox>
+                                            <TextBlock
+                                                Margin="12,0,0,0"
+                                                FontSize="12"
+                                                Text="Enable" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem
+                                    Command="{Binding DisableTestCommand}"
+                                    IsEnabled="{Binding TestInfo.IsEnable}"
+                                    Style="{DynamicResource TreeMenuItem}">
+                                    <MenuItem.Header>
+                                        <StackPanel
+                                            Margin="0"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <Viewbox Width="16" Height="16">
+                                                <Image Source="{DynamicResource disabletest}" />
+                                            </Viewbox>
+                                            <TextBlock
+                                                Margin="12,0,0,0"
+                                                FontSize="12"
+                                                Text="Disable" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Command="{Binding DeleteTestCommand}" Style="{DynamicResource TreeMenuItem}">
+                                    <MenuItem.Header>
+                                        <StackPanel
+                                            Margin="0"
+                                            HorizontalAlignment="Left"
+                                            Orientation="Horizontal">
+                                            <icon:CustomIcon
+                                                Width="16"
+                                                Height="16"
+                                                Foreground="#D37C11"
+                                                Kind="RecipeDelete"
+                                                Style="{StaticResource MainMenuIcon}" />
+                                            <TextBlock
+                                                Margin="12,8,0,0"
+                                                FontSize="12"
+                                                Text="Delete" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="bdCell" Property="Background" Value="#d7f2fd" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!--  隔行换色  -->
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#fff" />
+
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#fff" />
+            </Trigger>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TargetListDataGridRowStyle" TargetType="DataGridRow">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Foreground" Value="#666" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+        <Setter Property="ValidationErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBlock
+                        Margin="2,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="Red"
+                        Text="!" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                    <Grid
+                        x:Name="DGR_Border"
+                        Width="Auto"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="True">
+                        <SelectiveScrollingGrid x:Name="selectiveScrollingGrid">
+                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </SelectiveScrollingGrid.ColumnDefinitions>
+                            <SelectiveScrollingGrid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </SelectiveScrollingGrid.RowDefinitions>
+                            <Border
+                                x:Name="bdCell"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Background="Transparent">
+                                <DataGridCellsPresenter
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <DataGridDetailsPresenter
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                Visibility="{TemplateBinding DetailsVisibility}" />
+                            <DataGridRowHeader
+                                Grid.RowSpan="2"
+                                SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+                                Visibility="Collapsed" />
+                        </SelectiveScrollingGrid>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="bdCell" Property="Background" Value="#d7f2fd" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!--  隔行换色  -->
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#fff" />
+
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#fff" />
+            </Trigger>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="Background" Value="#F5F7FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TreeMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="6,5,6,10" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Border
+                        x:Name="menuItemBorder"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="Transparent"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter
+                                x:Name="menuItemPresenter"
+                                Grid.Column="0"
+                                ContentSource="Header" />
+                            <Popup
+                                x:Name="menuItemPopup"
+                                IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                Placement="Right"
+                                VerticalOffset="-1">
+                                <Border
+                                    x:Name="submenuBorder"
+                                    Background="#ccc"
+                                    BorderBrush="Black"
+                                    BorderThickness="1">
+                                    <ScrollViewer
+                                        x:Name="submenuScrollViewer"
+                                        Background="White"
+                                        RenderTransformOrigin="0.5 0.5"
+                                        ScrollViewer.CanContentScroll="True"
+                                        ScrollViewer.PanningMode="Both">
+                                        <StackPanel IsItemsHost="True" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="menuItemBorder" Property="Background" Value="#CDE0FF" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                        <Trigger Property="IsSubmenuOpen" Value="True">
+                            <Setter TargetName="menuItemBorder" Property="Background" Value="LightGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
