@@ -93,6 +93,14 @@
 
 在 AGENTS.md 的 `## 工程结构` 中增加一层：`src/Ovl.Biz.Repository/` 数据持久层（net10.0）：数据持久层接口与实现，包括 *db、*.DAL、*DBContext 这样的。
 
+### 22. 2026-10-28 · 硬件依赖解锁方案（5 点指示）
+
+① 从 marvel `Marvel.App.OM300/bin/VerifyDebug/net10.0-windows` 提取所需 3rdlib 原生 DLL 到新建项目 ovl.Thirdlib；② 硬件类特征仍按 AGENTS.md 用接口 + Moq 模拟，保证无硬件可测试运行；③ marvel/OpenInteVega 的 ovl_actions、ovl_device 包含硬件包；④ M4b 约 40 视图深度依赖配方服务器、HalconDotNet 与 3rdlib 硬件 dll；⑤ M5b StageControl/WaferHandler/Diagnostics/Defect/Batch/四机型收口依赖厂内 dll 与真机。
+
+### 23. 2026-10-28 · 引用策略改为"packages 优先 + marvel 兜底"
+
+不复制 OpenInteVega 项目，改为直接项目引用；用户自行移动 packages 内容后确定解析规则：优先引用新项目 packages 中的项目，找不到的项目去 marvel/OpenInteVega（含 ovl_actions）直接添加项目引用。Recipe 三个工程保留在 packages 并加入解决方案。
+
 ## 执行约定
 
 - 每收到一条新提示词，先在本文件末尾按上述格式追加，再执行提示词内容。

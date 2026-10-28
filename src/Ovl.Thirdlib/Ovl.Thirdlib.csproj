@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>第三方硬件厂商 DLL 载体（自 marvel VerifyDebug 产物提取）。厂商托管的 .NET 程序集经 Reference 流转，原生运行时经 None 拷贝；packages/ 下的 vendor 设备驱动经 $(ThirdlibDir) HintPath 直接引用 dlls 目录。</Description>
+  </PropertyGroup>
+
+  <!-- 托管厂商程序集：引用本工程即传递获得，并拷贝到输出目录 -->
+  <ItemGroup>
+    <Reference Include="ACS.SPiiPlusNET">
+      <HintPath>dlls\ACS.SPiiPlusNET.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="DALSA.SaperaLT.SapClassBasic.Core">
+      <HintPath>dlls\DALSA.SaperaLT.SapClassBasic.Core.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="EposCmd.Net">
+      <HintPath>dlls\EposCmd.Net.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="GxIAPINET">
+      <HintPath>dlls\GxIAPINET.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="MvCameraControl.Net">
+      <HintPath>dlls\MvCameraControl.Net.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="AiYunDongDotNet">
+      <HintPath>dlls\AiYunDongDotNet.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="halcondotnetxl">
+      <HintPath>dlls\halcondotnetxl.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- 原生运行时：仅拷贝（不可作为托管引用编译） -->
+  <ItemGroup>
+    <None Include="dlls\halconxl.dll" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

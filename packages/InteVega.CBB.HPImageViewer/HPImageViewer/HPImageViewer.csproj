@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFrameworks>net6.0-windows;net7.0-windows</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+        <LangVersion>10</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Platforms>AnyCPU;x64</Platforms>
+		<Configurations>Debug;Release;VerifyDebug</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="ROI\**" />
+        <EmbeddedResource Remove="ROI\**" />
+        <None Remove="ROI\**" />
+        <Page Remove="ROI\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="ResourceFile\Images\Spin.png" />
+      <None Remove="Resources\Spin.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="UndoManager\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        
+        <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+        <PackageReference Include="System.Threading.Tasks.Dataflow" Version="8.0.0" />
+        <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\HPImageViewer.Core\HPImageViewer.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="ResourceFile\Images\Spin.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Spin.png" />
+    </ItemGroup>
+
+</Project>

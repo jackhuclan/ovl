@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+    <UseWindowsForms>true</UseWindowsForms>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Version>1.0.0.7</Version>
+	  <Description>
+		  -------------------- V 1.0.0.2 ----------------------
+		  移除对CBB.Recipe.UI项目的依赖
+		  -------------------- V 1.0.0.3 ----------------------
+		  添加IConfigLoader接口
+	  </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Models\**" />
+    <None Remove="Resources\**" />
+    <Page Remove="Models\**" />
+    <Page Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="HandyControl" Version="3.5.0" />
+    <PackageReference Include="IntellVega.CBB.Module" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="Prism.DryIoc.Extensions" Version="8.0.62" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\InteVega.CBB.Prism.UI.Extensions\InteVega.CBB.Prism.UI.Extensions.csproj" />
+    <ProjectReference Include="..\InteVega.CBB.SystemConfig\InteVega.CBB.SystemConfig.csproj" />
+  </ItemGroup>
+
+</Project>

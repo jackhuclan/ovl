@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <Version>0.0.1</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <ProjectReference Include="..\..\ovl_package\Megarobo.Ovl.Type\Megarobo.Ovl.Type.csproj" />
+	  <ProjectReference Include="..\..\ovl_services\Megarobo.Ovl.Service.IntfFn.IServiceVaccum\Megarobo.Ovl.Service.IntfFn.IServiceVaccum.csproj" />
+  </ItemGroup>
+
+</Project>

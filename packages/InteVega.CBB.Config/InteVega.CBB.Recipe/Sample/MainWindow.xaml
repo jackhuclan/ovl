@@ -1,0 +1,99 @@
+﻿<Window x:Class="Sample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+         xmlns:recipe="clr-namespace:InteVega.CBB.Recipe.Ui.View;assembly=InteVega.CBB.Recipe.Ui"
+        xmlns:handy="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:Sample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+      <!--<convert:BoolToStringConverter x:Key="BoolToStringConverter"></convert:BoolToStringConverter>-->
+      <Style x:Key="BorderRecipeTabItem"  TargetType="Border">
+        <Setter Property="CornerRadius" Value="5,5,0,0"></Setter>
+        <Setter Property="Background" Value="#fff"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+      </Style>
+      <Style x:Key="ButtonRecipeTabItem"  TargetType="Button">
+        <Setter Property="Margin" Value="0,0,4,0"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Padding" Value="0"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+      </Style>
+      <Style x:Key="TextBlockTableItem" TargetType="TextBlock">
+        <Setter Property="Margin" Value="16,5,16,5"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Foreground" Value="#444"></Setter>
+      </Style>
+    </ResourceDictionary>
+  </Window.Resources>
+  <Grid >
+    <Grid.RowDefinitions>
+      <RowDefinition></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="{Binding Width}"></ColumnDefinition>
+      <ColumnDefinition Width="15"></ColumnDefinition>
+      <ColumnDefinition Width="*"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <recipe:RecipeMenu Grid.Row="0" Grid.Column="0" DataContext="{Binding RecipeMenuViewModel}" Margin="5,5,0,5">
+    </recipe:RecipeMenu>
+    <Border Grid.Row="0" Grid.Column="1" Background="#FAFAFA" BorderBrush="#ccc">
+      <Image x:Name="imgMenuStrip" Source="{Binding ImgSouce}" Cursor="Hand" Tag="关闭" Height="50" Stretch="Fill">
+        <handy:Interaction.Triggers>
+          <handy:EventTrigger EventName="MouseDown">
+            <handy:InvokeCommandAction  Command="{Binding MouseDownCommand}">
+            </handy:InvokeCommandAction>
+          </handy:EventTrigger>
+        </handy:Interaction.Triggers>
+      </Image>
+    </Border>
+    <Border Grid.Row="0" Grid.Column="2" Margin="0,5,5,5" BorderBrush="#eee" BorderThickness="1">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="40"></RowDefinition>
+          <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#D5E0E6">
+          <TextBlock Text="{Binding RecipeName}" HorizontalAlignment="Left" Margin="16,11,0,11" FontSize="16" FontWeight="Black"></TextBlock>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <ItemsControl ItemsSource="{Binding TabItemDataList}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Button Style="{DynamicResource ButtonRecipeTabItem}" Command="{Binding DataContext.OpenTabItemCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                                            CommandParameter="{Binding Id}">
+                    <Border Style="{DynamicResource BorderRecipeTabItem}" Background="{Binding IsSelect,Converter={StaticResource BoolToStringConverter},ConverterParameter=#fff;#60ffffff}">
+                      <TextBlock Text="{Binding Name}" Style="{DynamicResource TextBlockTableItem}"></TextBlock>
+                    </Border>
+                  </Button>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </Grid>
+        <TabControl x:Name="TbContent" Grid.Row="1" BorderThickness="0" Background="#fff" ItemsSource="{Binding TabItemView}" SelectedIndex="{Binding SelectIndex}">
+          <TabControl.ContentTemplate>
+            <DataTemplate>
+              <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ContentControl Content="{Binding Content}"></ContentControl>
+              </ScrollViewer>
+            </DataTemplate>
+          </TabControl.ContentTemplate>
+        </TabControl>
+      </Grid>
+    </Border>
+  </Grid>
+</Window>

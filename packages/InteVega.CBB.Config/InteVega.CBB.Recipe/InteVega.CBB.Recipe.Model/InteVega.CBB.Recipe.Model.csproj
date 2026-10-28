@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- 原 marvel 中为 ProjectReference（InteVega.CBB.Db 源码不在 OpenInteVega），改用 nexus 内部包 -->
+    <!-- vendor 适配：InteVega.CBB.Db 源码在 marvel/OpenInteVega 中不存在（全 marvel 无源码），改用 nexus 内部包 -->
     <PackageReference Include="InteVega.CBB.Db" Version="1.0.0.7" />
   </ItemGroup>
 

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- 原 marvel 中为 ProjectReference（InteVega.CBB.Common 源码不在 OpenInteVega），改用 nexus 内部包 -->
+    <!-- vendor 适配：InteVega.CBB.Common 源码在 marvel/OpenInteVega 中不存在（全 marvel 无源码），改用 nexus 内部包 -->
     <PackageReference Include="InteVega.CBB.Common" Version="1.0.0.5" />
     <!-- IRecipeWindow 使用 ns InteVega.CBB.Recipe.Core 的 RecipeInfo，其定义位于 Recipe 主工程 -->
     <ProjectReference Include="..\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />

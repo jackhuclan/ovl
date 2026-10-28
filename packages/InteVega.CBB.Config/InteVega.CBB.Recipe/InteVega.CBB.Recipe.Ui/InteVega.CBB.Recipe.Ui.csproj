@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<Nullable>disable</Nullable>
+		<UseWPF>true</UseWPF>
+		<Platforms>AnyCPU;x64</Platforms>
+		<UseWindowsForms>true</UseWindowsForms>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>1.0.0.14</Version>
+		<Description>VerSion -&gt; 1.0.0.14</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Model\RecipeFileDAL.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Images\icon_ceblsq%402x.png" />
+		<None Remove="Resources\Images\icon_ceblzk%402x.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="HandyControl" Version="3.5.0" />
+		<PackageReference Include="IntellVega.CBB.Module" Version="1.0.2" />
+		<PackageReference Include="InteVega.CBB.ComUI" Version="1.0.0.12" />
+		<PackageReference Include="InteVega.CBB.Prism.UI.Extensions" Version="1.0.0.3" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Prism.Core" Version="8.1.97" />
+		<PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="10.10.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\InteVega.CBB.User\InteVega.CBB.User.Interface\InteVega.CBB.User.Interface.csproj" />
+		<ProjectReference Include="..\..\..\..\Marvel.Agent.Core\Marvel.Agent.Abstractions.csproj" />
+		<ProjectReference Include="..\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Resources\Images\icon_ceblsq@2x.png" />
+		<Resource Include="Resources\Images\icon_ceblzk@2x.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Update="Resources\DataGridStyle.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
+
+</Project>

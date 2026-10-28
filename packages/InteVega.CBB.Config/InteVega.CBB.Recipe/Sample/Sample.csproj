@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IntellVega.CBB.Module" Version="1.0.2" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="Prism.DryIoc.Extensions" Version="8.0.62" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InteVega.CBB.Recipe.Ui\InteVega.CBB.Recipe.Ui.csproj" />
+    <ProjectReference Include="..\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
+  </ItemGroup>
+
+</Project>

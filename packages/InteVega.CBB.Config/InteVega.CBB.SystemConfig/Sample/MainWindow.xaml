@@ -1,0 +1,15 @@
+﻿<Window x:Class="Sample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:View="clr-namespace:InteVega.CBB.SystemConfig.Ui.View;assembly=InteVega.CBB.SystemConfig.Ui"
+        xmlns:ViewModel="clr-namespace:InteVega.CBB.SystemConfig.Ui.ViewModel;assembly=InteVega.CBB.SystemConfig.Ui"
+        xmlns:local="clr-namespace:Sample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+    <View:PropertyControl Grid.Row="0" Grid.Column="1" DataContext="{prism:ContainerProvider {x:Type ViewModel:PropertyControlViewModel}}"></View:PropertyControl>
+  </Grid>
+</Window>

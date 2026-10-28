@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\IntellVega.CBB.EasyConfig\IntellVega.CBB.EasyConfig\IntellVega.CBB.EasyConfig.csproj" />
+    <!-- EasyConfig 已不在 ovl/packages，按解析规则直接引用 marvel 历史项目源码 -->
+    <ProjectReference Include="E:\wafer-ws\code\marvel\OpenInteVega\IntellVega.CBB.EasyConfig\IntellVega.CBB.EasyConfig\IntellVega.CBB.EasyConfig.csproj" />
     <ProjectReference Include="..\InteVega.CBB.SystemConfig.Interface\InteVega.CBB.SystemConfig.Interface.csproj" />
   </ItemGroup>
 
