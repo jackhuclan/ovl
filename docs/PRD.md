@@ -157,6 +157,7 @@ MVP 迭代，每期结束项目必须编译通过；分期计划见 `docs/refact
 | 2026-10-28 | M1 落地：IEquipment/EquipmentBuilder/四设备声明、12 类硬件特征接口、EquipmentFeaturesOptions 绑定；Moq 4.21.0 硬件/EAP Mock 测试；conf 配置管理规范（Microsoft.Extensions.Configuration 加载）；统一日志 Microsoft.Extensions.Logging；核心守则：marvel 只读；团队规范统一维护于 AGENTS.md |
 | 2026-10-28 | DI 统一 Microsoft.Extensions.DependencyInjection（IServiceCollection 标准方式），新增 AddConfManagement/AddEquipment 注册扩展（43/43 测试通过） |
 | 2026-10-28 | M2 落地：UI 骨架（Ovl.UI/Ovl.UI.ViewModels/Ovl.UI.Common/Ovl.UI.Common.ViewModels）；App.xaml.cs 仅 Host 构建 + DI 装配（Microsoft.Extensions.Hosting）；ShellWindow 竖向 Sidebar（11 菜单项、选中高亮）+ 右侧内容区内嵌展示 + Footer；自研 INavigationService（键→VM 注册表）与 IDialogService（仅确认/警告/错误弹窗）；各菜单项接占位页，冒烟启动通过 |
+| 2026-10-28 | M3a 落地：Home 量测主页面骨架版——按原版 MainView 三列结构（左 352 Job Queue/Current Job data/Run 控制、中 Wafer Map、右 Wafer/Lot Statistics）建 HomeView + HomeViewModel（原 VM 状态子集：LotId/RecipeName/Port/RunStatus/进度/作业队列）；服务链适配：IMainRunService（对应原 IMainRunThread，MeasureRunStub 桩：状态机+进度推进+事件）、IRecipeManager（RecipeManagerStub）；IMainRunService 加入 Sidebar 首项并默认选中；Stop 需确认弹窗；引入 Microsoft.Xaml.Behaviors.Wpf（Loaded/Unloaded 触发器）。**M3b 待办（原版样式原样迁移）**：原 mainview.xaml 1879 行 + mainviewmodel.cs 1970 行，依赖 HandyControl、Marvel.Main/Resources/Themes 五个资源字典、InteVega.CBB.ComUI 控件、Prism Behaviors——需先迁资源字典与引入 HandyControl 包后按约束原样迁入 |
 
 ## 9. 历史 marvel 只读守则（最高优先级）
 

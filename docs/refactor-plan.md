@@ -34,9 +34,20 @@
 
 ## M3 核心页面迁移（OM300 链）
 
-- MainView（主量测页）+ MainViewModel + 依赖 Service 链（IRecipeManager、IAlignmentService、IMainRunThread 等，先接口适配/桩实现）
-- Footer 状态栏
-- 验收：Home 页可显示并绑定数据
+### M3a 骨架版 ✅（2026-10-28）
+
+- [x] `IMainRunService`（对应原 IMainRunThread：状态机 Idle/Running/Paused/Error + Wafer/Target 进度 + 事件）与 `MeasureRunStub` 桩实现（无硬件可运行）
+- [x] `IRecipeManager` 与 `RecipeManagerStub`（当前配方名）；`AddMeasureStubs()` 注册扩展
+- [x] `HomeViewModel`（原 MainViewModel 状态子集：LotId/RecipeName/Port/RunStatusStr/WaferProgress/TargetProgress/SectionInfo/Iterations/作业队列/SelectedJob；Start/Stop 命令含 CanExecute + NotifyCanExecuteChangedFor，Stop 走确认弹窗）
+- [x] `HomeView`：按原版三列结构（左 352 Job Queue/Current Job data/Run 进度、中 Wafer Map 占位、右 Wafer/Lot Statistics 占位）
+- [x] Sidebar 首项「Home」并默认选中；Loaded/Unloaded 触发器（Microsoft.Xaml.Behaviors.Wpf）
+- 验收：编译 0 警告 0 错误，48/48 测试通过（新增 5 个桩状态机测试），冒烟启动正常 ✅
+
+### M3b 原版样式原样迁移（待办）
+
+- 原版 mainview.xaml（1879 行）+ mainviewmodel.cs（1970 行）+ Marvel.Main/Resources/Themes 五个资源字典（Button/Label/DataGrid/Border/TextBlock）
+- 前置依赖：引入 HandyControl 包；厂内 InteVega.CBB.ComUI 控件需 nexus 凭据或本地 dll；Prism Behaviors → Microsoft.Xaml.Behaviors.Wpf 改写
+- 迁入时 XAML 样式按约束原样保留，仅调整命名空间与命令绑定
 
 ## M4 Recipe 体系迁移
 

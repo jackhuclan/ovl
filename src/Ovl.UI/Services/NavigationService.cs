@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Ovl.UI.ViewModels.Measure;
 using Ovl.UI.ViewModels.Navigation;
 using Ovl.UI.ViewModels.Placeholder;
 
@@ -14,6 +15,7 @@ public sealed class NavigationService(IServiceProvider services) : INavigationSe
     private static readonly Dictionary<string, (Type VmType, string Title)> Registry =
         new(StringComparer.OrdinalIgnoreCase)
         {
+            ["Measure"] = (typeof(HomeViewModel), "Home"),
             ["StageControl"] = (typeof(PlaceholderViewModel), "Stage Control"),
             ["WaferHandler"] = (typeof(PlaceholderViewModel), "Wafer Handler"),
             ["Diagnostics"] = (typeof(PlaceholderViewModel), "Diagnostics"),

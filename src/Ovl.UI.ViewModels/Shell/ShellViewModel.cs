@@ -20,6 +20,7 @@ public partial class ShellViewModel : ObservableObject
 
         Items =
         [
+            new MenuItemViewModel("Measure", "Home", "\uE80F"),
             new MenuItemViewModel("StageControl", "Stage Control", "\uE7F8"),
             new MenuItemViewModel("WaferHandler", "Wafer Handler", "\uE8AB"),
             new MenuItemViewModel("Diagnostics", "Diagnostics", "\uE9D9"),

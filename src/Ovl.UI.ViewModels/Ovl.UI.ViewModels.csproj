@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ovl.Biz.Common\Ovl.Biz.Common.csproj" />
+    <ProjectReference Include="..\Ovl.Biz.Services\Ovl.Biz.Services.csproj" />
   </ItemGroup>
 
 </Project>

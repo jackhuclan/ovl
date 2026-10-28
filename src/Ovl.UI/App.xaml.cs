@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Ovl.Biz.Services;
 using Ovl.UI.Services;
 using Ovl.UI.ViewModels.Dialogs;
+using Ovl.UI.ViewModels.Measure;
 using Ovl.UI.ViewModels.Navigation;
 using Ovl.UI.ViewModels.Placeholder;
 using Ovl.UI.ViewModels.Shell;
@@ -29,12 +30,14 @@ public partial class App : Application
                 // 配置与设备（conf/ 目录 + EquipmentFeaturesOptions 开关，特征实例当前由测试侧 Mock 提供）
                 services.AddConfManagement(context.Configuration);
                 services.AddEquipment("OM300", context.Configuration);
+                services.AddMeasureStubs();
 
                 // UI 基础设施
                 services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<IDialogService, DialogService>();
                 services.AddSingleton<ShellViewModel>();
                 services.AddTransient<PlaceholderViewModel>();
+                services.AddTransient<HomeViewModel>();
             })
             .Build();
         _host.Start();
