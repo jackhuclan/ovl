@@ -156,6 +156,7 @@ MVP 迭代，每期结束项目必须编译通过；分期计划见 `docs/refact
 | 2026-10-28 | §5.1 Sidebar 内嵌展示与弹窗收敛；§2.1 业务目录；样式约束 |
 | 2026-10-28 | M1 落地：IEquipment/EquipmentBuilder/四设备声明、12 类硬件特征接口、EquipmentFeaturesOptions 绑定；Moq 4.21.0 硬件/EAP Mock 测试；conf 配置管理规范（Microsoft.Extensions.Configuration 加载）；统一日志 Microsoft.Extensions.Logging；核心守则：marvel 只读；团队规范统一维护于 AGENTS.md |
 | 2026-10-28 | DI 统一 Microsoft.Extensions.DependencyInjection（IServiceCollection 标准方式），新增 AddConfManagement/AddEquipment 注册扩展（43/43 测试通过） |
+| 2026-10-28 | M2 落地：UI 骨架（Ovl.UI/Ovl.UI.ViewModels/Ovl.UI.Common/Ovl.UI.Common.ViewModels）；App.xaml.cs 仅 Host 构建 + DI 装配（Microsoft.Extensions.Hosting）；ShellWindow 竖向 Sidebar（11 菜单项、选中高亮）+ 右侧内容区内嵌展示 + Footer；自研 INavigationService（键→VM 注册表）与 IDialogService（仅确认/警告/错误弹窗）；各菜单项接占位页，冒烟启动通过 |
 
 ## 9. 历史 marvel 只读守则（最高优先级）
 

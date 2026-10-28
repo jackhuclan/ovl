@@ -33,6 +33,13 @@ Ovl.slnx                     解决方案文件
 ## UI 约束
 - 迁移旧项目 View 时，style 样式保持与原版本一致，不做修改或重构；改动相关文件时避免影响现有样式定义。
 - 功能菜单使用竖向 Sidebar（参考 VS Code Activity Bar 风格：竖排图标 + 选中高亮）。
+- Sidebar 点击后功能页在右侧内容区**内嵌展示**（非弹窗）；仅确认/警告/错误类消息提示保留弹窗（`IDialogService`）。
+
+## UI 架构约定
+- `App.xaml.cs` 仅做 Host 构建（Microsoft.Extensions.Hosting）与 DI 装配，禁止业务逻辑；页面 VM 经 `NavigationService` 注册表（导航键 → VM 类型）从 DI 解析。
+- 新增功能页步骤：① 在 `NavigationService.Registry` 登记导航键与 VM 类型；② 在 `ShellWindow.xaml` 资源中登记 VM→View 的 DataTemplate；③ VM 实现 `IPageViewModel`。
+- XAML 引用其他程序集中的类型时，xmlns 必须带 `assembly=` 限定（如 `clr-namespace:Ovl.UI.ViewModels.Placeholder;assembly=Ovl.UI.ViewModels`），否则 WPF 标记编译报 MC3050。
+- Sidebar 菜单键与 `NavigationService` 注册键保持一致（ShellViewModel.Items）。
 
 ## Git 约定
 - 提交信息用中文 Conventional Commits：`feat(scope): …` / `fix(scope): …` / `docs: …`。

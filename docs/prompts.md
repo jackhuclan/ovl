@@ -69,6 +69,10 @@
 
 整个系统的依赖注入统一使用微软官方 NuGet 包 Microsoft.Extensions.DependencyInjection（安装命令：dotnet add package Microsoft.Extensions.DependencyInjection）。请在实现所有服务注册、依赖解析和相关配置时，仅使用该包，不要引入其他第三方依赖注入框架，并遵循 ASP.NET Core 中基于 IServiceCollection 的标准注册方式。
 
+### 16. 2026-10-28 · M2 开工确认
+
+确认，开工。（对 M2 竖向 Sidebar UI 骨架（内嵌展示 + 弹窗收敛）计划的开工确认。）
+
 ## 执行约定
 
 - 每收到一条新提示词，先在本文件末尾按上述格式追加，再执行提示词内容。

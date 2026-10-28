@@ -21,14 +21,16 @@
 - [x] 40 个单元测试全部通过（`dotnet test Ovl.slnx`）
 - 验收：编译 + 测试通过 ✅
 
-## M2 UI 骨架（竖向 Sidebar）
+## M2 UI 骨架（竖向 Sidebar）✅
 
-- `src/Ovl.UI`（WinExe，net10.0-windows）：App.xaml.cs 仅 Host 构建 + DI 装配
-- 主窗口 Shell：左侧竖向 Sidebar（StageControl / WaferHandler / Diagnostics / Batch / Recipe / Result / Setting / Help / Motion / Defect / Alarm）、主内容区、底部 Footer
-- 自研轻量导航服务（INavigationService：注册 View→VM 映射，内容区切换）；对话框服务
-- 各菜单项先接占位页，整体编译可运行
-- **Sidebar 交互**：点击菜单项在右侧内容区**内嵌展示**对应 View（非弹窗）；选中状态与内容区同步；原 ShowDialog 模式的功能页全部收敛为内嵌，仅保留确认/警告/错误等消息提示类弹窗（清单见 docs/PRD.md §5.1）
-- 验收：可启动，Sidebar 可切换占位页且选中高亮正确
+- [x] `src/Ovl.UI`（WinExe，net10.0-windows）：App.xaml.cs 仅 Host 构建 + DI 装配（Microsoft.Extensions.Hosting，UseContentRoot=程序目录）
+- [x] 主窗口 Shell：左侧竖向 Sidebar（StageControl / WaferHandler / Diagnostics / Batch / Recipe / Result / Setting / Help / Motion / Defect / Alarm，Segoe MDL2 图标 + 选中高亮 #007ACC）、主内容区、底部 Footer（设备名 / 版本）
+- [x] 自研轻量导航服务 `NavigationService`（键→VM 类型注册表，DI 解析，ContentControl 内嵌切换）；`DialogService`（仅确认/警告/错误弹窗）
+- [x] 各菜单项接 PlaceholderView 占位页
+- [x] **Sidebar 交互**：点击菜单项在右侧内容区内嵌展示；选中状态与内容区同步（SelectedItem → NavigateTo → CurrentPage）
+- [x] `src/Ovl.UI.Common` / `src/Ovl.UI.Common.ViewModels` 骨架项目建立
+- 验收：编译 0 警告 0 错误，43/43 测试通过，冒烟启动正常（进程驻留无异常退出）✅
+- 备注：XAML 引用外部程序集类型须写 `clr-namespace:...;assembly=...`，否则 WPF 标记编译报 MC3050
 
 ## M3 核心页面迁移（OM300 链）
 

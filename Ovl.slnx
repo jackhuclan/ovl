@@ -1,5 +1,9 @@
 <Solution>
   <Project Path="src/Ovl.Biz.Common/Ovl.Biz.Common.csproj" />
   <Project Path="src/Ovl.Biz.Services/Ovl.Biz.Services.csproj" />
+  <Project Path="src/Ovl.UI/Ovl.UI.csproj" />
+  <Project Path="src/Ovl.UI.Common/Ovl.UI.Common.csproj" />
+  <Project Path="src/Ovl.UI.Common.ViewModels/Ovl.UI.Common.ViewModels.csproj" />
+  <Project Path="src/Ovl.UI.ViewModels/Ovl.UI.ViewModels.csproj" />
   <Project Path="tests/Ovl.Biz.Common.Tests/Ovl.Biz.Common.Tests.csproj" />
 </Solution>
