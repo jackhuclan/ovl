@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Ovl.Biz.Services.Measure;
+using Ovl.Biz.Services.Recipe;
 
 namespace Ovl.Biz.Services;
 
@@ -16,6 +17,7 @@ public static class MeasureServiceCollectionExtensions
         ArgumentNullException.ThrowIfNull(services);
         services.AddSingleton<IMainRunService, MeasureRunStub>();
         services.AddSingleton<IRecipeManager, RecipeManagerStub>();
+        services.AddSingleton<IRecipeTreeService, RecipeTreeStub>();
         return services;
     }
 }

@@ -40,6 +40,8 @@ Ovl.slnx                     解决方案文件
 - 新增功能页步骤：① 在 `NavigationService.Registry` 登记导航键与 VM 类型；② 在 `ShellWindow.xaml` 资源中登记 VM→View 的 DataTemplate；③ VM 实现 `IPageViewModel`。
 - XAML 引用其他程序集中的类型时，xmlns 必须带 `assembly=` 限定（如 `clr-namespace:Ovl.UI.ViewModels.Placeholder;assembly=Ovl.UI.ViewModels`），否则 WPF 标记编译报 MC3050。
 - Sidebar 菜单键与 `NavigationService` 注册键保持一致（ShellViewModel.Items）。
+- Sidebar 为**纯图标模式**（宽 52px）：仅显示图标不显示文字，文字经 ToolTip（Placement=Right）悬停提示；图标用 Segoe MDL2 Assets 线性字形，选中态浅蓝底（#E8F0FE）+ 蓝色图标（#1A73E8）+ 左侧指示条，圆角 8。
+- 功能页一律在右侧内容区**内嵌展示**，仅确认/警告/错误类消息保留弹窗；原版 ShowDialog 功能页迁移时按此收敛。
 
 ## Git 约定
 - 提交信息用中文 Conventional Commits：`feat(scope): …` / `fix(scope): …` / `docs: …`。

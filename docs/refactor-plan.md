@@ -54,25 +54,27 @@
 - [x] 原版 3 个转换器迁入（仅改命名空间）；引入 HandyControl 3.5.0
 - 验收：编译 0 警告 0 错误，48/48 测试通过 ✅；运行时字典装载验证随 M3b-2 视图接入一并确认
 
-#### M3b-2 视图与 VM 迁移（待办，与 M5 合并）
+#### M3b-2 视图与 VM 迁移（✅ 2026-10-28）
 
-- 原版 mainview.xaml（1879 行）与 mainviewmodel.cs（1970 行）
-- 阻塞点：96 处绑定，其中 `JobRuningDataList.*` 为 DataDisplay 深层数据模型（统计/原始数据集合 + 可见性开关），须先完成 M5 DataDisplay 数据模型
-- 未解决的外部控件：`controls:CtlAutoNo`（ComUI 自动编号，2 处，可用 DataGrid 行号替代）、`dataDisplay:BasicData`（1 处）
-- 迁入时 XAML 样式按约束原样保留，仅调整命名空间与命令绑定
+- mainview.xaml（1875 行）原样迁入 `Ovl.UI/Views/Measure/MainView.xaml`，仅改命名空间与三处厂内引用：
+  `controls:CtlAutoNo` → 本地 `Ovl.UI.Common.Controls.CtlAutoNo`（行号控件，行为等价）；
+  `dataDisplay:BasicData` → 本地 `Ovl.UI/Views/DataDisplay/BasicData`（样式零改动，Log 子视图为本地等价实现）；
+  Prism Region → 普通 ContentControl。
+- 数据模型按绑定面完整重建于 `Ovl.Biz.Common/Measure/Models`（JobInfoModel、RunningJobDataAndStatistics、Raw/OVL/TIS/Error/BFCD 行、Lot/Wafer 统计行、SelectedWaferMapTab），绑定路径与原版一致。
+- MainViewModel（+Mro partial）重建 13 条命令与全部顶层绑定属性；MRONewProgressBoard / MroAutoTrainBoard 原样迁入；Wafer Map 以本地 WaferMapView 占位（原版依赖 HalconDotNet，M4b/M5b 接入真机图像）。
+- 厂内 StageControlModule 的 ImageViewer.png 资产复制到本仓库引用；`portCVT/FieldCVT/OtvReCVT` 以本地等价转换器补齐（键名不变）。
+- 验收：0 警告 0 错误，48/48 测试通过，冒烟启动通过。
 
-## M4 Recipe 体系迁移
+## M4 Recipe 体系迁移（✅ M4a 2026-10-28 / M4b 待办）
 
-- RecipeWindow / RecipeBaseView / TestManage / RunParam / Summary 及 VM、IAddTestViewFactory 工厂
-- 依赖服务（ITestService、ITestTrainService、ITisOptFlowService）适配层
-- 验收：Recipe 窗口可打开、页面切换正常
+- M4a（已完成）：RecipeWindow 弹窗改为 Sidebar 内嵌 `RecipeView`（两栏布局与页签样式沿用原版）；RecipeBaseView 原样迁入；本地配方树（搜索/展开/选择/Open）对接 IRecipeTreeService（桩）与 IRecipeManager。
+- M4b（待办，阻塞）：TestManage/RunParam/Summary 与 Test_Train*、AlignmentView_* 等 40 个视图约 1.4 万行，深度依赖厂内配方服务器（InteVega.CBB.Recipe.Core）、HalconDotNet 与 3rdlib 硬件 dll——需 nexus 凭据与真机环境后原样迁入。
 
-## M5 其余功能迁移 + 四机型收口
+## M5 其余功能迁移 + 四机型收口（✅ M5a 2026-10-28 / M5b 待办）
 
-- Batch、Motion、WaferHandler、Diagnostics(Cal/PM)、Defect、Result、Alarm、Help
-- 四设备 Equipment 装配与 appsettings.json 落地；机型差异分派（原 OMVersion 分支）
-- 清理：docs/unused-list.md 复核
-- 验收：OM300 全功能可跑，其余机型可通过配置切换
+- M5a（已完成）：Setting（设备特征开关，绑定 Equipment:{设备}:Features 并可回写 appsettings.json）、Result/Help（目录打开，保持原版 explorer 行为）、Alarm（报警列表 + 清除确认）；Batch/WaferHandler/Diagnostics/Motion/Defect 暂为占位页（其原版页面依赖 Stage Control/EFEM 等硬件服务，随 M5b 迁入）。
+- M5b（待办）：StageControl 图像区、WaferHandler、Diagnostics(Cal/PM)、Defect、Batch、四机型收口与 OMVersion 分派；依赖厂内 dll 与真机环境。
+- 清理：docs/unused-list.md 复核（M5b 收口时）。
 
 ## 风险与备注
 

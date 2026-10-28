@@ -5,6 +5,9 @@ using Ovl.Biz.Services;
 using Ovl.UI.Services;
 using Ovl.UI.ViewModels.DataDisplay;
 using Ovl.UI.ViewModels.Dialogs;
+using Ovl.UI.ViewModels.Recipe;
+using Ovl.UI.ViewModels.Setting;
+using Ovl.UI.ViewModels.Tools;
 using Ovl.UI.ViewModels.Measure;
 using Ovl.UI.ViewModels.Navigation;
 using Ovl.UI.ViewModels.Placeholder;
@@ -40,6 +43,11 @@ public partial class App : Application
                 services.AddTransient<PlaceholderViewModel>();
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<BasicDataViewModel>();
+                services.AddSingleton<RecipeViewModel>();
+                services.AddSingleton<SettingViewModel>();
+                services.AddSingleton<AlarmViewModel>();
+                services.AddSingleton<ResultViewModel>();
+                services.AddSingleton<HelpViewModel>();
             })
             .Build();
         _host.Start();

@@ -5,6 +5,14 @@
         xmlns:measureViews="clr-namespace:Ovl.UI.Views.Measure"
         xmlns:vm="clr-namespace:Ovl.UI.ViewModels.Placeholder;assembly=Ovl.UI.ViewModels"
         xmlns:measureVm="clr-namespace:Ovl.UI.ViewModels.Measure;assembly=Ovl.UI.ViewModels"
+        xmlns:recipeVm="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+        xmlns:recipeViews="clr-namespace:Ovl.UI.Views.Recipe"
+        xmlns:settingVm="clr-namespace:Ovl.UI.ViewModels.Setting;assembly=Ovl.UI.ViewModels"
+        xmlns:settingViews="clr-namespace:Ovl.UI.Views.Setting"
+        xmlns:toolVm="clr-namespace:Ovl.UI.ViewModels.Tools;assembly=Ovl.UI.ViewModels"
+        xmlns:toolViews="clr-namespace:Ovl.UI.Views.Tools"
+        xmlns:alarmVm="clr-namespace:Ovl.UI.ViewModels.Tools;assembly=Ovl.UI.ViewModels"
+        xmlns:alarmViews="clr-namespace:Ovl.UI.Views.Alarm"
         Title="Ovl 上位机"
         Width="1280" Height="800"
         MinWidth="1000" MinHeight="640"
@@ -15,6 +23,21 @@
         <!-- 页面 VM → View 内嵌映射：新增功能页时在此登记 DataTemplate -->
         <DataTemplate DataType="{x:Type measureVm:MainViewModel}">
             <measureViews:MainView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type recipeVm:RecipeViewModel}">
+            <recipeViews:RecipeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type settingVm:SettingViewModel}">
+            <settingViews:SettingView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type toolVm:ResultViewModel}">
+            <toolViews:FolderLinkView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type toolVm:HelpViewModel}">
+            <toolViews:FolderLinkView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type alarmVm:AlarmViewModel}">
+            <alarmViews:AlarmView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:PlaceholderViewModel}">
             <views:PlaceholderView />
