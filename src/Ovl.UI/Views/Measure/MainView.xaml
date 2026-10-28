@@ -1,0 +1,1875 @@
+<UserControl
+    x:Class="Ovl.UI.Views.Measure.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:controls="clr-namespace:Ovl.UI.Common.Controls;assembly=Ovl.UI.Common"
+    xmlns:convert="clr-namespace:Ovl.UI.Common.Converters;assembly=Ovl.UI.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataDisplay="clr-namespace:Ovl.UI.Views.DataDisplay"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Ovl.UI.Views.Measure.Controls"
+    xmlns:model="clr-namespace:Ovl.Biz.Common.Measure.Models;assembly=Ovl.Biz.Common"
+    xmlns:viewmodel="clr-namespace:Ovl.UI.ViewModels.Measure;assembly=Ovl.UI.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+    d:DesignHeight="850"
+    d:DesignWidth="1800"
+    mc:Ignorable="d">
+  <b:Interaction.Triggers>
+    <b:EventTrigger EventName="Unloaded">
+      <b:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+    </b:EventTrigger>
+    <b:EventTrigger EventName="Loaded">
+      <b:InvokeCommandAction Command="{Binding LoadedCommand}" />
+    </b:EventTrigger>
+  </b:Interaction.Triggers>
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Button.xaml" />
+        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Label.xaml" />
+        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGrid.xaml" />
+        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Border.xaml" />
+        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/TextBlock.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <Style TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16" />
+      </Style>
+      <Style x:Key="DataGridTextColumnElementStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,5,0" />
+        <Setter Property="Foreground" Value="Black" />
+        <Style.Triggers>
+          <!--  同时判断：行被选中 且 DataGrid 拥有焦点  -->
+          <MultiDataTrigger>
+            <MultiDataTrigger.Conditions>
+              <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True" />
+              <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=IsKeyboardFocusWithin}" Value="True" />
+            </MultiDataTrigger.Conditions>
+            <Setter Property="Foreground" Value="White" />
+          </MultiDataTrigger>
+        </Style.Triggers>
+      </Style>
+
+      <!--  定义 DataGridRow 的样式  -->
+      <Style
+                x:Key="DataGridRowStyle_Light"
+                BasedOn="{StaticResource DataGridRowStyle.Small}"
+                TargetType="DataGridRow">
+        <Style.Triggers>
+          <!--  选中行样式  -->
+          <Trigger Property="IsSelected" Value="True">
+            <Setter Property="Background" Value="#aaaaaa" />
+            <Setter Property="Foreground" Value="White" />
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style
+                x:Key="DataGridRowStyle_Status"
+                BasedOn="{StaticResource DataGridRowStyle_Light}"
+                TargetType="DataGridRow">
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding Status}" Value="Error">
+            <Setter Property="Background" Value="#66ff0000" />
+          </DataTrigger>
+          <DataTrigger Binding="{Binding Status}" Value="Fail">
+            <Setter Property="Background" Value="#66ff0000" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+      <convert:BoolToVisibilityConvert x:Key="BoolToVisibilityConvert" />
+      <convert:BoolToButtonTagStringConvert x:Key="BoolToButtonTagStringConvert" />
+      <convert:MeasureValueUnitFactorConverter x:Key="MeasureValueUnitFactorConverter" />
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid x:Name="MainArea">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="352" />
+      <ColumnDefinition />
+      <ColumnDefinition Width="618" />
+    </Grid.ColumnDefinitions>
+    <Grid Grid.Row="0" Grid.Column="0">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="3*" />
+        <RowDefinition Height="auto" />
+      </Grid.RowDefinitions>
+      <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,0,2"
+                IsEnabled="{Binding IsEapRemoteEnable}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="56" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid Grid.Row="0" Background="#D5E0E6">
+            <StackPanel
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+              <Button Style="{DynamicResource TabItemButtonStyle}">
+                <Border Background="#fff" Style="{DynamicResource TabItemBorderStyle}">
+                  <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="Job Queue" />
+                </Border>
+              </Button>
+            </StackPanel>
+          </Grid>
+          <Border
+                        Grid.Row="1"
+                        Height="40"
+                        Margin="2,0,2,0"
+                        Background="#F3F4F7"
+                        CornerRadius="5">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <Button
+                                Grid.Column="0"
+                                Command="{Binding AddJobCommand}"
+                                Content="Add Job"
+                                Style="{DynamicResource AddButtonStyle}" />
+              <Button
+                                Grid.Column="1"
+                                Command="{Binding DeleteJobAllCommand}"
+                                Content="Delete Job"
+                                Style="{DynamicResource AddButtonStyle}"
+                                Tag="ButtonDeleteIcon" />
+              <Button
+                                Grid.Column="1"
+                                Command="{Binding RunLastJobCommand}"
+                                Content="Run Last Job"
+                                Style="{DynamicResource AddButtonStyle}"
+                                Tag="ButtonMinRunIcon"
+                                Visibility="Collapsed" />
+              <Button
+                                Grid.Column="2"
+                                Command="{Binding StopJobQueueCommand}"
+                                Content="暂停队列"
+                                Style="{DynamicResource AddButtonStyle}"
+                                Tag="ButtonMinStopIcon"
+                                Visibility="Collapsed" />
+            </Grid>
+          </Border>
+          <Border
+                        Grid.Row="2"
+                        Margin="2,0,2,0"
+                        Background="Transparent">
+            <DataGrid
+                            x:Name="dg"
+                            AutoGenerateColumns="False"
+                            CanUserAddRows="False"
+                            CanUserDeleteRows="False"
+                            CanUserReorderColumns="False"
+                            CanUserResizeRows="True"
+                            CanUserSortColumns="False"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding JobInfoModelList}"
+                            SelectedItem="{Binding SelectedJob, Mode=TwoWay}">
+              <DataGrid.RowStyle>
+                <Style BasedOn="{StaticResource MenuDataGridRowStyle}" TargetType="DataGridRow">
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding State}" Value="Running">
+                      <Setter Property="DataGridRow.Foreground" Value="#0F54C6" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State}" Value="Waiting">
+                      <Setter Property="DataGridRow.Foreground" Value="#D37C11" />
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </DataGrid.RowStyle>
+              <!--<b:Interaction.Triggers>
+                                <b:EventTrigger EventName="MouseDoubleClick">
+                                    <b:InvokeCommandAction Command="{Binding EditJobCommand}" CommandParameter="{Binding ElementName=dg, Path=SelectedItem}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>-->
+              <DataGrid.Columns>
+                <DataGridTemplateColumn Width="20" Header="">
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <CheckBox IsChecked="{Binding IsSelectJob, UpdateSourceTrigger=PropertyChanged}" />
+                      <!--<controls:CtlAutoNo Width="60" AncestorType="{x:Type DataGrid}" VerticalAlignment="Center" Margin="25,0,0,0" />-->
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="25" Header="">
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <controls:CtlAutoNo
+                                                Margin="0,0,0,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                AncestorType="{x:Type DataGrid}" />
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*" Header="Lot ID">
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock
+                                                Width="120"
+                                                MaxWidth="150"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding LotId}"
+                                                TextAlignment="Center"
+                                                TextTrimming="WordEllipsis"
+                                                ToolTip="{Binding LotId}" />
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*" Header="Recipe">
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <Grid Background="Transparent">
+                        <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding RecipeName}"
+                                                    TextAlignment="Center"
+                                                    TextTrimming="WordEllipsis"
+                                                    ToolTip="{Binding RecipeName}" />
+                      </Grid>
+
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="50" Header="Port">
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock
+                                                MinWidth="30"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding PortIndex, Converter={StaticResource portCVT}}"
+                                                TextAlignment="Center" />
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+              </DataGrid.Columns>
+            </DataGrid>
+          </Border>
+        </Grid>
+      </Border>
+      <Border Grid.Row="1" Grid.Column="0">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+          </Grid.RowDefinitions>
+          <Grid Grid.Row="0" Background="#D5E0E6">
+            <StackPanel
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+              <Button
+                                Command="{Binding SelectWaferMapCommand}"
+                                CommandParameter="{x:Static model:SelectedWaferMapTab.WaferMap}"
+                                Style="{DynamicResource TabItemButtonStyle}">
+                <Border Background="{Binding WaferMapSelBackGround}" Style="{DynamicResource TabItemBorderStyle}">
+                  <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="Wafer Map" />
+                </Border>
+              </Button>
+              <Button
+                                Command="{Binding SelectWaferMapCommand}"
+                                CommandParameter="{x:Static model:SelectedWaferMapTab.QmeritWaferMap}"
+                                Style="{DynamicResource TabItemButtonStyle}">
+                <Border Background="{Binding QmeritWaferMapSelBackGround}" Style="{DynamicResource TabItemBorderStyle}">
+                  <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="Qmerit Wafer Map" />
+                </Border>
+              </Button>
+              <ToggleButton
+                                Margin="5,0"
+                                hc:IconSwitchElement.Geometry="{StaticResource UpGeometry}"
+                                hc:IconSwitchElement.GeometrySelected="{StaticResource DownGeometry}"
+                                Background="Transparent"
+                                IsChecked="{Binding IsUpdateWafermap}"
+                                Style="{StaticResource ToggleButtonIconTransparent}" />
+            </StackPanel>
+          </Grid>
+
+          <Border
+                        Grid.Row="2"
+                        Margin="0"   Panel.ZIndex="2"
+                        Background="#F3F4F7"
+                        CornerRadius="5"
+                        Visibility="{Binding IsUpdateWafermap, Converter={StaticResource OtvCVT}}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+              </Grid.ColumnDefinitions>
+              <TextBlock
+                                Grid.Column="0"
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Right"
+                                Text="Vector scaling"
+                                TextAlignment="Right" />
+              <TextBox
+                                Grid.Column="1"
+                                Height="24"
+                                Text="{Binding NmPerPixel}"
+                                TextAlignment="Center"
+                                ToolTip="Wafer scale"
+                                Visibility="{Binding WaferMapsVisible}" />
+              <TextBox
+                                Grid.Column="1"
+                                Height="24"
+                                Text="{Binding NmPerPixelQmerit}"
+                                TextAlignment="Center"
+                                ToolTip="Qmerit scale"
+                                Visibility="{Binding QmeritWaferMapsVisible}" />
+              <!--<Button Grid.Column="2" Content="O"></Button>-->
+              <Button
+                                Grid.Column="2"
+                                Command="{Binding NmPixelChangeCommand}"
+                                Style="{DynamicResource RefreshButtonStyle}" />
+            </Grid>
+          </Border>
+          <Grid
+                        Grid.Row="1"
+                        Height="300"
+                        Visibility="{Binding IsUpdateWafermap, Converter={StaticResource OtvCVT}}">
+            <!--<ContentControl
+                            Background="White"
+                            Content="{Binding WaferMapControl}"
+                            Visibility="{Binding WaferMapsVisible}" />-->
+            <ContentControl
+                            Background="White"
+                            Content="{Binding MisregWaferMapControl}"
+                            Visibility="{Binding WaferMapsVisible}" />
+            <ContentControl
+                            Background="White"
+                            Content="{Binding QmeritWaferMapControl}"
+                            Visibility="{Binding QmeritWaferMapsVisible}" />
+          </Grid>
+        </Grid>
+
+      </Border>
+    </Grid>
+    <Grid x:Name="GridLiveCameraArea" Grid.Column="1">
+      <Border>
+        <Border.Background>
+          <ImageBrush ImageSource="/Ovl.UI;component/Assets/ImageViewer.png" />
+        </Border.Background>
+      </Border>
+
+      <ContentControl x:Name="stageControlImageRegion" />
+
+      <TextBlock
+                Margin="10,70,0,0"
+                FontSize="18"
+                FontWeight="Bold"
+                Foreground="#c9f485"
+                Text="{Binding SectionInfo}" />
+
+      <!--</Grid>-->
+    </Grid>
+    <Grid Grid.Row="0" Grid.Column="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="220" />
+        <RowDefinition Height="3*" />
+        <RowDefinition Height="1.7*" />
+      </Grid.RowDefinitions>
+      <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,0,2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#D5E0E6">
+                        <StackPanel
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+                            <Button Style="{DynamicResource TabItemButtonStyle}">
+                                <Border Background="#fff" Style="{DynamicResource TabItemBorderStyle}">
+                                    <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="Current Job state" />
+                                </Border>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="190"
+                        Margin="8,5"
+                        HorizontalAlignment="Right"
+                        CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Label
+                                Margin="3,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{Binding RunStatus}"
+                                Style="{DynamicResource RoundLabelStyle}"
+                                Tag="{Binding RunStatus}" />
+                            <TextBlock
+                                x:Name="txtContent"
+                                Margin="0"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Foreground="#444"
+                                Text="{Binding RunStatusStr}" />
+                        </StackPanel>
+                    </Border>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="460" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Margin="2,0,2,0"
+                            Background="#F3F4F7"
+                            CornerRadius="5"
+                            Visibility="{Binding IsMroRunning, Converter={StaticResource OtvReCVT}}">
+                            <Grid Margin="0,16,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="1" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width=".7*" />
+                                    <ColumnDefinition Width=".7*" />
+
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Margin="17,0,0,0"
+                                    Foreground="DimGray"
+                                    Text="Lot ID" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Foreground="DimGray"
+                                    Text="Recipe" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Foreground="DimGray"
+                                    Text="Port" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="3"
+                                    Foreground="DimGray"
+                                    Text="Iter" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="17,0,0,0"
+                                    FontWeight="SemiBold"
+                                    Text="{Binding LotID}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip="{Binding LotID}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="5,0"
+                                    FontWeight="SemiBold"
+                                    Text="{Binding RecipeName}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip="{Binding RecipeName}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    FontWeight="SemiBold"
+                                    Text="{Binding Port, Converter={StaticResource portCVT}}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    FontWeight="SemiBold"
+                                    Text="{Binding Iterations}" />
+                                <Border
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="4"
+                                    Background="#E6E7EA" />
+
+                                <Grid
+                                    Grid.Row="3"
+                                    Grid.ColumnSpan="4"
+                                    Margin="5,5,10,10"
+                                    VerticalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center" Text="Wafer：" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding WaferProgress}" />
+                                    </StackPanel>
+                                    <ProgressBar
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Height="12"
+                                        Margin="10,5,10,0"
+                                        VerticalAlignment="Center"
+                                        Maximum="100"
+                                        Minimum="0"
+                                        Style="{StaticResource PP.Styles.ProgressBar}"
+                                        Value="{Binding WaferProgressValue}" />
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center" Text="Target：" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding TargetProgress}" />
+                                    </StackPanel>
+                                    <ProgressBar
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Height="12"
+                                        Margin="10,5,10,0"
+                                        VerticalAlignment="Center"
+                                        Maximum="100"
+                                        Minimum="0"
+                                        Style="{StaticResource PP.Styles.ProgressBar}"
+                                        Value="{Binding TargetProgressValue}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <!--  MRO进度面板  -->
+                        <!--<local:MROProgressBoard  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Visibility="{Binding IsMroRunning, Converter={StaticResource BoolToVisibilityConvert}}"/>-->
+                        <local:MRONewProgressBoard  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  Visibility="{Binding IsMroRunning, Converter={StaticResource BoolToVisibilityConvert}}"/>
+                        <local:MroAutoTrainBoard  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  Visibility="{Binding IsMroAutoTraining, Converter={StaticResource BoolToVisibilityConvert}}"/>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0,0,0,0"
+                            Background="#F3F4F7"
+                            CornerRadius="5">
+                            <Grid IsEnabled="{Binding IsEnable}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Button
+                                    x:Name="btnRun"
+                                    Grid.Row="0"
+                                    Margin="0,0,0,10"
+                                    VerticalAlignment="Bottom" 
+                                    Command="{Binding RunJobCommand}"
+                                    Content="Run"
+                                    Style="{DynamicResource RunButtonStyle}"
+                                    Visibility="{Binding RunStatus, Converter={StaticResource OtvReCVT}, ConverterParameter=Running}" />
+                                <Button
+                                    Grid.Row="0"
+                                    Margin="0,0,0,12"
+                                    VerticalAlignment="Bottom" 
+                                    Command="{Binding PauseCommand}"
+                                    Content="Pause"
+                                    Style="{DynamicResource SuspendButtonStyle}"
+                                    Visibility="{Binding Visibility, Converter={StaticResource OtvReCVT}, ElementName=btnRun}"
+                                     />
+                                <Button
+                                    Grid.Row="1"
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Top" 
+                                    Command="{Binding StopJobCommand}"
+                                    Content="Stop"
+                                    IsEnabled="{Binding RunStatus, Converter={StaticResource OtbReCVT}, ConverterParameter=Idle}"
+                                    Style="{DynamicResource StopButtonStyle}" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+      <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,0,0,2">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid Grid.Row="0" Background="#D5E0E6">
+            <StackPanel
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal">
+              <Button Style="{DynamicResource TabItemButtonStyle}">
+                <Border Background="#fff" Style="{DynamicResource TabItemBorderStyle}">
+                  <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="Current Job data" />
+                </Border>
+              </Button>
+              <Button Command="{Binding TestCmdCommand}" Visibility="Collapsed">TestCmd</Button>
+            </StackPanel>
+          </Grid>
+          <Grid Grid.Row="1" Margin="2,0,2,0">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="40" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="#fff">
+              <ScrollViewer HorizontalScrollBarVisibility="Visible">
+                <StackPanel
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Orientation="Horizontal">
+                  <Button
+                                        x:Name="btn_overlayRawData"
+                                        Style="{DynamicResource MinTabItemButtonStyle}"
+                                        Tag="{Binding JobRuningDataList.IsSelectedRawData, Converter={StaticResource BoolToButtonTagStringConvert}, Mode=OneTime}"
+                                        Visibility="{Binding JobRuningDataList.IsVisibleRawData, Converter={StaticResource BoolToVisibilityConvert}, Mode=OneTime}">
+                    <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="Raw data" />
+                    <Button.Triggers>
+                      <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_MisregistrationGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_LotTISGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OVLDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="WaferStatisticsGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CDRawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TISRawDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ErrorDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <!--  选中状态  -->
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayOVLdata" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_lotStatistic" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_waferstatisticData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="Selected" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_cdRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_tisRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_errorData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </EventTrigger>
+                    </Button.Triggers>
+                  </Button>
+                  <Button
+                                        x:Name="btn_tisRawData"
+                                        Style="{DynamicResource MinTabItemButtonStyle}"
+                                        Tag="{Binding JobRuningDataList.IsSelectedTISRawData, Converter={StaticResource BoolToButtonTagStringConvert}, Mode=OneTime}"
+                                        Visibility="{Binding JobRuningDataList.IsVisibleTISRawData, Converter={StaticResource BoolToVisibilityConvert}, Mode=OneTime}">
+
+                    <TextBlock
+                                            FontSize="14"
+                                            Style="{DynamicResource TableItemTextBlockStyle}"
+                                            Text="TIS Raw data" />
+                    <Button.Triggers>
+                      <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OVLDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_MisregistrationGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_LotTISGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="WaferStatisticsGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CDRawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TISRawDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ErrorDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <!--  选中状态  -->
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayOVLdata" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_lotStatistic" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_waferstatisticData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_cdRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_tisRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="Selected" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_errorData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </EventTrigger>
+                    </Button.Triggers>
+                  </Button>
+                  <Button
+                                        x:Name="btn_cdRawData"
+                                        Style="{DynamicResource MinTabItemButtonStyle}"
+                                        Tag="{Binding JobRuningDataList.IsSelectedBFCDResultsStatistics, Converter={StaticResource BoolToButtonTagStringConvert}, Mode=OneTime}"
+                                        Visibility="{Binding JobRuningDataList.IsVisibleBFCDResultsStatistics, Converter={StaticResource BoolToVisibilityConvert}, Mode=OneTime}">
+                    <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="CD Raw data" />
+                    <Button.Triggers>
+                      <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OVLDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_MisregistrationGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_LotTISGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="WaferStatisticsGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CDRawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TISRawDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ErrorDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <!--  选中状态  -->
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayOVLdata" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_lotStatistic" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_waferstatisticData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_cdRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="Selected" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_tisRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_errorData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </EventTrigger>
+                    </Button.Triggers>
+                  </Button>
+                  <Button
+                                        x:Name="btn_lotStatistic"
+                                        Style="{DynamicResource MinTabItemButtonStyle}"
+                                        Tag="{Binding JobRuningDataList.IsSelectedLotStatistics_Misreg, Converter={StaticResource BoolToButtonTagStringConvert}, Mode=OneTime}"
+                                        Visibility="{Binding JobRuningDataList.IsVisibleLotStatistics_Misreg, Converter={StaticResource BoolToVisibilityConvert}, Mode=OneTime}">
+                    <TextBlock
+                                            FontSize="14"
+                                            Style="{DynamicResource TableItemTextBlockStyle}"
+                                            Text="Lot Statistics" />
+                    <Button.Triggers>
+                      <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OVLDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_MisregistrationGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_LotTISGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="WaferStatisticsGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CDRawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TISRawDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ErrorDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <!--  选中状态  -->
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayOVLdata" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_lotStatistic" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="Selected" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_waferstatisticData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_cdRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_tisRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_errorData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </EventTrigger>
+                    </Button.Triggers>
+                  </Button>
+                  <Button
+                                        x:Name="btn_overlayOVLdata"
+                                        Style="{DynamicResource MinTabItemButtonStyle}"
+                                        Tag="{Binding JobRuningDataList.IsSelectedOVLData, Converter={StaticResource BoolToButtonTagStringConvert}, Mode=OneTime}"
+                                        Visibility="{Binding JobRuningDataList.IsVisibleOVLData, Converter={StaticResource BoolToVisibilityConvert}, Mode=OneTime}">
+                    <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="OVL data" />
+                    <Button.Triggers>
+                      <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OVLDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_MisregistrationGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_LotTISGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="WaferStatisticsGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CDRawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TISRawDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ErrorDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <!--  选中状态  -->
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayOVLdata" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="Selected" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_lotStatistic" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_waferstatisticData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_cdRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_tisRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_errorData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </EventTrigger>
+                    </Button.Triggers>
+                  </Button>
+                  <Button
+                                        x:Name="btn_waferstatisticData"
+                                        Style="{DynamicResource MinTabItemButtonStyle}"
+                                        Tag="{Binding JobRuningDataList.IsSelectedWaferStatistics, Converter={StaticResource BoolToButtonTagStringConvert}, Mode=OneTime}"
+                                        Visibility="{Binding JobRuningDataList.IsVisibleWaferStatistics, Converter={StaticResource BoolToVisibilityConvert}, Mode=OneTime}">
+                    <TextBlock
+                                            FontSize="14"
+                                            Style="{DynamicResource TableItemTextBlockStyle}"
+                                            Text="Wafer Statistics" />
+                    <Button.Triggers>
+                      <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OVLDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_MisregistrationGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_LotTISGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="WaferStatisticsGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CDRawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TISRawDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ErrorDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <!--  选中状态  -->
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayOVLdata" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_lotStatistic" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_waferstatisticData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="Selected" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_cdRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_tisRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_errorData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </EventTrigger>
+                    </Button.Triggers>
+                  </Button>
+                  <Button
+                                        x:Name="btn_errorData"
+                                        Style="{DynamicResource MinTabItemButtonStyle}"
+                                        Tag="{Binding JobRuningDataList.IsSelectedErrorData, Converter={StaticResource BoolToButtonTagStringConvert}, Mode=OneTime}"
+                                        Visibility="{Binding JobRuningDataList.IsVisibleErrorData, Converter={StaticResource BoolToVisibilityConvert}, Mode=OneTime}">
+                    <TextBlock
+                                            FontSize="14"
+                                            Style="{DynamicResource TableItemTextBlockStyle}"
+                                            Text="Error data" />
+                    <Button.Triggers>
+                      <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                          <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OVLDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_MisregistrationGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LotStatistics_LotTISGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="WaferStatisticsGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CDRawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RawDataDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TISRawDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ErrorDataGrid" Storyboard.TargetProperty="Visibility">
+                              <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <!--  选中状态  -->
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayOVLdata" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_lotStatistic" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_waferstatisticData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_overlayRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_cdRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_tisRawData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="" />
+                            </StringAnimationUsingKeyFrames>
+                            <StringAnimationUsingKeyFrames Storyboard.TargetName="btn_errorData" Storyboard.TargetProperty="Tag">
+                              <DiscreteStringKeyFrame KeyTime="0" Value="Selected" />
+                            </StringAnimationUsingKeyFrames>
+                          </Storyboard>
+                        </BeginStoryboard>
+                      </EventTrigger>
+                    </Button.Triggers>
+                  </Button>
+                </StackPanel>
+              </ScrollViewer>
+            </Grid>
+            <Border
+                            Grid.Row="1"
+                            Background="#F3F4F7"
+                            BorderBrush="#E6E7EA"
+                            BorderThickness="1">
+              <Grid Margin="0">
+
+                <DataGrid
+                                    x:Name="RawDataDataGrid"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    AutoGenerateColumns="False"
+                                    CanUserSortColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.RawData}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Status}"
+                                    SelectionMode="Single"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Collapsed">
+
+                  <DataGrid.Columns>
+
+                    <DataGridTextColumn CanUserSort="False" 
+                                            Binding="{Binding WaferSlotNo}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="SLot#" />
+                    <DataGridTextColumn CanUserSort="False" 
+                                            Binding="{Binding WaferIterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Iteration" />
+                    <DataGridTextColumn CanUserSort="False" ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X Misreg">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.MisregX" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="False"  ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y Misreg">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.MisregY" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                                            Binding="{Binding Status}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Status"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding Orientation}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Orientation"  CanUserSort="False"/>
+                    <!--<DataGridTextColumn Binding="{Binding CdResultStr}" Header="CD Value" />-->
+                    <DataGridTextColumn
+                                            Binding="{Binding TestName}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestName"  CanUserSort="False"/>
+                    <!--<DataGridTextColumn Binding="{Binding TestType}" Header="TestType" />-->
+                    <DataGridTextColumn
+                                            Binding="{Binding TestType}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestType"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding Field, Converter={StaticResource FieldCVT}}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Field"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding Cell}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Cell"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding Index}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TargetID"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.X, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="XLocation"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.Y, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Ylocation"  CanUserSort="False"/>
+
+                    <DataGridTextColumn
+                                            Binding="{Binding Iterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Static Iteration"  CanUserSort="False"/>
+
+
+                    <!--  0715增加  -->
+                    <DataGridTextColumn
+                                            Binding="{Binding Overlay.CenterInner.X, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="X CenterInner"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding Overlay.CenterInner.Y, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Y CenterInner"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding Overlay.CenterOuter.X, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="X CenterOuter"  CanUserSort="False"/>
+                    <DataGridTextColumn
+                                            Binding="{Binding Overlay.CenterOuter.Y, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Y CenterOuter"  CanUserSort="False"/>
+
+                    <!--<DataGridTextColumn Binding="{Binding Overlay.CorrScoreInner.LeftCorr[0], StringFormat=0.###}" Header="Inner LeftCorr" />
+                    <DataGridTextColumn Binding="{Binding Overlay.CorrScoreInner.RightCorr[0], StringFormat=0.###}" Header="Inner RightCorr" />
+                    <DataGridTextColumn Binding="{Binding Overlay.CorrScoreInner.TopCorr[0], StringFormat=0.###}" Header="Inner TopCorr" />
+                    <DataGridTextColumn Binding="{Binding Overlay.CorrScoreInner.BottomCorr[0], StringFormat=0.###}" Header="Inner BottomCorr" />
+
+                    <DataGridTextColumn Binding="{Binding Overlay.CorrScoreOuter.LeftCorr[0], StringFormat=0.###}" Header="Outer LeftCorr" />
+                    <DataGridTextColumn Binding="{Binding Overlay.CorrScoreOuter.RightCorr[0], StringFormat=0.###}" Header="Outer RightCorr" />
+                    <DataGridTextColumn Binding="{Binding Overlay.CorrScoreOuter.TopCorr[0], StringFormat=0.###}" Header="Outer TopCorr" />
+                    <DataGridTextColumn Binding="{Binding Overlay.CorrScoreOuter.BottomCorr[0], StringFormat=0.###}" Header="Outer BottomCorr" />-->
+
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X Qmerit"  CanUserSort="False">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.QMerit.X" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}"  CanUserSort="False" Header="Y Qmerit">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.QMerit.Y" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" CanUserSort="False" Header="X QmeritInner" >
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.QMerit.InnerX" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}"  CanUserSort="False"  Header="Y QmeritInner">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.QMerit.InnerY" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" CanUserSort="False" Header="X QmeritOuter">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.QMerit.OuterX" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" CanUserSort="False" Header="Y QmeritOuter">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.QMerit.OuterY" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+                  </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid
+                                    x:Name="CDRawDataDataGrid"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    AutoGenerateColumns="False"
+                                    CanUserSortColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.BFCDResultsStatistics}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Status}"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Collapsed">
+                  <DataGrid.Columns>
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding WaferSlotNo}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="SLot#" />
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding WaferIterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Iteration" />
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding CdResultStr}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="CD Value" />
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding Status}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Status" />
+                    <!--<DataGridTextColumn Binding="{Binding CdResultStr}" Header="CD Value" />-->
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding TestName}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestName" />
+                    <!--<DataGridTextColumn Binding="{Binding TestType}" Header="TestType" />-->
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding TestType}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestType" />
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding Field, Converter={StaticResource FieldCVT}}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Field" />
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding Cell}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Cell" />
+                                        <DataGridTextColumn  CanUserSort="False" 
+                                            Binding="{Binding Index}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TargetID" />
+                                        <DataGridTextColumn CanUserSort="False" 
+                                            Binding="{Binding R3.X, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="XLocation" />
+                                        <DataGridTextColumn CanUserSort="False" 
+                                            Binding="{Binding R3.Y, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Ylocation" />
+
+                                        <DataGridTextColumn CanUserSort="False" 
+                                            Binding="{Binding Iterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Static Iteration" />
+
+                  </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid
+                                    x:Name="LotStatistics_MisregistrationGrid"
+                                    Grid.Row="0"
+                                    AutoGenerateColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.LotStatistics_Misreg}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Light}"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Hidden">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn
+                                            Binding="{Binding Type}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="DataType" />
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="XMean">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMean" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="YMean">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMean" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="X3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Y3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="|XMean|+X3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMeanPlusX3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="|YMean|+Y3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMeanPlusY3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="XMin">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMin" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="YMin">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMin" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="XMax">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMax" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="YMax">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMax" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                  </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid
+                                    x:Name="LotStatistics_LotTISGrid"
+                                    Grid.Row="1"
+                                    Margin="0,5"
+                                    AutoGenerateColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.LotStatistics_TIS}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Light}"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Collapsed">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn
+                                            Binding="{Binding DataType}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="DataType" />
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X Mean TIS">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMean.X" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y Mean TIS">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMean.Y" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X Min TIS">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMin.X" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y Min TIS">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMin.Y" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X Max TIS">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMax.X" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y Max TIS">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMax.Y" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X TIS 3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TIS3Sigma.X" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y TIS 3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TIS3Sigma.Y" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X TIS(|Mean|+3σ)">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMeanPlusX3Sigma.X" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y TIS(|Mean|+3σ)">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="TISMeanPlusX3Sigma.Y" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                  </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid
+                                    x:Name="OVLDataGrid"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    AutoGenerateColumns="False"
+                                    CanUserSortColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.OVLData}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Status}"
+                                    SelectionMode="Single"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Visible">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn
+                                            Binding="{Binding WaferSlotNo}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="SLot#" />
+                    <DataGridTextColumn
+                                            Binding="{Binding WaferIterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Iteration" />
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Ovl_X">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Ovl_X" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Ovl_Y">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Ovl_Y" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                                            Binding="{Binding Status}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Status" />
+                    <!--<DataGridTextColumn Binding="{Binding CdResultStr}" Header="CD Value" />-->
+                    <DataGridTextColumn
+                                            Binding="{Binding TestName}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestName" />
+                    <!--<DataGridTextColumn Binding="{Binding TestType}" Header="TestType" />-->
+                    <DataGridTextColumn Binding="{Binding TestType}" Header="TestType" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Field, Converter={StaticResource FieldCVT}}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Field" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Cell}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Cell" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Index}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TargetID" />
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.X, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="XLocation" />
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.Y, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Ylocation" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Iterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Static Iteration" />
+                  </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid
+                                    x:Name="WaferStatisticsGrid"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    AutoGenerateColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.WaferStatistics}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Light}"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Hidden">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn
+                                            Binding="{Binding WaferSlotNo}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="SLot#" />
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="XMean">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMean" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="YMean">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMean" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="X3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="X3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Y3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Y3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="|XMean|+X3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMeanPlusX3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="|YMean|+Y3σ">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMeanPlusY3Sigma" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="XMin">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMin" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="YMin">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMin" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="XMax">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="XMax" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="YMax">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="YMax" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                  </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid
+                                    x:Name="TISRawDataGrid"
+                                    Grid.RowSpan="2"
+                                    AutoGenerateColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.TISRawData}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Light}"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Collapsed">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn
+                                            Binding="{Binding WaferSlotNo}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="SLot#" />
+                    <DataGridTextColumn
+                                            Binding="{Binding WaferIterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Iteration" />
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Tis_X">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.MisregX" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn ElementStyle="{StaticResource DataGridTextColumnElementStyle}" Header="Tis_Y">
+                      <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource MeasureValueUnitFactorConverter}" Mode="OneWay">
+                          <Binding Path="Overlay.MisregY" />
+                          <Binding Path="DataContext.MeasureValueUnitFactor" RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" />
+                          <!--  静态值  -->
+                        </MultiBinding>
+                      </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <!--<DataGridTextColumn Binding="{Binding CdResultStr}" Header="CD Value" />-->
+                    <DataGridTextColumn
+                                            Binding="{Binding TestName}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestName" />
+                    <!--<DataGridTextColumn Binding="{Binding TestType}" Header="TestType" />-->
+                    <DataGridTextColumn Binding="{Binding TestType}" Header="TestType" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Field, Converter={StaticResource FieldCVT}}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Field" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Cell}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Cell" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Index}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TargetID" />
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.X, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="XLocation" />
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.Y, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Ylocation" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Iterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Static Iteration" />
+                  </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid
+                                    x:Name="ErrorDataGrid"
+                                    Grid.RowSpan="2"
+                                    AutoGenerateColumns="False"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding JobRuningDataList.ErrorData}"
+                                    RowStyle="{StaticResource DataGridRowStyle_Light}"
+                                    Style="{StaticResource DataGrid.Small}"
+                                    Visibility="Hidden">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn
+                                            Binding="{Binding WaferSlotNo}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="SLot#" />
+                    <DataGridTextColumn
+                                            Binding="{Binding WaferIterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Iteration" />
+                    <DataGridTextColumn
+                                            Binding="{Binding TestName}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestName" />
+                    <DataGridTextColumn
+                                            Binding="{Binding TestType}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TestType" />
+                    <DataGridTextColumn
+                                            Binding="{Binding CulledReason}"
+                                            Foreground="Red"
+                                            Header="FailReason" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Orientation}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Orientation" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Field, Converter={StaticResource FieldCVT}}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Field" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Cell}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Cell" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Index}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="TargetID" />
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.X, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="XLocation" />
+                    <DataGridTextColumn
+                                            Binding="{Binding R3.Y, StringFormat=0.###}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Ylocation" />
+                    <DataGridTextColumn
+                                            Binding="{Binding Iterations}"
+                                            ElementStyle="{StaticResource DataGridTextColumnElementStyle}"
+                                            Header="Static Iteration" />
+                  </DataGrid.Columns>
+                </DataGrid>
+              </Grid>
+            </Border>
+          </Grid>
+        </Grid>
+      </Border>
+      <Border
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,0,0,0">
+        <dataDisplay:BasicData x:Name="BasicDataPanel" />
+      </Border>
+    </Grid>
+
+
+
+  </Grid>
+
+</UserControl>

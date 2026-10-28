@@ -4,7 +4,10 @@
 
     <!--  本地等价实现，替代厂内 InteVega.CBB.ComUI/Themes/Converters.xaml（键名保持一致）  -->
     <conv:ObjectToVisibilityConverter x:Key="OtvCVT" />
+    <conv:ObjectToVisibilityReverseConverter x:Key="OtvReCVT" />
     <conv:ObjectToBooleanReverseConverter x:Key="OtbReCVT" />
     <conv:BooleanToVisibilityConverter x:Key="Boolean2VisibilityConverter" />
+    <conv:FieldToStringConverter x:Key="FieldCVT" />
+    <conv:PortIndexConverter x:Key="portCVT" />
 
 </ResourceDictionary>

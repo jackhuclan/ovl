@@ -1,0 +1,334 @@
+<UserControl x:Class="Ovl.UI.Views.Measure.Controls.MRONewProgressBoard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ovl.UI.Views.Measure.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="11">
+    <Border
+               Grid.Row="0"
+               Grid.RowSpan="2"
+               Grid.Column="0"
+               Margin="2,0,2,0"
+               Background="#F3F4F7"
+               CornerRadius="5"
+              >
+        <Grid Margin="0,16,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="1" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width=".7*" />
+                <ColumnDefinition Width=".7*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  第一行标题：LotID | Recipe | Port | Iter  -->
+            <TextBlock
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="17,0,0,0"
+                       Foreground="DimGray"
+                       Text="Lot ID" />
+            <TextBlock
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Foreground="DimGray"
+                       Text="Recipe" />
+            <TextBlock
+                       Grid.Row="0"
+                       Grid.Column="2"
+                       Foreground="DimGray"
+                       Text="Port" />
+            <TextBlock
+                       Grid.Row="0"
+                       Grid.Column="3"
+                       Foreground="DimGray"
+                       Text="Iter" />
+
+            <!--  第一行数据：绑定LotID、RecipeName、Port、固定显示"MRO"  -->
+            <TextBlock
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Margin="17,0,0,0"
+                       FontWeight="SemiBold"
+                       Text="{Binding LotID}"
+                       TextTrimming="CharacterEllipsis"
+                       ToolTip="{Binding LotID}" />
+            <TextBlock
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="5,0"
+                       FontWeight="SemiBold"
+                       Text="{Binding RecipeName}"
+                       TextTrimming="CharacterEllipsis"
+                       ToolTip="{Binding RecipeName}" />
+            <TextBlock
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       FontWeight="SemiBold"
+                       Text="{Binding Port, Converter={StaticResource portCVT}}" />
+            <TextBlock
+                       Grid.Row="1"
+                       Grid.Column="3"
+                       FontWeight="SemiBold"
+                       Foreground="#2E8B57"
+                       Text="MRO" />
+
+            <!--  分隔线  -->
+            <Border
+                       Grid.Row="2"
+                       Grid.ColumnSpan="4"
+                       Background="#E6E7EA" />
+
+            <!--  MRO进度显示区域  -->
+            <Grid   x:Name="gridProgress"
+                       Grid.Row="3"
+                       Grid.ColumnSpan="4"
+                       Margin="10,5,10,10"
+                       VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    
+                </Grid.ColumnDefinitions>
+
+                <!--  第一行：Type、Cycle、Test、Field  -->
+                <StackPanel
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Margin="0,5"
+                           Orientation="Horizontal">
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               Foreground="DimGray"
+                               Text="Type: " />
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Text="{Binding MroType}" />
+                </StackPanel>
+                <StackPanel
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="0,0,0,5"
+                           Orientation="Horizontal">
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               Foreground="DimGray"
+                               Text="Cycle: " />
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Text="{Binding MroCycleProgress}" />
+                </StackPanel>
+                <StackPanel
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           Margin="0,3"
+                           Orientation="Horizontal">
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               Foreground="DimGray"
+                               Text="Test: " />
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Text="{Binding MroTestProgress}" />
+                </StackPanel>
+                <StackPanel
+                           Grid.Row="2"
+                           Grid.Column="3"
+                           Margin="0,3"
+                           Orientation="Horizontal">
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               Foreground="DimGray"
+                               Text="Remain: " />
+                    <TextBlock
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Text="{Binding MroRemainTime}" />
+                </StackPanel>
+
+                <!--  第二行：Config进度  -->
+                <StackPanel   Grid.Row="1"
+  Grid.Column="0"
+  Margin="0,3"
+VerticalAlignment="Center" Orientation="Horizontal"  >
+                    <TextBlock 
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="0,3"
+                         VerticalAlignment="Center"
+Foreground="DimGray"
+Text="Configs : "/>
+                    <TextBlock 
+                           VerticalAlignment="Center"
+ FontWeight="SemiBold"
+ Text="{Binding MroConfigProgress}"/>
+                </StackPanel>
+                
+                
+            
+                <ProgressBar Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Value="{Binding MroConfigProgressValue}" Margin="0,5,10,5"/>
+
+                <TextBlock
+                    x:Name="tbDetail"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Cursor="Hand"
+                    Foreground="#FF5D5DE3"
+                    Text="Detail"
+                    TextDecorations="Underline"
+                    MouseEnter="Detail_MouseEnter"
+                    MouseLeave="Detail_MouseLeave" />
+
+               
+                <!--  第三行：Target进度  -->
+                <StackPanel   Grid.Row="2"
+  Grid.Column="0"
+  Margin="0,3"
+VerticalAlignment="Center" Orientation="Horizontal"  >
+                    <TextBlock 
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="0,3"
+                         VerticalAlignment="Center"
+Foreground="DimGray"
+Text="Targets : "/>
+                    <TextBlock 
+                           VerticalAlignment="Center"
+ FontWeight="SemiBold"
+ Text="{Binding MroTargetProgress}"/>
+                </StackPanel>
+                <ProgressBar Grid.Row="2" Grid.Column="1"  VerticalAlignment="Center" Value="{Binding MroTargetProgressValue}" Margin="0,5,10,5"/>
+
+            </Grid>
+            <Popup
+                x:Name="pop"
+                AllowsTransparency="True"
+                Placement="Bottom"
+                PlacementTarget="{Binding ElementName=tbDetail}"
+                StaysOpen="True"
+                VerticalOffset="2">
+                <Border
+                    x:Name="popContent"
+                    MinWidth="220"
+                    Padding="12,10"
+                    Background="White"
+                    MouseEnter="PopContent_MouseEnter"
+                    MouseLeave="PopContent_MouseLeave"
+                    BorderBrush="#E6E7EA"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="8"
+                            Opacity="0.25"
+                            ShadowDepth="2" />
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="0,0,8,6"
+                            Foreground="DimGray"
+                            Text="NA:" />
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="0,0,0,6"
+                            FontWeight="SemiBold"
+                            Text="{Binding MroNAProgress}"
+                            TextTrimming="CharacterEllipsis"
+                            ToolTip="{Binding MroNAProgress}" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0,0,8,6"
+                            Foreground="DimGray"
+                            Text="Polarizer:" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0,0,0,6"
+                            FontWeight="SemiBold"
+                            Text="{Binding MroPolarProgress}"
+                            TextTrimming="CharacterEllipsis"
+                            ToolTip="{Binding MroPolarProgress}" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="0,0,8,6"
+                            Foreground="DimGray"
+                            Text="Filter:" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="0,0,0,6"
+                            FontWeight="SemiBold"
+                            Text="{Binding MroFilterProgress}"
+                            TextTrimming="CharacterEllipsis"
+                            ToolTip="{Binding MroFilterProgress}" />
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="0,0,8,6"
+                            Foreground="DimGray"
+                            Text="Bandwidth:" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="0,0,0,6"
+                            FontWeight="SemiBold"
+                            Text="{Binding MroBandProgress}"
+                            TextTrimming="CharacterEllipsis"
+                            ToolTip="{Binding MroBandProgress}" />
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Margin="0,0,8,0"
+                            Foreground="DimGray"
+                            Text="Wave:" />
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            FontWeight="SemiBold"
+                            Text="{Binding MroWaveProgress}"
+                            TextTrimming="CharacterEllipsis"
+                            ToolTip="{Binding MroWaveProgress}" />
+                    </Grid>
+                </Border>
+            </Popup>
+        </Grid>
+    </Border>
+</UserControl>

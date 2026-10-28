@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Button.xaml" />
                 <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Label.xaml" />
                 <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGrid.xaml" />
+                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGridSmall.xaml" />
                 <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Border.xaml" />
                 <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/TextBlock.xaml" />
             </ResourceDictionary.MergedDictionaries>

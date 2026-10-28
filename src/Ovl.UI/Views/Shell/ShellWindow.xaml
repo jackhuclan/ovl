@@ -13,8 +13,8 @@
 
     <Window.Resources>
         <!-- 页面 VM → View 内嵌映射：新增功能页时在此登记 DataTemplate -->
-        <DataTemplate DataType="{x:Type measureVm:HomeViewModel}">
-            <measureViews:HomeView />
+        <DataTemplate DataType="{x:Type measureVm:MainViewModel}">
+            <measureViews:MainView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:PlaceholderViewModel}">
             <views:PlaceholderView />
@@ -29,54 +29,76 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="52" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- 竖向 Sidebar -->
-            <Border Grid.Column="0" Background="#202124">
+            <!-- 竖向 Sidebar（纯图标模式）：默认仅显示图标，悬停以 ToolTip 显示文字提示；
+                 图标风格与原顶部工具栏一致（线性图标 + 高亮蓝），选中项浅蓝底 + 左侧指示条 -->
+            <Border Grid.Column="0" Background="#FFFFFF" BorderBrush="#E0E3E7" BorderThickness="0,0,1,0">
                 <ListBox ItemsSource="{Binding Items}"
                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                          Background="Transparent"
                          BorderThickness="0"
-                         Padding="0,12,0,0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                         Padding="0,10,0,0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         VirtualizingPanel.IsVirtualizing="False">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
                                 <TextBlock Text="{Binding Glyph}"
                                            FontFamily="Segoe MDL2 Assets"
-                                           FontSize="16"
-                                           Foreground="#E8EAED"
+                                           FontSize="20"
+                                           Foreground="#5F6368"
                                            Width="24"
                                            TextAlignment="Center"
-                                           VerticalAlignment="Center" />
-                                <TextBlock Text="{Binding Title}"
-                                           Margin="14,0,0,0"
-                                           FontSize="14"
-                                           Foreground="#E8EAED"
-                                           VerticalAlignment="Center" />
-                            </StackPanel>
+                                           VerticalAlignment="Center"
+                                           x:Name="Glyph" />
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                    <Setter TargetName="Glyph" Property="Foreground" Value="#1A73E8" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
-                            <Setter Property="Padding" Value="18,12" />
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="8,4" />
+                            <Setter Property="Height" Value="44" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="ToolTip" Value="{Binding Title}" />
+                            <Setter Property="ToolTipService.InitialShowDelay" Value="300" />
+                            <Setter Property="ToolTipService.VerticalOffset" Value="0" />
+                            <Setter Property="ToolTipService.Placement" Value="Right" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">
-                                        <Border x:Name="Border"
-                                                Background="Transparent"
-                                                Padding="{TemplateBinding Padding}">
-                                            <ContentPresenter VerticalAlignment="Center" />
-                                        </Border>
+                                        <Grid>
+                                            <!-- 选中态左侧指示条 -->
+                                            <Border x:Name="Indicator"
+                                                    Width="3"
+                                                    Height="20"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    CornerRadius="1.5"
+                                                    Background="Transparent" />
+                                            <Border x:Name="Border"
+                                                    Background="Transparent"
+                                                    CornerRadius="8"
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                            </Border>
+                                        </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="#3A3D41" />
+                                                <Setter TargetName="Border" Property="Background" Value="#F1F3F4" />
                                             </Trigger>
                                             <Trigger Property="IsSelected" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="#007ACC" />
+                                                <Setter TargetName="Border" Property="Background" Value="#E8F0FE" />
+                                                <Setter TargetName="Indicator" Property="Background" Value="#1A73E8" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>

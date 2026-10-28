@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  本地等价实现：替代厂内 InteVega.CBB.ComUI 主题中的 DataGrid.Small 样式键
+          （小行高、小字号的数据表样式，供 BasicData 历史数据 / 异常数据表使用）  -->
+    <Style x:Key="DataGrid.Small" TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+        <Setter Property="RowHeight" Value="24" />
+        <Setter Property="ColumnHeaderHeight" Value="26" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="CanUserAddRows" Value="False" />
+        <Setter Property="HeadersVisibility" Value="Column" />
+        <Setter Property="HorizontalGridLinesBrush" Value="#E3E7EB" />
+        <Setter Property="VerticalGridLinesBrush" Value="#E3E7EB" />
+        <Setter Property="Background" Value="White" />
+    </Style>
+
+</ResourceDictionary>

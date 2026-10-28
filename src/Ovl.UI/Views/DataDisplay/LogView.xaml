@@ -1,0 +1,157 @@
+<UserControl
+    x:Class="Ovl.UI.Views.DataDisplay.LogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:Ovl.UI.Common.Converters;assembly=Ovl.UI.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:Ovl.UI.Views.DataDisplay"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <!--  本地实现：布局与绑定路径与原版 Marvel.Main.DataDisplay.View.Log 保持一致；
+          原版依赖厂内 InteVega.CBB.Log.Display 资源字典（SumResources.xaml），
+          此处以本地等价样式（DataGrid.Small / LogLevelConvert）替代，交互不变。  -->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SizeChanged">
+            <i:InvokeCommandAction Command="{Binding ControlSizeChangedCommand}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGridSmall.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <CollectionViewSource x:Key="LogViewSource" Source="{Binding LogItemCollection}" />
+            <convert:LogLevelToBrushConverter x:Key="LogLevelConvert" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            x:Name="FilterPanel"
+            Margin="0,0,0,5"
+            Background="White"
+            Orientation="Horizontal"
+            Visibility="Visible">
+            <TextBlock
+                Margin="5,5,0,0"
+                VerticalAlignment="Center"
+                Foreground="#5B6B73"
+                Text="Grade：" />
+            <ComboBox
+                MinWidth="120"
+                MaxWidth="360"
+                MaxHeight="30"
+                Margin="5,5,0,0"
+                ItemsSource="{Binding LogLevels}"
+                SelectedValue="{Binding LevelFilter}" />
+            <TextBlock
+                Margin="5,5,0,0"
+                VerticalAlignment="Center"
+                Foreground="#5B6B73"
+                Text="keyword：" />
+            <hc:TextBox
+                Width="200"
+                Margin="5,5,0,0"
+                Text="{Binding SecretWords}" />
+
+            <Button
+                Width="80"
+                Margin="5,5,0,0"
+                Background="#2C82EF"
+                Command="{Binding ApplyFilterCommand}"
+                CommandParameter="True"
+                Content="Search"
+                Foreground="White" />
+        </StackPanel>
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto">
+            <Grid Name="LogGridContainer">
+                <DataGrid
+                    x:Name="LogGrid"
+                    ContextMenu="{Binding RightClickMenu}"
+                    ItemsSource="{Binding Source={StaticResource LogViewSource}}"
+                    SelectedItem="{Binding SelectedLogItem}"
+                    Style="{StaticResource DataGrid.Small}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Grade">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="{Binding Level, Converter={StaticResource LogLevelConvert}}">
+                                        <Ellipse
+                                            x:Name="Eps_Level"
+                                            Width="10"
+                                            Height="10"
+                                            Margin="5,0"
+                                            Fill="{Binding Level, Converter={StaticResource LogLevelConvert}}" />
+                                        [<Run x:Name="RunText">
+                                            <Run.Style>
+                                                <Style TargetType="Run">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Level}" Value="information">
+                                                            <Setter Property="Text" Value="Message" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Level}" Value="warning">
+                                                            <Setter Property="Text" Value="Warning" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Level}" Value="error">
+                                                            <Setter Property="Text" Value="Error" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Level}" Value="fatal">
+                                                            <Setter Property="Text" Value="Fatal" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Level}" Value="debug">
+                                                            <Setter Property="Text" Value="Debug" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Run.Style>
+                                        </Run>
+                                        ]</TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Time">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Height="Auto"
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding OperateTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Message">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        x:Name="MessageBlock"
+                                        Height="Auto"
+                                        Margin="5,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Message}"
+                                        TextWrapping="Wrap"
+                                        ToolTip="{Binding Message}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

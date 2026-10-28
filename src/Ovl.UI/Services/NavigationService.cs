@@ -15,7 +15,7 @@ public sealed class NavigationService(IServiceProvider services) : INavigationSe
     private static readonly Dictionary<string, (Type VmType, string Title)> Registry =
         new(StringComparer.OrdinalIgnoreCase)
         {
-            ["Measure"] = (typeof(HomeViewModel), "Home"),
+            ["Measure"] = (typeof(MainViewModel), "Home"),
             ["StageControl"] = (typeof(PlaceholderViewModel), "Stage Control"),
             ["WaferHandler"] = (typeof(PlaceholderViewModel), "Wafer Handler"),
             ["Diagnostics"] = (typeof(PlaceholderViewModel), "Diagnostics"),

@@ -42,12 +42,18 @@ public sealed class BooleanToVisibilityConverter : IValueConverter
 
 /// <summary>
 /// 对象 → bool 取反（键 OtbReCVT）。
-/// 本地等价实现：bool 取反；null / 非 bool 视为 true（无信息时保持可用），保持与厂内控件行为一致。
+/// 支持 ConverterParameter：传入参数时按字符串相等比较（"Idle" 表示等于该状态时取反得到 false）；
+/// 未传参数时对 bool 取反，null / 非 bool 视为 true（无信息时保持可用），与厂内控件行为一致。
 /// </summary>
 public sealed class ObjectToBooleanReverseConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        if (parameter is not null)
+        {
+            return !string.Equals(value?.ToString(), parameter.ToString(), StringComparison.OrdinalIgnoreCase);
+        }
+
         return value is bool b ? !b : true;
     }
 
