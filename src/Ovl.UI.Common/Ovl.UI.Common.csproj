@@ -14,4 +14,9 @@
     <ProjectReference Include="..\Ovl.UI.Common.ViewModels\Ovl.UI.Common.ViewModels.csproj" />
   </ItemGroup>
 
+  <!-- 嵌入资源：IconTemplateDictionary.xaml 通过相对路径（../Assets/mega.png）引用 -->
+  <ItemGroup>
+    <Resource Include="Assets\mega.png" />
+  </ItemGroup>
+
 </Project>

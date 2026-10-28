@@ -23,4 +23,9 @@
     <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!-- 嵌入资源：XAML 通过 pack URI（/Ovl.UI;component/Assets/...）引用 -->
+  <ItemGroup>
+    <Resource Include="Assets\ImageViewer.png" />
+  </ItemGroup>
+
 </Project>

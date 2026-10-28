@@ -2,6 +2,25 @@
 
 原则：每期结束项目编译通过；每期一个或多个独立提交，推送 GitHub 并验证。
 
+## 当前状态总览（2026-10-28 更新）
+
+| 里程碑 | 范围 | 状态 | 说明 |
+|---|---|---|---|
+| M0 | 脚手架 / 特征集合基础 | ✅ 完成 | — |
+| M1 | 设备抽象 / 特征开关 / conf / Mock | ✅ 完成 | 48 测试通过 |
+| M2 | 竖向 Sidebar UI 骨架 | ✅ 完成 | 冒烟启动通过 |
+| M3a | Home 量测主页面骨架 | ✅ 完成 | — |
+| M3b-1 | 主题字典 / 图标 / 转换器迁入 | ✅ 完成 | 样式零改动 |
+| M3b-2 | 主量测页 MainView 迁入 | ✅ 完成 | 含本次运行时修复（见下） |
+| M4a | Recipe 内嵌页（RecipeView / RecipeBaseView） | ✅ 完成 | — |
+| M4b | Recipe 深度编辑视图 | ⏳ 待办·阻塞 | 依赖厂内配方服务器 + HalconDotNet + nexus 凭据 |
+| M5a | Setting / Result / Help / Alarm 内嵌页 | ✅ 完成 | — |
+| M5b | Batch / WaferHandler / Diagnostics / Motion / Defect + 四机型收口 | ⏳ 待办·阻塞 | 依赖厂内 dll 与真机硬件服务 |
+
+> 说明：M3b-2 / M4a / M5a 均已落地（编译 0 错误、48/48 测试通过、应用可正常启动）。M4b / M5b 受外部依赖阻塞，非开发遗漏；待凭据 / 环境就绪后推进。
+>
+> **运行时修复（2026-10-28）**：应用此前启动即崩溃（`System.Windows.Markup.XamlParseException` → `System.IO.IOException: 找不到资源 assets/imageviewer.png`）。根因为 `MainView.xaml` 以 pack URI 引用 `/Ovl.UI;component/Assets/ImageViewer.png`、`IconTemplateDictionary.xaml` 引用 `../Assets/mega.png`，而这两个文件当时未登记为嵌入资源（仅存在于磁盘）。已将 `ImageViewer.png`、`mega.png` 分别登记为 `Ovl.UI`、`Ovl.UI.Common` 项目的 `<Resource>`，应用现已可正常启动。
+
 ## M0 脚手架与特征集合基础
 
 - [x] 创建仓库骨架：Ovl.slnx、Directory.Build.props、Directory.Packages.props、.editorconfig、.gitignore、AGENTS.md
@@ -43,7 +62,7 @@
 - [x] Sidebar 首项「Home」并默认选中；Loaded/Unloaded 触发器（Microsoft.Xaml.Behaviors.Wpf）
 - 验收：编译 0 警告 0 错误，48/48 测试通过（新增 5 个桩状态机测试），冒烟启动正常 ✅
 
-### M3b 原版样式原样迁移
+### M3b 原版样式原样迁移 [x]
 
 #### M3b-1 样式资源就绪 ✅（2026-10-28）
 
@@ -64,13 +83,14 @@
 - MainViewModel（+Mro partial）重建 13 条命令与全部顶层绑定属性；MRONewProgressBoard / MroAutoTrainBoard 原样迁入；Wafer Map 以本地 WaferMapView 占位（原版依赖 HalconDotNet，M4b/M5b 接入真机图像）。
 - 厂内 StageControlModule 的 ImageViewer.png 资产复制到本仓库引用；`portCVT/FieldCVT/OtvReCVT` 以本地等价转换器补齐（键名不变）。
 - 验收：0 警告 0 错误，48/48 测试通过，冒烟启动通过。
+- 运行时修复（2026-10-28）：`ImageViewer.png`、`mega.png` 此前未登记为嵌入资源导致启动崩溃，已补登为 `<Resource>`（见顶部「当前状态总览」）。
 
-## M4 Recipe 体系迁移（✅ M4a 2026-10-28 / M4b 待办）
+## M4 Recipe 体系迁移（✅ M4a 已完成 / ⏳ M4b 待办·阻塞）
 
 - M4a（已完成）：RecipeWindow 弹窗改为 Sidebar 内嵌 `RecipeView`（两栏布局与页签样式沿用原版）；RecipeBaseView 原样迁入；本地配方树（搜索/展开/选择/Open）对接 IRecipeTreeService（桩）与 IRecipeManager。
 - M4b（待办，阻塞）：TestManage/RunParam/Summary 与 Test_Train*、AlignmentView_* 等 40 个视图约 1.4 万行，深度依赖厂内配方服务器（InteVega.CBB.Recipe.Core）、HalconDotNet 与 3rdlib 硬件 dll——需 nexus 凭据与真机环境后原样迁入。
 
-## M5 其余功能迁移 + 四机型收口（✅ M5a 2026-10-28 / M5b 待办）
+## M5 其余功能迁移 + 四机型收口（✅ M5a 已完成 / ⏳ M5b 待办·阻塞）
 
 - M5a（已完成）：Setting（设备特征开关，绑定 Equipment:{设备}:Features 并可回写 appsettings.json）、Result/Help（目录打开，保持原版 explorer 行为）、Alarm（报警列表 + 清除确认）；Batch/WaferHandler/Diagnostics/Motion/Defect 暂为占位页（其原版页面依赖 Stage Control/EFEM 等硬件服务，随 M5b 迁入）。
 - M5b（待办）：StageControl 图像区、WaferHandler、Diagnostics(Cal/PM)、Defect、Batch、四机型收口与 OMVersion 分派；依赖厂内 dll 与真机环境。
