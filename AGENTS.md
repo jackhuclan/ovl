@@ -7,6 +7,7 @@ src/Ovl.UI.ViewModels/       UI 层引用的 ViewModels
 src/Ovl.UI.Common/           通用控件层：通用控件的 View
 src/Ovl.UI.Common.ViewModels/  通用控件层引用的 ViewModels
 src/Ovl.Biz.Services/        业务服务层（net10.0）：服务接口与实现
+src/Ovl.Biz.Repository/      数据持久层（net10.0）：数据持久层接口与实现，包括 *db、*.DAL、*DBContext 这样的
 src/Ovl.Biz.Common/          通用层：业务通用类
 Directory.Build.props        Authors、Company、Product、Description、PackageProjectUrl、RepositoryUrl、Copyright 等
 Directory.Packages.props     NuGet 包版本集中管理（csproj 只写 Include 不写 Version）
