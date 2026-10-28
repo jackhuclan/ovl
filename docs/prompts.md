@@ -65,6 +65,10 @@
 
 在项目开发过程中，凡涉及团队统一遵守的规范（如编码风格、目录结构、命名约定、构建与测试流程等），须将其写入项目根目录下的 AGENTS.md 文件中统一维护。编写时内容应结构清晰、分条列出，并保持 AGENTS.md 与现有内容风格一致，避免重复或冲突。
 
+### 15. 2026-10-28 · 依赖注入统一 Microsoft.Extensions.DependencyInjection
+
+整个系统的依赖注入统一使用微软官方 NuGet 包 Microsoft.Extensions.DependencyInjection（安装命令：dotnet add package Microsoft.Extensions.DependencyInjection）。请在实现所有服务注册、依赖解析和相关配置时，仅使用该包，不要引入其他第三方依赖注入框架，并遵循 ASP.NET Core 中基于 IServiceCollection 的标准注册方式。
+
 ## 执行约定
 
 - 每收到一条新提示词，先在本文件末尾按上述格式追加，再执行提示词内容。

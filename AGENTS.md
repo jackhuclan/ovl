@@ -39,6 +39,10 @@ Ovl.slnx                     解决方案文件
 - 每个功能/修复单独提交；文档（PRD/README）与代码改动同批提交。
 - 推送前确认 `.gitignore` 生效：`config.json`、`bin/`、`obj/`、`.vs/`、`.workbuddy/` 不入库。
 
+## 依赖注入规范
+- 全系统 DI 统一使用微软官方 `Microsoft.Extensions.DependencyInjection`，仅基于 `IServiceCollection` 标准方式注册/解析，禁止引入其他第三方 DI 框架。
+- 服务注册入口集中在 `Ovl.Biz.Services/ServiceCollectionExtensions.cs`（如 AddConfManagement / AddEquipment），后续各层新增注册方法保持同一模式。
+
 ## 配置管理规范
 - 所有配置文件统一存放在 `conf` 文件夹下（可建子目录分类）。
 - 设备配置命名：`{设备类型}.{具体设备}.json`，如 `Camera.OM300.json`；设备类型与硬件特征选项对齐（MotionControl/Camera/LightSource/Motor/Pzt/ZPzt/ModBus/Thermal/Ffu/Ups/APzt/Efem），具体设备为设备名（OM300/OM100 等）。
