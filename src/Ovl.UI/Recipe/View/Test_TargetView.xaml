@@ -1,0 +1,726 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.Test_TargetView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:comControl="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+    xmlns:commonModelEnum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.Commons"
+    xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:converter="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataModelenum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
+    xmlns:enumhelper="clr-namespace:InteVega.CBB.ComUI.Helpers;assembly=InteVega.CBB.ComUI"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:icon="clr-namespace:InteVega.CBB.Prism.UI.Extensions.Icon;assembly=InteVega.CBB.Prism.UI.Extensions"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mtc="clr-namespace:Marvel.TargetSelectionControl.Control;assembly=Marvel.TargetSelectionControl"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:vm="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    d:DataContext="{d:DesignInstance Type=vm:Test_TargetViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    DataContext="{prism:ContainerProvider {x:Type vm:Test_TargetViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_en.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_ch.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+            <converter:BoolToVisibilityConvert x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="400" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Margin="5"
+                BorderBrush="{StaticResource TitleBorderColorBrush}"
+                BorderThickness="1"
+                CornerRadius="3"
+                Visibility="{Binding IsTarSetVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel>
+                    <Border>
+                        <Label Background="{StaticResource LabelTitleBackGroundBrush}" Style="{x:Null}">Target Settings</Label>
+                    </Border>
+                    <Border
+                        Margin="10"
+                        BorderBrush="{StaticResource TitleBorderColorBrush}"
+                        BorderThickness="0"
+                        CornerRadius="3">
+                        <StackPanel>
+                            <Label
+                                Background="{StaticResource LabelTitleBackGroundBrush}"
+                                Style="{x:Null}"
+                                Visibility="Collapsed">
+                                Target Centering
+                            </Label>
+                            <WrapPanel>
+                                <Label Style="{x:Null}">Target Centering:</Label>
+                                <RadioButton Margin="5,0,5,0" IsChecked="{Binding TestInfo.TargetSetting.TargetCentering, ConverterParameter={x:Static dataModelenum:EnumCalOverlayInOrOutEdge.Inner}, Converter={StaticResource EnumToBooleanConverter}}">On Inner</RadioButton>
+                                <RadioButton Margin="5,0,5,0" IsChecked="{Binding TestInfo.TargetSetting.TargetCentering, ConverterParameter={x:Static dataModelenum:EnumCalOverlayInOrOutEdge.Outer}, Converter={StaticResource EnumToBooleanConverter}}">On Outer</RadioButton>
+                            </WrapPanel>
+                            <WrapPanel Margin="0,5,0,0" Visibility="{Binding IsShowTargetType}">
+                                <Label Style="{x:Null}">Target Orientation:</Label>
+                                <ComboBox ItemsSource="{Binding Source={enumhelper:EnumBindingSource {x:Type dataModelenum:EnumOrientationType}}}" SelectedItem="{Binding TestInfo.TargetSetting.OrientationType}" />
+                            </WrapPanel>
+                            <WrapPanel Margin="0,5,0,0" Visibility="Collapsed">
+                                <Label Style="{x:Null}">Target Layout Setup:</Label>
+                                <ComboBox ItemsSource="{Binding Source={enumhelper:EnumBindingSource {x:Type commonModelEnum:EnumOptimizeType}}}" SelectedItem="{Binding TestInfo.TargetSetting.LayoutSetup}" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+                    <!--<Border
+                        Margin="10"
+                        BorderBrush="{StaticResource TitleBorderColorBrush}"
+                        BorderThickness="1"
+                        CornerRadius="3"
+                        Visibility="{Binding IsShowTargetType}">
+                        <StackPanel>
+                            <Label Background="{StaticResource LabelTitleBackGroundBrush}" Style="{x:Null}">Target Type</Label>
+
+                            <WrapPanel Margin="2">
+                                <Label Style="{x:Null}">Target Orientation:</Label>
+                                <ComboBox ItemsSource="{Binding Source={enumhelper:EnumBindingSource {x:Type dataModelenum:EnumOrientationType}}}" SelectedItem="{Binding TestInfo.TargetSetting.OrientationType}" />
+                                <Label Style="{x:Null}">Target Size (um):</Label>
+                                <hc:NumericUpDown
+                                    Height="24"
+                                    Margin="0,0,10,0"
+                                    DecimalPlaces="3"
+                                    Minimum="0"
+                                    Style="{StaticResource NumericUpDownExtend}"
+                                    Value="{Binding TestInfo.TargetSetting.TargetSize, UpdateSourceTrigger=PropertyChanged}" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>-->
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Row="1"
+                Margin="5"
+                BorderBrush="{StaticResource TitleBorderColorBrush}"
+                BorderThickness="1"
+                CornerRadius="3">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="{StaticResource TitleBorderColorBrush}" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Label Background="{StaticResource LabelTitleBackGroundBrush}" Style="{x:Null}">Target List</Label>
+                            <WrapPanel Grid.Row="1" Margin="3">
+                                <Button
+                                    Command="{Binding AddTargetCommand}"
+                                    Content="Add Target"
+                                    Style="{StaticResource MarvelLightButton}" />
+                                <Button
+                                    Command="{Binding TargetSettingCommand}"
+                                    Content="Target Setting"
+                                    Style="{StaticResource MarvelLightButton}" />
+                                <Button
+                                    Command="{Binding AddArrayTargetCommand}"
+                                    Content="Add Array Target"
+                                    Style="{StaticResource MarvelLightButton}"
+                                    Visibility="Collapsed" />
+                                <Button
+                                    Command="{Binding RemoveTargetCommand}"
+                                    Content="Empty"
+                                    Style="{StaticResource MarvelLightButton}" />
+                                <Button
+                                    Command="{Binding ApplayCommand}"
+                                    Content="Apply"
+                                    Style="{StaticResource MarvelLightButton}" />
+                                <CheckBox
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Right"
+                                    Content="Same for all targets"
+                                    IsChecked="{Binding IsShowFieldCount, Mode=TwoWay}" />
+                                <Button
+                                    Margin="5"
+                                    Command="{Binding ShowAllTargetSelectCommand}"
+                                    Content="Show All Target Select"
+                                    Style="{StaticResource MarvelLightButton}"
+                                    Visibility="{Binding IsShowFieldCount, Converter={StaticResource OtvReCVT}}" />
+                            </WrapPanel>
+                        </Grid>
+
+                    </Border>
+
+                    <DataGrid
+                        x:Name="targetinfos"
+                        Grid.Row="2"
+                        Padding="0"
+                        HorizontalAlignment="Stretch"
+                        AutoGenerateColumns="False"
+                        Background="Transparent"
+                        BorderThickness="0,0"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeRows="True"
+                        CanUserSortColumns="False"
+                        CellStyle="{DynamicResource TargetDataGridCellStyle}"
+                        LoadingRow="targetinfos_LoadingRow"
+                        MouseRightButtonDown="targetinfos_PreviewMouseLeftButtonDown"
+                        PreviewMouseLeftButtonDown="targetinfos_PreviewMouseLeftButtonDown"
+                        PreviewMouseRightButtonDown="DataGrid_PreviewMouseRightButtonDown"
+                        RowHeight="40"
+                        RowStyle="{DynamicResource TargetListDataGridRowStyle}"
+                        SelectedIndex="{Binding SelectIndex}"
+                        SelectedItem="{Binding SelectTarget}"
+                        SelectionMode="Single"
+                        Style="{DynamicResource DataGrid.Small}"
+                        VerticalScrollBarVisibility="Auto"
+                        Visibility="{Binding NoShowFieldCount, Converter={StaticResource OtvReCVT}}">
+
+                        <DataGrid.Columns>
+                            <!--<DataGridTemplateColumn
+                                Width="30"
+                                Header=""
+                                IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Origin Point"
+                                IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Background="Transparent" Orientation="Horizontal">
+                                            <comControl:CtlAutoNo
+                                                MinWidth="20"
+                                                Margin="5,2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                AncestorType="{x:Type DataGrid}" />
+                                            <ComboBox
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                ItemsSource="{Binding Source={enumhelper:EnumBindingSource {x:Type dataModelenum:EnumR3OrigionPoint}}}"
+                                                SelectedItem="{Binding OrgionPoint, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="X(mm)">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBox Text="{Binding R3Vector.X, UpdateSourceTrigger=PropertyChanged}" Width="100"></TextBox>-->
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource LeftGeometry}"
+                                                Click="Button_Click_LeftField"
+                                                ToolTip="Decrease by field width" />
+                                            <hc:NumericUpDown
+                                                Width="95"
+                                                Height="24"
+                                                Margin="0,0,0,0"
+                                                DecimalPlaces="6"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                ToolTip="{Binding R3Vector.X}"
+                                                Value="{Binding R3Vector.X, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource RightGeometry}"
+                                                Click="Button_Click_RightField"
+                                                ToolTip="Increase by field width" />
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Y(mm)">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="2,0" Orientation="Horizontal">
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource DownGeometry}"
+                                                Click="Button_Click_DownField"
+                                                ToolTip="Decrease by field height" />
+
+                                            <hc:NumericUpDown
+                                                Width="95"
+                                                Height="24"
+                                                Margin="0,0,0,0"
+                                                DecimalPlaces="6"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                ToolTip="{Binding R3Vector.Y}"
+                                                Value="{Binding R3Vector.Y, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource UpGeometry}"
+                                                Click="Button_Click_UpField"
+                                                ToolTip="Increase by field height" />
+                                        </StackPanel>
+
+                                        <!--<TextBox Text="{Binding R3Vector.Y, UpdateSourceTrigger=PropertyChanged}" Width="100"></TextBox>-->
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Enable" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding IsEnable}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Array"
+                                IsReadOnly="True"
+                                Visibility="Collapsed">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="Transparent">
+                                            <Button
+                                                Padding="4"
+                                                Click="Button_Click_1"
+                                                Command="{Binding EditArrayCommand}"
+                                                Visibility="{Binding IsArray, Converter={StaticResource OtvCVT}}">
+                                                <Button.Content>
+                                                    <StackPanel
+                                                        Margin="0"
+                                                        HorizontalAlignment="Left"
+                                                        Orientation="Horizontal">
+                                                        <icon:CustomIcon
+                                                            Width="16"
+                                                            Height="16"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="#0F54C6"
+                                                            Kind="RecipeUpdate"
+                                                            Style="{StaticResource MainMenuIcon}" />
+                                                        <TextBlock
+                                                            Margin="8,2,0,0"
+                                                            VerticalAlignment="Center"
+                                                            Text="Edit" />
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="{Binding TargetSettingCommand}" Header="Target Setting">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource traintest}" />
+
+                                        </Viewbox>
+
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Command="{Binding CopyTargetCommand}" Header="Copy Target">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <StackPanel>
+                                                <Image Source="{DynamicResource copytest}" />
+                                                <TextBlock Text="{Binding}" />
+                                            </StackPanel>
+
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Command="{Binding DeleteTragetCommand}" Header="Delete">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource deletetest}" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem
+                                    Command="{Binding EnableTragetCommand}"
+                                    Header="Enable"
+                                    IsEnabled="{Binding IsEnable, Converter={StaticResource OtbReCVT}}">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource enabletest}" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem
+                                    Command="{Binding DisableTragetCommand}"
+                                    Header="Disable"
+                                    IsEnabled="{Binding IsEnable}">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource disabletest}" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <DataGrid
+                        x:Name="targetinfos1"
+                        Grid.Row="2"
+                        Padding="0"
+                        HorizontalAlignment="Stretch"
+                        AutoGenerateColumns="False"
+                        Background="Transparent"
+                        BorderThickness="0,0"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeRows="True"
+                        CanUserSortColumns="False"
+                        CellStyle="{DynamicResource TargetDataGridCellStyle}"
+                        LoadingRow="targetinfos_LoadingRow"
+                        MouseRightButtonDown="targetinfos_PreviewMouseLeftButtonDown"
+                        PreviewMouseLeftButtonDown="targetinfos_PreviewMouseLeftButtonDown"
+                        PreviewMouseRightButtonDown="DataGrid_PreviewMouseRightButtonDown"
+                        RowHeight="40"
+                        RowStyle="{DynamicResource TargetListDataGridRowStyle}"
+                        SelectedIndex="{Binding SelectIndex}"
+                        SelectedItem="{Binding SelectTarget}"
+                        SelectionMode="Single"
+                        Style="{DynamicResource DataGrid.Small}"
+                        VerticalScrollBarVisibility="Auto"
+                        Visibility="{Binding IsShowFieldCount, Converter={StaticResource OtvReCVT}}">
+
+                        <DataGrid.Columns>
+                            <!--<DataGridTemplateColumn
+             Width="30"
+             Header=""
+             IsReadOnly="True">
+             <DataGridTemplateColumn.CellTemplate>
+                 <DataTemplate>
+
+                 </DataTemplate>
+             </DataGridTemplateColumn.CellTemplate>
+         </DataGridTemplateColumn>-->
+                            <DataGridTemplateColumn
+                                Width="auto"
+                                Header="Origin Point"
+                                IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Background="Transparent" Orientation="Horizontal">
+                                            <comControl:CtlAutoNo
+                                                MinWidth="20"
+                                                Margin="5,2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                AncestorType="{x:Type DataGrid}" />
+                                            <ComboBox
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                ItemsSource="{Binding Source={enumhelper:EnumBindingSource {x:Type dataModelenum:EnumR3OrigionPoint}}}"
+                                                SelectedItem="{Binding OrgionPoint, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="X(mm)">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBox Text="{Binding R3Vector.X, UpdateSourceTrigger=PropertyChanged}" Width="100"></TextBox>-->
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource LeftGeometry}"
+                                                Click="Button_Click_LeftField"
+                                                ToolTip="Decrease by field width" />
+                                            <hc:NumericUpDown
+                                                Width="95"
+                                                Height="24"
+                                                Margin="0,0,0,0"
+                                                DecimalPlaces="6"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                ToolTip="{Binding R3Vector.X}"
+                                                Value="{Binding R3Vector.X, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource RightGeometry}"
+                                                Click="Button_Click_RightField"
+                                                ToolTip="Increase by field width" />
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Y(mm)">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="2,0" Orientation="Horizontal">
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource DownGeometry}"
+                                                Click="Button_Click_DownField"
+                                                ToolTip="Decrease by field height" />
+
+                                            <hc:NumericUpDown
+                                                Width="95"
+                                                Height="24"
+                                                Margin="0,0,0,0"
+                                                DecimalPlaces="6"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                ToolTip="{Binding R3Vector.Y}"
+                                                Value="{Binding R3Vector.Y, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Button
+                                                Width="20"
+                                                Padding="2,6"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                hc:IconElement.Geometry="{StaticResource UpGeometry}"
+                                                Click="Button_Click_UpField"
+                                                ToolTip="Increase by field height" />
+                                        </StackPanel>
+
+                                        <!--<TextBox Text="{Binding R3Vector.Y, UpdateSourceTrigger=PropertyChanged}" Width="100"></TextBox>-->
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Enable" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding IsEnable}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="FieldSelectCount">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label
+                                                Width="95"
+                                                Height="24"
+                                                Margin="0,0,0,0"
+                                                Content="{Binding SelectfieldsCount, Mode=OneWay}" />
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Header="Array"
+                                IsReadOnly="True"
+                                Visibility="Collapsed">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="Transparent">
+                                            <Button
+                                                Padding="4"
+                                                Click="Button_Click_1"
+                                                Command="{Binding EditArrayCommand}"
+                                                Visibility="{Binding IsArray, Converter={StaticResource OtvCVT}}">
+                                                <Button.Content>
+                                                    <StackPanel
+                                                        Margin="0"
+                                                        HorizontalAlignment="Left"
+                                                        Orientation="Horizontal">
+                                                        <icon:CustomIcon
+                                                            Width="16"
+                                                            Height="16"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="#0F54C6"
+                                                            Kind="RecipeUpdate"
+                                                            Style="{StaticResource MainMenuIcon}" />
+                                                        <TextBlock
+                                                            Margin="8,2,0,0"
+                                                            VerticalAlignment="Center"
+                                                            Text="Edit" />
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="{Binding TargetSettingCommand}" Header="Target Setting">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource traintest}" />
+
+                                        </Viewbox>
+
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Command="{Binding CopyTargetCommand}" Header="Copy Target">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <StackPanel>
+                                                <Image Source="{DynamicResource copytest}" />
+                                                <TextBlock Text="{Binding}" />
+                                            </StackPanel>
+
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Command="{Binding DeleteTragetCommand}" Header="Delete">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource deletetest}" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem
+                                    Command="{Binding EnableTragetCommand}"
+                                    Header="Enable"
+                                    IsEnabled="{Binding IsEnable, Converter={StaticResource OtbReCVT}}">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource enabletest}" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem
+                                    Command="{Binding DisableTragetCommand}"
+                                    Header="Disable"
+                                    IsEnabled="{Binding IsEnable}">
+                                    <MenuItem.Icon>
+                                        <Viewbox Width="16" Height="16">
+                                            <Image Source="{DynamicResource disabletest}" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Margin="5,5,10,5"
+                BorderBrush="{StaticResource TitleBorderColorBrush}"
+                BorderThickness="1"
+                CornerRadius="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Background="{StaticResource LabelTitleBackGroundBrush}" Style="{x:Null}">Field Selection</Label>
+                    <Grid Grid.Row="1" Margin="3" Panel.ZIndex="2">
+                        <Button
+                            HorizontalAlignment="Left"
+                            Command="{Binding CheckALLCommand}"
+                            Content="Check All"
+                            Style="{StaticResource MarvelLightButton}" />
+                        <Button
+                            HorizontalAlignment="Right"
+                            Command="{Binding UnCheckAllCommand}"
+                            Content="Clear All"
+                            Style="{StaticResource MarvelLightButton}" />
+                    </Grid>
+                    <Grid
+                        Grid.Row="2"
+                        Margin="0,3,0,0"
+                        Background="AliceBlue">
+                        <ContentControl Content="{Binding WaferMapControlinstance}" Margin="20,0,10,0"/>
+                    </Grid>
+                </Grid>
+            </Border>
+            <GroupBox
+                Grid.Row="1"
+                Margin="5,5,10,5"
+                hc:ToggleButtonAttach.ShowLabel="True"
+                Header="Target Location"
+                Style="{DynamicResource ExpandGroupBoxStyle}">
+                <mtc:TargetSettingControl
+                    x:Name="targetControl"
+                    Grid.Row="1"
+                    MaxHeight="200"
+                    IsCheckable="False" />
+            </GroupBox>
+            <Border
+                Grid.Row="1"
+                Margin="5,5,10,5"
+                BorderBrush="{StaticResource TitleBorderColorBrush}"
+                BorderThickness="1"
+                CornerRadius="3"
+                Visibility="Collapsed">
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border
+                        BorderBrush="{StaticResource TitleBorderColorBrush}"
+                        BorderThickness="1"
+                        CornerRadius="3,3,0,0">
+                        <Label Background="{StaticResource LabelTitleBackGroundBrush}" Style="{x:Null}">Target Location</Label>
+                    </Border>
+                    <Viewbox Grid.Row="1" />
+
+
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Grid>
+</UserControl>

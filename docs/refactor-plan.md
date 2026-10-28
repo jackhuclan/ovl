@@ -13,11 +13,11 @@
 | M3b-1 | 主题字典 / 图标 / 转换器迁入 | ✅ 完成 | 样式零改动 |
 | M3b-2 | 主量测页 MainView 迁入 | ✅ 完成 | 含本次运行时修复（见下） |
 | M4a | Recipe 内嵌页（RecipeView / RecipeBaseView） | ✅ 完成 | — |
-| M4b | Recipe 深度编辑视图 | ⏳ 待办·阻塞 | 依赖厂内配方服务器 + HalconDotNet + nexus 凭据 |
+| M4b | Recipe 深度编辑视图 | ✅ 已完成 | Marvel.Main 全量迁入 Ovl.UI/Ovl.UI.ViewModels，编译 0 错误 |
 | M5a | Setting / Result / Help / Alarm 内嵌页 | ✅ 完成 | — |
-| M5b | Batch / WaferHandler / Diagnostics / Motion / Defect + 四机型收口 | ⏳ 待办·阻塞 | 依赖厂内 dll 与真机硬件服务 |
+| M5b | Batch / WaferHandler / Diagnostics / Motion / Defect + 四机型收口 | ✅ 已完成 | 源码原样迁入并以 VerifyDebug 配置编译通过；真机硬件仍走接口 + Moq 模拟 |
 
-> 说明：M3b-2 / M4a / M5a 均已落地（编译 0 错误、48/48 测试通过、应用可正常启动）。M4b / M5b 受外部依赖阻塞，非开发遗漏；待凭据 / 环境就绪后推进。
+> 说明：M0–M5b 全部落地（2026-10-28：Marvel.Main 全量迁入 + 命名空间统一为 Ovl.*，VerifyDebug 编译 0 错误、48/48 测试通过、应用冒烟启动正常）。真机硬件（配方服务器 / Halcon / StageControl dll）仍通过接口 + Moq 模拟，接入真机属后续硬件工厂阶段。
 >
 > **运行时修复（2026-10-28）**：应用此前启动即崩溃（`System.Windows.Markup.XamlParseException` → `System.IO.IOException: 找不到资源 assets/imageviewer.png`）。根因为 `MainView.xaml` 以 pack URI 引用 `/Ovl.UI;component/Assets/ImageViewer.png`、`IconTemplateDictionary.xaml` 引用 `../Assets/mega.png`，而这两个文件当时未登记为嵌入资源（仅存在于磁盘）。已将 `ImageViewer.png`、`mega.png` 分别登记为 `Ovl.UI`、`Ovl.UI.Common` 项目的 `<Resource>`，应用现已可正常启动。
 

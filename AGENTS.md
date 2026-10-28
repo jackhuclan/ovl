@@ -9,6 +9,7 @@ src/Ovl.UI.Common.ViewModels/  通用控件层引用的 ViewModels
 src/Ovl.Biz.Services/        业务服务层（net10.0）：服务接口与实现
 src/Ovl.Biz.Repository/      数据持久层（net10.0）：数据持久层接口与实现，包括 *db、*.DAL、*DBContext 这样的
 src/Ovl.Biz.Common/          通用层：业务通用类
+src/Ovl.Thirdlib/            项目组引用的第三方dll
 Directory.Build.props        Authors、Company、Product、Description、PackageProjectUrl、RepositoryUrl、Copyright 等
 Directory.Packages.props     NuGet 包版本集中管理（csproj 只写 Include 不写 Version）
 AGENTS.md                    项目通用规范
@@ -23,6 +24,8 @@ Ovl.slnx                     解决方案文件
 
 ## 代码规范
 - 详细风格见 `.editorconfig`（命名、缩进、表达式主体、文件作用域命名空间等）。
+- 所有 `.cs` 文件中的 namespace 一律采用**文件范围限定**（file-scoped）：`namespace X;`，不使用块级 `namespace X { ... }`。
+- **命名空间与项目名一致性**：`src/` 下所有项目的根命名空间必须与项目名一致（如 `Ovl.UI`、`Ovl.UI.ViewModels`、`Ovl.Biz.Common`）。例外（豁免）：`packages/` 目录内的 vendor 项目，以及直接引用的 marvel/OpenInteVega 历史项目——保持其原有命名空间不动。
 - 提交前清理多余 `using`（隐式全局 using 已覆盖的 `System.*` 不要再写）。
 - MVVM 使用 CommunityToolkit.Mvvm（`[ObservableProperty]` / `[RelayCommand]`）；命令 `CanExecute` 依赖的属性必须挂 `[NotifyCanExecuteChangedFor]`，否则按钮状态不刷新。
 - 命名：私有字段与静态私有字段均为 `_camelCase`（不用 s_ 前缀）；接口用 I 前缀。

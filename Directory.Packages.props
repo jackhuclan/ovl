@@ -20,6 +20,22 @@
     <PackageVersion Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <!-- 测试 -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <!-- M4b/M5b vendor（Marvel.Main 迁入代码的依赖；Prism 仅限 vendor 域，Ovl 自有代码禁用） -->
+    <PackageVersion Include="Prism.Core" Version="8.1.97" />
+    <PackageVersion Include="Prism.Wpf" Version="8.1.97" />
+    <PackageVersion Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageVersion Include="ScottPlot.WPF" Version="5.0.47" />
+    <PackageVersion Include="Microsoft.Extensions.AI.OpenAI" Version="10.11.0" />
+    <PackageVersion Include="InteVega.CBB.EfemApi" Version="1.0.0.7" />
+    <PackageVersion Include="InteVega.CBB.Recipe.Ui" Version="1.0.0.14" />
+    <PackageVersion Include="Ovl.Encryption.DoNet" Version="1.0.0" />
+    <PackageVersion Include="OVL.Algorithm.DoNet" Version="1.3.0" />
+    <PackageVersion Include="InteVega.CBB.Prism.UI.Extensions" Version="1.0.0.4" />
+    <PackageVersion Include="InteVega.CBB.Common" Version="1.0.0.5" />
+    <PackageVersion Include="InteVega.CBB.Log.Display" Version="1.0.0.9" />
+    <PackageVersion Include="AdonisUI" Version="1.17.1" />
+    <PackageVersion Include="Quartz" Version="3.8.0" />
+    <PackageVersion Include="Superpower" Version="3.0.0" />
     <PackageVersion Include="Moq" Version="4.21.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.1" />

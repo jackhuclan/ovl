@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="Ovl.UI.Recipe.View.ParametersKPIChooseView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
+      xmlns:converter="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+      xmlns:converts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1100">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <convert:BoolToStringConverter x:Key="BoolToStringConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--<ContentControl Grid.Row="1">-->
+        <StackPanel
+Grid.Row="0">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <RadioButton
+                     x:Name="Parameters"
+                     Width="160"
+                     Margin="2,0,0,0"
+                     Command="{Binding ShowParameterCommand}"
+                     CommandParameter="0"
+                     Content="①Parameters"
+                     IsChecked="True"
+                     IsEnabled="True"
+                     Style="{DynamicResource RadioTableItemButtonStyle_First}" />
+                <RadioButton
+                     x:Name="KPI"
+                     Grid.Column="1"
+                     Width="160"
+                     Command="{Binding ShowKpiCommand}"
+                     CommandParameter="1"
+                     Content="②KPI"
+                     IsEnabled="True"
+                     Style="{DynamicResource RadioTableItemButtonStyle}" />
+            </Grid>
+        </StackPanel>
+
+
+    <!--<TabItem Header="①Parameters" TabIndex="0" Height="40">
+                <Grid>
+                    <ContentControl  Content="{Binding Parameters}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Column="1" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="②KPI" TabIndex="1" Height="40">
+                <Grid>
+                    <ContentControl  Content="{Binding Kpi}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Column="1" />
+                </Grid>
+            </TabItem>-->
+        <!--</ContentControl>-->
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+
+                <ContentControl  Content="{Binding Parameters}" Visibility="{Binding ParameterVisable, Converter={StaticResource OtvReCVT}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Column="1" />
+                <ContentControl  Margin="0,0,10,0" Content="{Binding Kpi}" Visibility="{Binding KpiVisable, Converter={StaticResource OtvReCVT}}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.Column="1" />
+
+                </Grid>
+        </ScrollViewer>
+        <!--<TabControl Grid.Row="2" SelectedIndex="{Binding SelectedTab, Mode=TwoWay}" >
+           
+        </TabControl>-->
+
+
+        <StackPanel
+Grid.Row="0"
+HorizontalAlignment="Right"
+VerticalAlignment="Top"
+Orientation="Horizontal">
+
+            <Button  Grid.Row="0" Width="80"  Grid.Column="0" Margin="10"  Style="{StaticResource ButtonPrimary}" Command="{Binding SaveCommand}">Save</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

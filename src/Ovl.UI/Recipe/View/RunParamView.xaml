@@ -1,0 +1,743 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.RunParamView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:converter="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+    xmlns:converts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model_enum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:viewModel="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    DataContext="{prism:ContainerProvider {x:Type viewModel:RunParamViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <convert:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <converts:ObjectToBool x:Key="ObjectToBool" />
+            <viewModel:SlotDataConverter x:Key="SlotDataCVT"/>
+            <Style x:Key="TextBlockBase" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Foreground" Value="#666" />
+            </Style>
+            <Style
+                x:Key="TextBlockTitle"
+                BasedOn="{StaticResource TextBlockBase}"
+                TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="Black" />
+                <Setter Property="Foreground" Value="#444" />
+            </Style>
+            <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="10,0,0,0" />
+            </Style>
+            <Style x:Key="BorderSlot" TargetType="Border">
+                <Setter Property="BorderBrush" Value="#E6E7EA" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="Width" Value="24" />
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Margin" Value="0,0,4,0" />
+            </Style>
+
+            <ObjectDataProvider
+                x:Key="TisUseMode"
+                MethodName="GetValues"
+                ObjectType="{x:Type system:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="model_enum:TisDataUseMode" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <converter:EnumToDesConverter x:Key="EnumToDescriptionConverter" />
+            <DataTemplate x:Key="EnumToDescriptionTemplate">
+                <Border>
+                    <TextBlock Text="{Binding Converter={StaticResource EnumToDescriptionConverter}}" />
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <Grid Grid.Row="0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <Border
+                        Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="0">
+                        <!--<Label
+                            Margin="0,10,0,0"
+                            Style="{DynamicResource ContainerLabelStyle}"
+                            Tag="Wafer Selection and Handing">
+
+                        </Label>-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="10,10,10,10"
+                                Style="{DynamicResource ContainerLabelStyle}"
+                                Tag="Handing Mode">
+                                <Border Margin="15">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Mode:" />
+                                        <StackPanel
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <RadioButton
+                                                Content="Auto"
+                                                IsChecked="{Binding RunParameter.IsManual, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                                                Style="{DynamicResource RadioButtonStyle}" />
+                                            <RadioButton
+                                                Margin="10,0"
+                                                Content="Manual"
+                                                IsChecked="{Binding RunParameter.IsManual, Converter={StaticResource ObjectToBool}, ConverterParameter='true'}"
+                                                Style="{DynamicResource RadioButtonStyle}" />
+                                        </StackPanel>
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Text="Number of Iterations:" />
+                                        <hc:NumericUpDown
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Width="60"
+                                            Height="24"
+                                            Margin="10"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            DecimalPlaces="0"
+                                            Minimum="1"
+                                            Style="{StaticResource NumericUpDownExtend}"
+                                            Value="{Binding RunParameter.Iterations}" />
+                                    </Grid>
+
+                                </Border>
+                            </Label>
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="10,10,10,0"
+                                IsEnabled="{Binding RunParameter.IsManual, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                                Style="{DynamicResource ContainerLabelStyle}"
+                                Tag="Selection Method">
+                                <Border Margin="15">
+                                    <Grid x:Name="gridWafer">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="36" />
+                                            <RowDefinition Height="3" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" MinWidth="230" />
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <RadioButton
+                                            x:Name="rbSeq"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Content="Sequential"
+                                            GroupName="RadioSlot"
+                                            IsChecked="{Binding RunParameter.WaferSelectInfo.SelectMode, Converter={StaticResource ObjectToBool}, ConverterParameter='Sequential'}" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            IsEnabled="{Binding IsChecked, ElementName=rbSeq}"
+                                            Orientation="Horizontal">
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Style="{DynamicResource TextBlockBase}"
+                                                Text="Start Slot:" />
+                                            <hc:NumericUpDown
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                Width="60"
+                                                Height="24"
+                                                Margin="5,0,5,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                DecimalPlaces="0"
+                                                Minimum="1"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                Value="{Binding RunParameter.WaferSelectInfo.StartIndex}" />
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="3"
+                                                Style="{DynamicResource TextBlockBase}"
+                                                Text="Step:" />
+                                            <hc:NumericUpDown
+                                                Grid.Row="0"
+                                                Grid.Column="4"
+                                                Width="60"
+                                                Height="24"
+                                                Margin="5,0,0,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                DecimalPlaces="0"
+                                                Minimum="0"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                Value="{Binding RunParameter.WaferSelectInfo.Step}" />
+                                        </StackPanel>
+
+                                        <Border
+                                            Grid.Row="0"
+                                            Grid.Column="4"
+                                            Grid.ColumnSpan="4"
+                                            Height="2"
+                                            BorderBrush="#ccc" />
+                                        <RadioButton
+                                            x:Name="rbUser"
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Content="User Selection"
+                                            GroupName="RadioSlot"
+                                            IsChecked="{Binding RunParameter.WaferSelectInfo.SelectMode, Converter={StaticResource ObjectToBool}, ConverterParameter='UserSelection'}" />
+
+
+                                        <StackPanel
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="4"
+                                            Margin="10,0,0,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            IsEnabled="{Binding IsChecked, ElementName=rbUser}"
+                                            Orientation="Horizontal">
+                                            <Button
+                                                Margin="0,0,10,0"
+                                                Command="{Binding CheckAllCommand}"
+                                                Content="Check All"
+                                                Style="{DynamicResource NormalButtonStyle}" />
+                                            <Button
+                                                Command="{Binding ClearAllCommand}"
+                                                Content="Clear All"
+                                                Style="{DynamicResource NormalButtonStyle}" />
+                                        </StackPanel>
+
+                                        <ItemsControl
+                                            Grid.Row="3"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="5"
+                                            Margin="0,10,0,0"
+                                            IsEnabled ="{Binding IsChecked, ElementName=rbUser}"
+                                            ItemsSource="{Binding RunParameter.WaferSelectInfo.SelectedSlots}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Margin="0"
+                                                        Padding="0"
+                                                        Background="Transparent"
+                                                        BorderThickness="0"
+                                                        Command="{Binding DataContext.SelectSlotCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                        CommandParameter="{Binding}">
+                                                        <Border Background="{Binding IsSelected, Converter={StaticResource BoolToStringConverter}, ConverterParameter=blue;#fff}" Style="{DynamicResource BorderSlot}">
+                                                            <TextBlock
+                                                                Margin="0"
+                                                                HorizontalAlignment="Center"
+                                                                Foreground="{Binding IsSelected, Converter={StaticResource BoolToStringConverter}, ConverterParameter=#fff;#666}"
+                                                                Style="{DynamicResource TextBlockBase}"
+                                                                Text="{Binding SlotNum}" ToolTip="{Binding .,Converter={StaticResource SlotDataCVT}}"/>
+                                                        </Border>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </Label>
+
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Margin="10,10,10,0"
+                                Style="{DynamicResource ContainerLabelStyle}"
+                               Tag="MRO" Visibility="{Binding IsMroUseable, Converter={StaticResource OtvCVT}}">
+                                <Border Margin="15">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="0,5,0,0" Text="Enable:" />
+                                        <StackPanel
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+
+                                            <ToggleButton
+                                                Margin="10,0,10,10"
+                                                HorizontalAlignment="Left"
+                                                Background="#DBDBDB"
+                                                IsChecked="{Binding RunParameter.IsEnableMro}"
+                                                Style="{StaticResource ToggleButtonSwitch}" />
+                                        </StackPanel>
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Text="MRO Configuration:" />
+                                        <StackPanel
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+
+                                            <Button
+                                                Grid.Column="0"
+                                                Width="120"
+                                                Margin="10"
+                                                Command="{Binding EditMroConfigCommand}"
+                                                Style="{StaticResource ButtonPrimary}">
+                                                View and Edit
+                                            </Button>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                            </Label>
+                        </Grid>
+                    </Border>
+
+
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="15,10,0,10"
+                        Style="{DynamicResource ContainerLabelStyle}"
+                        Tag="Run Mode">
+                        <Border Margin="15,5,15,15">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Assist on Fail：" />
+                                <ToggleButton
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding RunParameter.IsAssistOnFail}"
+                                    Style="{StaticResource ToggleButtonSwitch}" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Alignment for 180°：" />
+                                <ToggleButton
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding RunParameter.IsAlignFor180}"
+                                    Style="{StaticResource ToggleButtonSwitch}" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Excute two field alignment:" />
+                                <ToggleButton
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding RunParameter.IsExcuteTwoFieldAlign}"
+                                    Style="{StaticResource ToggleButtonSwitch}" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="High Throughput:" />
+                                <ToggleButton
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding RunParameter.IsHighThroughput}"
+                                    Style="{StaticResource ToggleButtonSwitch}" />
+
+
+
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Margin="0,10,0,0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Optimize Order of Measured Sites：" />
+                                <ComboBox
+                                    x:Name="cbRunOptimizeMode"
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Width="150"
+                                    Margin="0,10,0,0"
+                                    HorizontalAlignment="Right"
+                                    SelectedIndex="{Binding RunParameter.RunOptimizeMode}" />
+                                <Grid
+                                    Grid.Row="5"
+                                    Grid.ColumnSpan="2"
+                                    Visibility="{Binding IsAutoRetrainUseable, Converter={StaticResource OtvCVT}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Margin="0,10,0,0"
+                                        Style="{DynamicResource TextBlockTitle}"
+                                        Text="Auto Retrain Test：" />
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="0,10,0,0"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <ComboBox
+                                            DisplayMemberPath="Text"
+                                            ItemsSource="{Binding AutoRetrainItems}"
+                                            SelectedItem="{Binding SelectedAutoRetrainItem}" />
+                                    </StackPanel>
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </Label>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="15,0,0,0"
+                        Style="{DynamicResource ContainerLabelStyle}"
+                        Tag="More Options"
+                        Visibility="Collapsed">
+                        <Border Grid.Row="1" Margin="16,17,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <!--<TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Edge Exclusion：" />
+                                <ToggleButton
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding RunParameter.IsEdgeExclusion}"
+                                    Style="{StaticResource ToggleButtonSwitch}" />-->
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Log Save：" />
+                                <ToggleButton
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding RunParameter.IsLogSave}"
+                                    Style="{StaticResource ToggleButtonSwitch}" />
+
+                            </Grid>
+                        </Border>
+                    </Label>
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="15,15,0,0"
+                        Style="{DynamicResource ContainerLabelStyle}"
+                        Tag="Tis Settings">
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Border Margin="15">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.ColumnSpan="2" Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Style="{DynamicResource TextBlockTitle}"
+                                            Text="Base on:" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Margin="0"
+                                            HorizontalAlignment="Right"
+                                            Orientation="Horizontal">
+                                            <RadioButton
+                                                Name="TisOptUnEnableRadio"
+                                                Checked="RadioButton_Checked"
+                                                Content="No Wafer"
+                                                IsChecked="{Binding RunParameter.TisMode, Converter={StaticResource ObjectToBool}, ConverterParameter='NoWafer'}"
+                                                Style="{DynamicResource RadioButtonStyle}" />
+                                            <RadioButton
+                                                Checked="RadioButton_Checked"
+                                                Content="First Wafer"
+                                                IsChecked="{Binding RunParameter.TisMode, Converter={StaticResource ObjectToBool}, ConverterParameter='FirstWafer'}"
+                                                Style="{DynamicResource RadioButtonStyle}" />
+                                            <RadioButton
+                                                Padding="0"
+                                                Checked="RadioButton_Checked"
+                                                Content="All Wafer (mean)"
+                                                IsChecked="{Binding RunParameter.TisMode, Converter={StaticResource ObjectToBool}, ConverterParameter='AllWafers'}"
+                                                Style="{DynamicResource RadioButtonStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        Margin="0,10,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Style="{DynamicResource TextBlockTitle}" Text="Cailbration:" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            Orientation="Horizontal">
+                                            <RadioButton
+                                                Content="This Run Only"
+                                                IsChecked="{Binding RunParameter.IsTisCalibration, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                                                Style="{DynamicResource RadioButtonStyle}" />
+                                            <RadioButton
+                                                Content="Replace Calibration"
+                                                IsChecked="{Binding RunParameter.IsTisCalibration, Converter={StaticResource ObjectToBool}, ConverterParameter='true'}"
+                                                Style="{DynamicResource RadioButtonStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid
+                                        Grid.Row="2"
+                                        Grid.ColumnSpan="2"
+                                        IsEnabled="{Binding IsTISOptimizeEnabled}"
+                                        Visibility="{Binding IsTISOptimizeUseable, Converter={StaticResource OtvCVT}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Style="{DynamicResource TextBlockTitle}"
+                                            Text="TOF:" />
+                                        <ComboBox
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="150"
+                                            Margin="0,10,0,0"
+                                            HorizontalAlignment="Right"
+                                            ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                                            ItemsSource="{Binding Source={StaticResource TisUseMode}}"
+                                            SelectedItem="{Binding RunParameter.TisUse_TOF}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Style="{DynamicResource TextBlockTitle}"
+                                            Text="TON:" />
+                                        <ComboBox
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Width="150"
+                                            Margin="0,10,0,0"
+                                            HorizontalAlignment="Right"
+                                            ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                                            ItemsSource="{Binding Source={StaticResource TisUseMode}}"
+                                            SelectedItem="{Binding RunParameter.TisUse_TON}" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Style="{DynamicResource TextBlockTitle}"
+                                            Text="TOV:" />
+                                        <ComboBox
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Width="150"
+                                            Margin="0,10,0,0"
+                                            HorizontalAlignment="Right"
+                                            ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                                            ItemsSource="{Binding Source={StaticResource TisUseMode}}"
+                                            SelectedItem="{Binding RunParameter.TisUse_TOV}" />
+                                    </Grid>
+                                    <Grid
+                                        Grid.Row="3"
+                                        Grid.ColumnSpan="2"
+                                        IsEnabled="{Binding IsTISOptimizeEnabled}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Style="{DynamicResource TextBlockTitle}"
+                                            Text="Tis Precalbration:" />
+                                        <ComboBox
+                                            Grid.Column="1"
+                                            Width="150"
+                                            Margin="0,10,0,0"
+                                            HorizontalAlignment="Right"
+                                            ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                                            ItemsSource="{Binding Source={StaticResource TisUseMode}}"
+                                            SelectedItem="{Binding RunParameter.TisPrecalbration}" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+
+                        </Grid>
+                    </Label>
+                </StackPanel>
+
+                <!--<Border Grid.Row="0" Grid.Column="1" Margin="15,15,15,0" Style="{DynamicResource BorderRegion}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Style="{DynamicResource BorderTitle}">
+                    <TextBlock Text="Camera Exposure Time" Style="{DynamicResource TextBlockTitle}"></TextBlock>
+                </Border>
+                <Border Grid.Row="1" Margin="16,17,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition Height="35"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Camera1（us）" Style="{DynamicResource TextBlockTitle}"></TextBlock>
+                        <hc:NumericUpDown Grid.Row="0" Grid.Column="1" Value="{Binding RunParameter.Camera1}" DecimalPlaces="0" Width="100" Height="24" Margin="0,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource NumericUpDownExtend}"></hc:NumericUpDown>
+                        <Button Grid.Row="0" Grid.Column="2" Content="Get"></Button>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Camera2（us）" Style="{DynamicResource TextBlockTitle}"></TextBlock>
+                        <hc:NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding RunParameter.Camera2}" DecimalPlaces="0" Width="100" Height="24" Margin="0,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource NumericUpDownExtend}"></hc:NumericUpDown>
+                        <Button Grid.Row="1" Grid.Column="2" Content="Get"></Button>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Camera3（us）" Style="{DynamicResource TextBlockTitle}"></TextBlock>
+                        <hc:NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding RunParameter.Camera3}" DecimalPlaces="0" Width="100" Height="24" Margin="0,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource NumericUpDownExtend}"></hc:NumericUpDown>
+                        <Button Grid.Row="2" Grid.Column="2" Content="Get"></Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>-->
+
+
+            </Grid>
+        </ScrollViewer>
+
+        <Button
+            Grid.Row="1"
+            Margin="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding SaveCommand}"
+            Content="Save"
+            Visibility="{Binding IsShowSubmit}" />
+    </Grid>
+
+</UserControl>

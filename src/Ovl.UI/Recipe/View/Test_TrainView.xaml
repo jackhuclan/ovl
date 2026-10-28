@@ -1,0 +1,1059 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.Test_TrainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:converter="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataModelenum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
+    xmlns:hc="clr-namespace:HandyControl.Controls;assembly=HandyControl"
+    xmlns:ioc="http://prismlibrary.com/"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:localControl="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:stageViewModels="clr-namespace:InteVega.CBB.StageControlModule.ViewModels;assembly=InteVega.CBB.StageControlModule"
+    xmlns:stagetcontorl="clr-namespace:InteVega.CBB.StageControlModule.Views;assembly=InteVega.CBB.StageControlModule"
+    xmlns:tempmachview="clr-namespace:InteVega.CBB.TemplateMatchingModule.Views;assembly=InteVega.CBB.TemplateMatchingModule"
+    xmlns:uicommon="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+    xmlns:views="clr-namespace:InteVega.CBB.StageControlModule.Views;assembly=InteVega.CBB.StageControlModule"
+    xmlns:vm="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    Margin="5"
+    d:DataContext="{d:DesignInstance Type=vm:Test_TrainViewModel}"
+    d:DesignHeight="700"
+    d:DesignWidth="1000"
+    DataContext="{prism:ContainerProvider {x:Type vm:Test_TrainViewModel}}"
+    mc:Ignorable="d">
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <!--  窗体的宽和高根据内容的大小设置  -->
+           <Setter Property="Width" Value="1600" />
+      <Setter Property="Height"  Value="700" />
+      <!--  不允许调整窗体尺寸  -->
+            <!--<Setter Property="ResizeMode" Value="NoResize" />-->
+            <!--  设置窗体的启动位置在屏幕中间  -->
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_en.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_ch.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </b:EventTrigger>
+
+    </b:Interaction.Triggers>
+
+    <!--<i:Interaction.Triggers>
+    <i:EventTrigger EventName="SizeChanged">
+      <i:InvokeCommandAction Command="{Binding ControlSizeChangedCommand}" PassEventArgsToCommand="True" />
+    </i:EventTrigger>
+  </i:Interaction.Triggers>-->
+
+    <Grid IsEnabled="{Binding ChangeCameraInfo, Converter={StaticResource OtbReCVT}}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="1.4*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <StackPanel VerticalAlignment="Top" IsEnabled="{Binding ChangeCameraInfo, Converter={StaticResource OtbReCVT}}">
+                        <stagetcontorl:StageControlCameraView
+                            CameraColorPixEnable="False"
+                            Foreground="Black"
+                            ImageViewer="{Binding ImageViewer, ElementName=StageControlImageView}"
+                            Style="{x:Null}" />
+                        <stagetcontorl:StageControlLightView Foreground="Black" Style="{x:Null}" />
+                        <stagetcontorl:StageFocusControlView x:Name="focusControlView" ImageViewer="{Binding ImageViewer, ElementName=StageControlImageView}" />
+                        <stagetcontorl:StageControlMotionView Foreground="Black" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <Grid Grid.Column="1" IsEnabled="{Binding ChangeCameraInfo, Converter={StaticResource OtbReCVT}}">
+                <views:StageControlImageView
+                    x:Name="StageControlImageView"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch" />
+                <localControl:WaferMapStageControl
+                    x:Name="wmsc"
+                    MaxWidth="200"
+                    MaxHeight="240"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    IsEnableMove="True"
+                    Opacity="0.8" />
+                <TextBlock
+                    Margin="0,60,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Text="{Binding ChangeCameraInfo}" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Margin="8,0" Visibility="Collapsed" >
+                    <Border
+                        Margin="3,0,3,0"
+                        Background="#0F54C6"
+                        BorderThickness="1"
+                        CornerRadius="4">
+                        <Label
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Location and Measurement"
+                            Foreground="White"
+                            Style="{x:Null}" />
+                    </Border>
+
+                </Grid>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10,0,10,20">
+                        <StackPanel Visibility="{Binding ElementName=LocationAndMeas, Path=IsChecked, Converter={StaticResource Boolean2VisibilityConverter}}">
+
+                            <GroupBox
+                                Margin="3"
+                                Header="Focus"
+                                Style="{DynamicResource ExpandGroupBoxStyle}">
+                                <Grid >
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                  </Grid.RowDefinitions>
+                  <Grid Margin="5" >
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <GroupBox  Margin="3"
+ Header="Focus_Inner"   
+ Style="{DynamicResource ExpandGroupBoxStyle}" >
+                      <Grid HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                          <RowDefinition  Height="auto"/>
+                          <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <local:CPLParamView Margin="0,0,0,10" Grid.Row="1" DataContext="{Binding CplParamViewModel_Inner}"  IsEnabled="{Binding IsEnabled, ElementName=btnConfirmInner }"/>
+                        <StackPanel
+                                           Grid.Row="0"
+                                           Grid.Column="1"
+                            Margin="0,10"
+                                           Orientation="Horizontal">
+                          <Label
+Grid.Row="0"
+Grid.Column="0"
+Margin="5,0,10,0"
+VerticalAlignment="Center"
+Style="{x:Null}">
+                            ROI:
+                          </Label>
+                          <Button
+                                               Width="75"
+                                               Margin="5,0,0,0"
+                                               Command="{Binding InnerFocusROI_SetCommand}"
+                                               IsEnabled="{Binding FocusROI_SetEnabled, Converter={StaticResource OtbCVT}}"
+                                               Style="{StaticResource ButtonDefault}">
+                            Set
+                          </Button>
+                          <Button x:Name="btnConfirmInner"
+                                               Width="75"
+                                               Margin="5,0,0,0"
+                                               Command="{Binding InnerFocusROI_ConfirmCommand}"
+                                               IsEnabled="{Binding FocusROI_InnerEnabled, Converter={StaticResource OtbCVT}}"
+                                               Style="{StaticResource ButtonDefault}">
+                            Confirm
+                          </Button>
+                          <Button
+                                               Width="75"
+                                               Margin="5,0,5,0"
+                                               Command="{Binding FocusROI_CancelCommand}"
+                                               IsEnabled="{Binding FocusROI_InnerEnabled, Converter={StaticResource OtbCVT}}"
+                                               Style="{StaticResource ButtonDefault}">
+                            Cancel
+                          </Button>
+                        </StackPanel>
+                      </Grid>
+                    </GroupBox>
+
+
+                    <GroupBox  Margin="3" Grid.Row="1"
+ Header="Focus_Outer"
+ Style="{DynamicResource ExpandGroupBoxStyle}" >
+                      <Grid HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                          <RowDefinition  Height="auto"/>
+                          <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <local:CPLParamView   Margin="0,0,0,10" Grid.Row="1" DataContext="{Binding CplParamViewModel_Outer}"  IsEnabled="{Binding IsEnabled, ElementName=btnConfirmOuter }"/>
+                        <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                            Margin="0,10"
+                        Orientation="Horizontal">
+                          <Label
+     Grid.Row="1"
+     Grid.Column="0"
+     Margin="5,0,10,0"
+     VerticalAlignment="Center"
+     Style="{x:Null}">
+                            ROI:
+                          </Label>
+                          <Button
+                            Width="75"
+                            Margin="5,0,0,0"
+                            Command="{Binding OuterFocusROI_SetCommand}"
+                            IsEnabled="{Binding FocusROI_SetEnabled, Converter={StaticResource OtbCVT}}"
+                            Style="{StaticResource ButtonDefault}">
+                            Set
+                          </Button>
+                          <Button x:Name="btnConfirmOuter"
+                            Width="75"
+                            Margin="5,0,0,0"
+                            Command="{Binding OuterFocusROI_ConfirmCommand}"
+                            IsEnabled="{Binding FocusROI_OuterEnabled, Converter={StaticResource OtbCVT}}"
+                            Style="{StaticResource ButtonDefault}">
+                            Confirm
+                          </Button>
+                          <Button
+                            Width="75"
+                            Margin="5,0,5,0"
+                            Command="{Binding FocusROI_CancelCommand}"
+                            IsEnabled="{Binding FocusROI_OuterEnabled, Converter={StaticResource OtbCVT}}"
+                            Style="{StaticResource ButtonDefault}">
+                            Cancel
+                          </Button>
+                        </StackPanel>
+                      </Grid>
+                    </GroupBox>
+
+
+                  </Grid>
+
+                  <WrapPanel Margin="10,5" Grid.Row="1">
+                                        <Button
+                                            MinWidth="100"
+                                            Margin="0,0,10,0"
+                                            Command="{Binding FocusSettingCommand}"
+                                            Content="Setting"
+                                            Style="{StaticResource ButtonDefault}" />
+                                        <Button
+                                            MinWidth="100"
+                                            Command="{Binding TrainFocus_SingleCommand}"
+                                            Style="{StaticResource ButtonPrimary}">
+                                            Run
+                                        </Button>
+
+                                    </WrapPanel>
+
+                                    <!--  Inner Fine Focus Position (Z+Pzt-Z) Double 显示Recover，Run功能  -->
+                                    <Grid Grid.Row="2">
+                                        <Label
+                                            Margin="10,5"
+                                            Style="{DynamicResource ContainerLabelStyle}"
+                                            Tag="Focus Positon (Z + Zpzt)"
+                                            Visibility="{Binding IsFocusSingle, Converter={StaticResource OtvReCVT}}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto" />
+                                                    <RowDefinition Height="auto" />
+                                                    <RowDefinition Height="auto" />
+                                                </Grid.RowDefinitions>
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Grid.ColumnSpan="2"
+                                                    Margin="10,3"
+                                                    VerticalAlignment="Center"
+                                                    Content="WLI Focus Position (mm):"
+                                                    Style="{x:Null}"
+                                                    Visibility="{Binding WliVisible}" />
+                                                <TextBox
+                                                    Grid.Row="0"
+                                                    Grid.Column="2"
+                                                    MinWidth="50"
+                                                    Margin="0,5"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    IsEnabled="False"
+                                                    Text="{Binding AbsolateWliHeight, StringFormat=0.####}"
+                                                    Visibility="{Binding WliVisible}" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Margin="10,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Style="{x:Null}">
+                                                    Inner:
+                                                </Label>
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Margin="10,0,0,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Style="{x:Null}">
+                                                    Z (mm):
+                                                </Label>
+                                                <TextBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="2"
+                                                    MinWidth="50"
+                                                    Margin="0,5"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    IsEnabled="False"
+                                                    Text="{Binding InnerFocusHeight, StringFormat=0.####}" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="3"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Style="{x:Null}">
+                                                    Pzt (μm):
+                                                </Label>
+                                                <TextBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="4"
+                                                    MinWidth="50"
+                                                    Margin="10,5"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    IsEnabled="False"
+                                                    Text="{Binding InnerPztOffset, StringFormat=0.###}" />
+
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Margin="10,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Style="{x:Null}">
+                                                    Outer:
+                                                </Label>
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Margin="10,0,0,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Style="{x:Null}">
+                                                    Z (mm):
+                                                </Label>
+                                                <TextBox
+                                                    Grid.Row="2"
+                                                    Grid.Column="2"
+                                                    MinWidth="50"
+                                                    Margin="0,5"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    IsEnabled="False"
+                                                    Text="{Binding OuterFocusHeight, StringFormat=0.####}" />
+                                                <Label
+                                                    Grid.Row="2"
+                                                    Grid.Column="3"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Style="{x:Null}">
+                                                    Pzt (μm):
+                                                </Label>
+                                                <TextBox
+                                                    Grid.Row="2"
+                                                    Grid.Column="4"
+                                                    MinWidth="50"
+                                                    Margin="10,5"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    IsEnabled="False"
+                                                    Text="{Binding OuterPztOffset, StringFormat=0.###}" />
+                                            </Grid>
+                                        </Label>
+                                        <Label
+                                            Margin="10,5"
+                                            Style="{DynamicResource ContainerLabelStyle}"
+                                            Tag="Focus Positon"
+                                            Visibility="{Binding IsFocusSingle, Converter={StaticResource OtvCVT}}">
+                                            <Grid
+                                                Margin="0,0,0,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto" />
+                                                    <RowDefinition Height="auto" />
+                                                </Grid.RowDefinitions>
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Margin="10,3"
+                                                    VerticalAlignment="Center"
+                                                    Content="WLI Focus Position (mm):"
+                                                    Style="{x:Null}"
+                                                    Visibility="{Binding WliVisible}" />
+                                                <TextBox
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    MinWidth="50"
+                                                    Margin="0,5"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    IsEnabled="False"
+                                                    Text="{Binding AbsolateWliHeight, StringFormat=0.####}"
+                                                    Visibility="{Binding WliVisible}" />
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Margin="10,3"
+                                                    VerticalAlignment="Center"
+                                                    Style="{x:Null}">
+                                                    Single Grab Focus Position (mm):
+                                                </Label>
+                                                <TextBox
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    MinWidth="50"
+                                                    Margin="0,5"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center"
+                                                    IsEnabled="False"
+                                                    Text="{Binding AutoFocusHeight, StringFormat=0.####}" />
+                                            </Grid>
+                                        </Label>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+                            <Grid>
+                                <GroupBox
+                                    Margin="3"
+                                    Header="Measurement"
+                                    Style="{DynamicResource ExpandGroupBoxStyle}">
+                                    <StackPanel>
+                                        
+                                            <GroupBox
+                                                x:Name="measureroi"
+                                                Margin="10,5"
+                                                Header="Measurement ROI"
+                                                Style="{DynamicResource ExpandGroupBoxStyle}">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="80" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Style="{x:Null}">
+                                                        Inner:
+                                                    </Label>
+                                                    <StackPanel
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        Margin="0,5,5,5"
+                                                        HorizontalAlignment="Right"
+                                                        Orientation="Horizontal">
+                                                        <Button
+                                                            Width="75"
+                                                            Margin="5,0,0,0"
+                                                            Command="{Binding InnerMeasureRoi_SetCommand}"
+                                                            IsEnabled="{Binding MeasurementROI_SetEnabled}"
+                                                            Style="{StaticResource ButtonPrimary}"
+                                                            Visibility="{Binding MeasurementROI_InnerEnabled, Converter={StaticResource OtvReCVT}}">
+                                                            Set ROI
+                                                        </Button>
+                                                        <StackPanel Orientation="Horizontal" Visibility="{Binding MeasurementROI_InnerEnabled, Converter={StaticResource OtvCVT}}">
+                                                            <Button
+                                                                Width="75"
+                                                                Margin="5,0,0,0"
+                                                                HorizontalAlignment="Right"
+                                                                Command="{Binding InnerMeasureRoi_ConfirmCommand}"
+                                                                Style="{StaticResource ButtonPrimary}">
+                                                                Confirm
+                                                            </Button>
+                                                            <Button
+                                                                Width="75"
+                                                                Margin="5,0,0,0"
+                                                                Command="{Binding MeasureRoi_CancelCommand}"
+                                                                Style="{StaticResource ButtonDefault}">
+                                                                Cancel
+                                                            </Button>
+
+                                                            <Button
+                                                                Width="75"
+                                                                Margin="5,0,0,0"
+                                                                Command="{Binding InnerMeasureRoi_ReSetCommand}"
+                                                                Style="{StaticResource ButtonDefault}">
+                                                                Reset
+                                                            </Button>
+                                                        </StackPanel>
+
+                                                    </StackPanel>
+
+                                                    <Label
+                                                        Grid.Row="1"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Style="{x:Null}">
+                                                        Outer:
+                                                    </Label>
+                                                    <StackPanel
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        Margin="0,5,5,5"
+                                                        HorizontalAlignment="Right"
+                                                        IsEnabled="{Binding MeasurementROIEnabled, Converter={StaticResource OtbReCVT}}"
+                                                        Orientation="Horizontal">
+                                                        <Button
+                                                            Width="75"
+                                                            Margin="5,0,0,0"
+                                                            Command="{Binding OuterMeasureRoi_SetCommand}"
+                                                            IsEnabled="{Binding MeasurementROI_SetEnabled}"
+                                                            Style="{StaticResource ButtonPrimary}"
+                                                            Visibility="{Binding MeasurementROI_OuterEnabled, Converter={StaticResource OtvReCVT}}">
+                                                            Set ROI
+                                                        </Button>
+                                                        <StackPanel Orientation="Horizontal" Visibility="{Binding MeasurementROI_OuterEnabled, Converter={StaticResource OtvCVT}}">
+                                                            <Button
+                                                                Width="75"
+                                                                Margin="5,0,0,0"
+                                                                HorizontalAlignment="Right"
+                                                                Command="{Binding OuterMeasureRoi_ConfirmCommand}"
+                                                                Style="{StaticResource ButtonPrimary}">
+                                                                Confirm
+                                                            </Button>
+                                                            <Button
+                                                                Width="75"
+                                                                Margin="5,0,0,0"
+                                                                Command="{Binding MeasureRoi_CancelCommand}"
+                                                                Style="{StaticResource ButtonDefault}">
+                                                                Cancel
+                                                            </Button>
+
+                                                            <Button
+                                                                Width="75"
+                                                                Margin="5,0,0,0"
+                                                                Command="{Binding OuterMeasureRoi_ReSetCommand}"
+                                                                Style="{StaticResource ButtonDefault}">
+                                                                Reset
+                                                            </Button>
+                                                        </StackPanel>
+
+                                                    </StackPanel>
+                                                </Grid>
+                                            </GroupBox>
+                                        
+                                        <GroupBox
+                                            Margin="10,5"
+                                            Header="Measurement Algorithm"
+                                            Style="{DynamicResource ExpandGroupBoxStyle}">
+                                            <StackPanel>
+                                                <Grid Visibility="{Binding BibAlgorithmParam, Converter={StaticResource OtvCVT}}">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Margin="5,2"
+                                                        VerticalAlignment="Center"
+                                                        Text="Algorithm" />
+                                                    <ComboBox
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        Margin="5,2"
+                                                        ItemsSource="{Binding EnumBibAlgorithmType}"
+                                                        SelectedItem="{Binding BibAlgorithmParam.AlgorithmType}" />
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Margin="5,2"
+                                                        VerticalAlignment="Center"
+                                                        Text="Correlation" />
+                                                    <ComboBox
+                                                        Grid.Row="0"
+                                                        Grid.Column="3"
+                                                        Margin="5,2"
+                                                        ItemsSource="{Binding EnumCorrelationType}"
+                                                        SelectedItem="{Binding BibAlgorithmParam.CorrelationType}" />
+
+                                                    <TextBlock
+                                                        Grid.Row="2"
+                                                        Grid.Column="0"
+                                                        Margin="5,2"
+                                                        VerticalAlignment="Center"
+                                                        Text="Inner Search Area" />
+                                                    <hc:NumericUpDown
+                                                        Grid.Row="2"
+                                                        Grid.Column="1"
+                                                        Margin="5,2"
+                                                        DecimalPlaces="3"
+                                                        Minimum="0"
+                                                        Value="{Binding BibAlgorithmParam.InnerSearchArea}" />
+                                                    <TextBlock
+                                                        Grid.Row="2"
+                                                        Grid.Column="2"
+                                                        Margin="5,2"
+                                                        VerticalAlignment="Center"
+                                                        Text="Outer Search Area" />
+                                                    <hc:NumericUpDown
+                                                        Grid.Row="2"
+                                                        Grid.Column="3"
+                                                        Margin="5,2"
+                                                        DecimalPlaces="3"
+                                                        Minimum="0"
+                                                        Value="{Binding BibAlgorithmParam.OuterSearchArea}" />
+                                                    <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock
+                                                            Grid.Row="3"
+                                                            Grid.Column="0"
+                                                            Margin="5,2"
+                                                            VerticalAlignment="Center"
+                                                            Text="QMerit Derivative Order" />
+                                                        <hc:NumericUpDown
+                                                            Grid.Row="3"
+                                                            Grid.Column="1"
+                                                            Margin="5,2"
+                                                            Minimum="0"
+                                                            Value="{Binding BibAlgorithmParam.QMeritDerivativeOrder}" />
+                                                    </Grid>
+
+                                                    <TextBlock
+                                                        Grid.Row="3"
+                                                        Grid.Column="2"
+                                                        Margin="5,2"
+                                                        VerticalAlignment="Center"
+                                                        Text="ProfileCrop" />
+                                                    <CheckBox
+                                                        Grid.Row="3"
+                                                        Grid.Column="3"
+                                                        Margin="5,2"
+                                                        IsChecked="{Binding BibAlgorithmParam.IsProfileCrop}"
+                                                        Style="{StaticResource ToggleButtonSwitch}" />
+                                                </Grid>
+
+                                                <Grid Visibility="{Binding AIMAlgorithmParam, Converter={StaticResource OtvCVT}}">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition Height="auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition Width="auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Margin="5,2"
+                                                        VerticalAlignment="Center"
+                                                        Text="Algorithm" />
+                                                    <ComboBox
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        Margin="5,2"
+                                                        ItemsSource="{Binding EnumAimAlgorithmType}"
+                                                        SelectedItem="{Binding AIMAlgorithmParam.AlgorithmType}" />
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Margin="5,2"
+                                                        VerticalAlignment="Center"
+                                                        Text="Correlation" />
+                                                    <ComboBox
+                                                        Grid.Row="0"
+                                                        Grid.Column="3"
+                                                        Margin="5,2"
+                                                        ItemsSource="{Binding EnumCorrelationType}"
+                                                        SelectedItem="{Binding AIMAlgorithmParam.CorrelationType}" />
+
+                          <TextBlock
+Grid.Row="2"
+Grid.Column="0"
+Margin="5,2"
+VerticalAlignment="Center"
+Text="Search Area" />
+                          <hc:NumericUpDown
+Grid.Row="2"
+Grid.Column="1"
+Margin="5,2"
+DecimalPlaces="3"
+Minimum="0"
+Value="{Binding AIMAlgorithmParam.SearchArea}" />
+                          <TextBlock
+Grid.Row="2"
+Grid.Column="2"
+Margin="5,2"
+VerticalAlignment="Center"
+Text="Kernel roi count" />
+                          <hc:NumericUpDown
+Grid.Row="2"
+Grid.Column="3"
+Margin="5,2"
+DecimalPlaces="0"
+Minimum="0"
+Value="{Binding AIMAlgorithmParam.K3SSubRoiNumber}" />
+                          <Grid    Grid.Row="3"
+Grid.Column="0" Grid.ColumnSpan="2" >
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="auto"/>
+                              <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+Grid.Row="3"
+Grid.Column="0"  
+Margin="5,2"
+VerticalAlignment="Center"
+Text="QMerit Derivative Order" />
+                            <hc:NumericUpDown
+Grid.Row="3"  
+Grid.Column="2"
+Margin="5,2"
+Minimum="0"
+Value="{Binding AIMAlgorithmParam.QMeritDerivativeOrder}" />
+                          </Grid>
+                        </Grid>
+                      </StackPanel>
+                    </GroupBox>
+                    <GroupBox
+     Margin="10,5"
+     Header="Auto Foucs Correction"
+     Style="{DynamicResource ExpandGroupBoxStyle}"  Visibility="{Binding CorrectionVisibility}" >
+                      <StackPanel >
+                        <StackPanel  Margin="8,5" Orientation="Horizontal">
+
+                          <TextBlock
+Margin="10,0,0,0"
+VerticalAlignment="Center"
+Text="Inner Focus Correction(μm):" 
+                                Visibility="{Binding InnerCorrectionVisibility}"/>
+                          <hc:NumericUpDown Margin="10,0,0,0" DecimalPlaces="3" 
+                                                Minimum="-20" Maximum="20" Increment="0.1" 
+                                               Value="{Binding InnerCorrectionValue,Mode=TwoWay}"
+                                                Visibility="{Binding InnerCorrectionVisibility}"
+                                                IsEnabled="{Binding Fine_Res,Converter={StaticResource OtbCVT}}"/>
+                         
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Margin="8,5">
+                          <TextBlock
+Margin="10,0,0,0"
+VerticalAlignment="Center"
+Text="Outer Focus Correction(μm):"  Visibility="{Binding OuterCorrectionVisibility}" />
+                          <hc:NumericUpDown Margin="10,0,0,0" DecimalPlaces="3" 
+                                                Minimum="-20" Maximum="20" Increment="0.1"
+                                           Value="{Binding OuterCorrectionValue,Mode=TwoWay}"
+                                                Visibility="{Binding OuterCorrectionVisibility}"
+                                          IsEnabled="{Binding Fine_Res,Converter={StaticResource OtbCVT}}"/>
+                        </StackPanel>
+                      </StackPanel>
+                    
+                    </GroupBox>
+                     
+										<Grid>
+                                            <GroupBox
+                                                Margin="10,5"
+                                                Header="Measurement Result Data"
+                                                Style="{DynamicResource ExpandGroupBoxStyle}">
+                                                <StackPanel>
+                                                    <Grid Margin="0,5,10,5">
+                             
+                         
+                                                        <StackPanel
+                                                            Margin="8,0" Grid.Row="1"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Center"
+                                                            Orientation="Horizontal"
+                                                            Visibility="{Binding IsFocusSingle, Converter={StaticResource OtvReCVT}}">
+                                                            <TextBlock
+                                                                MinWidth="60"
+                                                                VerticalAlignment="Center"
+                                                                Text="Profile：" />
+                                                            <RadioButton
+                                                                Width="60"
+                                                                Command="{Binding RunCommand}"
+                                                                Content="Inner"
+                                                                GroupName="profileType"
+                                                                IsChecked="{Binding CheckedLayer, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusBasedOn.Inner}, UpdateSourceTrigger=PropertyChanged}"  />
+                                                            <RadioButton
+                                                                Width="60"
+                                                                Command="{Binding RunCommand}"
+                                                                Content="Outer"
+                                                                GroupName="profileType"
+                                                                IsChecked="{Binding CheckedLayer, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusBasedOn.Outer}, UpdateSourceTrigger=PropertyChanged}" />
+                                                        </StackPanel>
+                                                        <Button Grid.Row="0"
+                                                            HorizontalAlignment="Right"
+                                                            Command="{Binding CorrelationCommand}"
+                                                            Content="Correlation" />
+                                                    </Grid>
+                                                    <DataGrid
+                                                        x:Name="dg"
+                                                        AutoGenerateColumns="False"
+                                                        CanUserAddRows="False"
+                                                        CanUserReorderColumns="False"
+                                                        ItemsSource="{Binding MeasurementResultDataList}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTemplateColumn Header="X/Y">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding Axit}" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTemplateColumn Header="OVLMisreg">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            Margin="5,0,0,0"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding OVLMisreg, StringFormat=0.####}" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTemplateColumn Header="CenterInner">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            Margin="5,0,0,0"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding CenterInner, StringFormat=0.####}" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTemplateColumn Header="CenterOuter">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            Margin="5,0,0,0"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding CenterOuter, StringFormat=0.####}" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTemplateColumn Header="QMeritTarget">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            Margin="5,0,0,0"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding QMeritTarget, StringFormat=0.####}" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTemplateColumn Header="QMeritInner">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            Margin="5,0,0,0"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding QMeritInner, StringFormat=0.####}" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                            <DataGridTemplateColumn Header="QMeritOuter">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock
+                                                                            Margin="5,0,0,0"
+                                                                            VerticalAlignment="Center"
+                                                                            Text="{Binding QMeritOuter, StringFormat=0.####}" />
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </StackPanel>
+                                            </GroupBox>
+                                            <Button
+                                                Margin="0,7,60,0"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Command="{Binding RunCommand}"
+                                                Content="Run"
+                                                Style="{StaticResource ButtonPrimary}" />
+
+                                        </Grid>
+                                    </StackPanel>
+                                </GroupBox>
+                            </Grid>
+                            <Grid>
+                                <GroupBox
+                                    Margin="3"
+                                    Header="Inner Model"
+                                    Style="{DynamicResource ExpandGroupBoxStyle}">
+                                    <StackPanel>
+                                        <StackPanel
+                                            Height="28"
+                                            Margin="8,1,10,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Orientation="Horizontal">
+                                            <TextBlock Margin="0,8,10,00" Text="ExtendSize(pixel):" />
+                                            <hc:NumericUpDown
+                                                Width="85"
+                                                Height="24"
+                                                Margin="0,0,0,0"
+                                                DecimalPlaces="0"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                Value="{Binding RoiExtendSize_Inner, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+                                        <tempmachview:TemplateMatchingControl DataContext="{Binding TemplateViewModel_Inner}" />
+
+                                    </StackPanel>
+
+                                </GroupBox>
+                                <CheckBox
+                                    Margin="8,10,50,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Click="CheckBox_Click_Inner"
+                                    Content="Reuse Measurement ROI"
+                                    IsChecked="{Binding TemplateViewModel_Inner.IsShowCreateModel, Converter={StaticResource Boolean2BooleanReConverter}}"  Visibility="{Binding ReuseVisibility}"/>
+
+                            </Grid>
+                            <Grid>
+                                <GroupBox
+                                    Margin="3"
+                                    Header="Outer Model"
+                                    Style="{DynamicResource ExpandGroupBoxStyle}"
+                                    >
+                                    <StackPanel>
+                                        <StackPanel
+                                            Height="28"
+                                            Margin="8,1,10,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Orientation="Horizontal">
+                                            <TextBlock Margin="0,8,10,00" Text="ExtendSize(pixel):" />
+                                            <hc:NumericUpDown
+                                                Width="85"
+                                                Height="24"
+                                                Margin="0,0,0,0"
+                                                DecimalPlaces="0"
+                                                Style="{StaticResource NumericUpDownExtend}"
+                                                Value="{Binding RoiExtendSize_Outer, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+                                        <tempmachview:TemplateMatchingControl DataContext="{Binding TemplateViewModel_Outter}" />
+                                    </StackPanel>
+
+                                </GroupBox>
+                                <CheckBox
+                                    Margin="8,10,50,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Click="CheckBox_Click_Outer"
+                                    Content="Reuse Measurement ROI"
+                                    IsChecked="{Binding TemplateViewModel_Outter.IsShowCreateModel, Converter={StaticResource Boolean2BooleanReConverter}}"  Visibility="{Binding ReuseVisibility}" />
+
+                            </Grid>
+              <Grid>
+                <GroupBox
+        Margin="3"
+        Header="Positioning Model"
+        Style="{DynamicResource ExpandGroupBoxStyle}"
+        >
+                  <StackPanel>
+                    
+                    <tempmachview:SingleTemplateControl   />
+                    <Button Content="Test positioning" Margin="0,10"/>
+                  </StackPanel>
+
+                </GroupBox>
+                <CheckBox
+        Margin="8,10,50,0"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Top"
+        Click="CheckBox_Click_Outer"
+        Content="IsEnable"
+        />
+
+              </Grid>
+            </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+            <StackPanel
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                hc:Growl.Token="TestTrainMessage" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <WrapPanel HorizontalAlignment="Right">
+                <Button
+                    Command="{Binding TestCommand}"
+                    Content="Test"
+                    Visibility="Collapsed" />
+                <Button
+                    Width="60"
+                    Margin="10,1,10,1"
+                    Command="{Binding SubmitCommand}"
+                    Content="Submit"
+                    Style="{StaticResource MarvelDarkButton}" />
+                <Button
+                    Width="60"
+                    Margin="10,1,10,1"
+                    Command="{Binding SaveCommand}"
+                    Content="Save"
+                    Style="{StaticResource MarvelDarkButton}" />
+                <Button
+                    Width="60"
+                    Margin="10,1,10,1"
+                    Command="{Binding CloseViewCommand}"
+                    Content="Close"
+                    Style="{StaticResource MarvelLightButton}" />
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</UserControl>

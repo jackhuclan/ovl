@@ -1,0 +1,355 @@
+﻿<Window x:Class="Ovl.UI.Job.View.BatchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+          xmlns:handy="https://handyorg.github.io/handycontrol"
+  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+  xmlns:icon="clr-namespace:InteVega.CBB.Prism.UI.Extensions.Icon;assembly=InteVega.CBB.Prism.UI.Extensions"
+             xmlns:local="clr-namespace:Ovl.UI.Job.View"
+        xmlns:cvts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI" 
+        xmlns:localvm="clr-namespace:Ovl.UI.Job.ViewModel"
+          xmlns:prism="http://prismlibrary.com/"
+         xmlns:controls="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+ 
+ xmlns:dataDisplay="clr-namespace:Ovl.UI.ViewModels.DataDisplay;assembly=Ovl.UI.ViewModels"
+ xmlns:dataModel="clr-namespace:Ovl.UI.ViewModels.DataDisplay;assembly=Ovl.UI.ViewModels"
+ xmlns:hc="https://handyorg.github.io/handycontrol"
+ xmlns:hpImageViewer="clr-namespace:HPImageViewer;assembly=HPImageViewer"
+ xmlns:ioc="http://prismlibrary.com/"
+ 
+ xmlns:maincontrol="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+ xmlns:mainview="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+ 
+ 
+             mc:Ignorable="d" 
+    
+             d:DesignHeight="450" d:DesignWidth="800"
+        DataContext="{prism:ContainerProvider {x:Type localvm:BatchViewModel}}">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Border.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBlock.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/InteVega.CBB.Recipe.Ui;component/Resources/TreeView.xaml" />
+      
+      </ResourceDictionary.MergedDictionaries>
+      <cvts:StringEmptyConverter x:Key="StrToVCvt" IsVisibility="True" />
+
+      <HierarchicalDataTemplate x:Key="TreeViewDropItemTemplate" ItemsSource="{Binding Children}">
+        <Grid Background="Transparent"   >
+          <Grid.ContextMenu >
+            <ContextMenu  >
+              <MenuItem Header="Add batch" Click="MenuItem_Click_AddBatch" Visibility="{Binding IsFolder,Converter={StaticResource OtvCVT }}"/>
+              <MenuItem Header="Add batch folder" Click="MenuItem_Click_AddFolder"  Visibility="{Binding IsFolder,Converter={StaticResource OtvCVT }}" />
+              <MenuItem Header="Rename" Click="MenuItem_Click_Rename" Visibility="{Binding Parent,Converter={StaticResource OtvCVT }}"/>
+              <MenuItem Header="Delete" Click="MenuItem_Click_Delete" Visibility="{Binding Parent,Converter={StaticResource OtvCVT }}"/>
+            </ContextMenu>
+          </Grid.ContextMenu>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25" />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+          </Grid.RowDefinitions>
+          <icon:CustomIcon
+              x:Name="imgnoselect"
+              Width="20"
+              Height="20"
+              Kind="RecipeFoled"
+              Style="{StaticResource MainMenuIcon}"
+              Tag="{Binding Name}" />
+          <icon:CustomIcon
+              x:Name="imgfile"
+              Width="20"
+              Height="20"
+              Kind="RecipeFile"
+              Style="{StaticResource MainMenuIcon}"
+              Tag="{Binding Name}" />
+          <TextBlock
+              x:Name="tb"
+              Grid.Column="1"
+              Height="20"
+              Padding="0,2,0,0"
+              FontSize="15"
+              Text="{Binding Name}"
+              ToolTip="{Binding Name}">
+           
+          </TextBlock>
+          <Grid
+              x:Name="r1"
+              Grid.Row="1"
+              Grid.ColumnSpan="2"
+              Height="4"
+              Visibility="Collapsed">
+            <Ellipse
+                  Width="4"
+                  Height="4"
+                  HorizontalAlignment="Left"
+                  Fill="Blue"
+                  StrokeThickness="0" />
+            <Rectangle
+                  Height="1"
+                  VerticalAlignment="Center"
+                  Fill="Blue"
+                  StrokeThickness="0" />
+          </Grid>
+          <Grid
+              x:Name="r2"
+              Grid.Row="1"
+              Grid.Column="1"
+              Height="4"
+              Visibility="Collapsed">
+            <Ellipse
+                  Width="4"
+                  Height="4"
+                  HorizontalAlignment="Left"
+                  Fill="Blue"
+                  StrokeThickness="0" />
+            <Rectangle
+                  Height="1"
+                  VerticalAlignment="Center"
+                  Fill="Blue"
+                  StrokeThickness="0" />
+          </Grid>
+        </Grid>
+        <HierarchicalDataTemplate.Triggers>
+          <DataTrigger Binding="{Binding Path=IsAddMove}" Value="true">
+            <Setter TargetName="r1" Property="Visibility" Value="Visible" />
+          </DataTrigger>
+          <DataTrigger Binding="{Binding Path=IsFolder}" Value="true">
+            <Setter TargetName="imgnoselect" Property="Visibility" Value="Visible" />
+            <Setter TargetName="imgfile" Property="Visibility" Value="Hidden" />
+          </DataTrigger>
+          <DataTrigger Binding="{Binding Path=IsFolder}" Value="false">
+            <Setter TargetName="imgnoselect" Property="Visibility" Value="Hidden" />
+            <Setter TargetName="imgfile" Property="Visibility" Value="Visible" />
+          </DataTrigger>
+          <DataTrigger Binding="{Binding Path=IsAddInMove}" Value="true">
+            <Setter TargetName="r2" Property="Visibility" Value="Visible" />
+          </DataTrigger>
+        </HierarchicalDataTemplate.Triggers>
+      </HierarchicalDataTemplate>
+
+      
+    </ResourceDictionary>
+  </Window.Resources>
+  <Grid >
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid Margin="20">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="40" />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <Border
+         Grid.Row="0"
+         Grid.Column="0"
+         Margin="0,0,0,5"
+         BorderBrush="#ccc"
+         BorderThickness="1">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="40" />
+          </Grid.ColumnDefinitions>
+          <TextBox
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 VerticalAlignment="Center"
+                 BorderThickness="0"
+                 FontSize="15"
+                 Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}">
+            <handy:Interaction.Triggers>
+              <handy:EventTrigger EventName="KeyUp">
+                <handy:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, Path=Text}" />
+              </handy:EventTrigger>
+            </handy:Interaction.Triggers>
+            <TextBox.Resources>
+              <VisualBrush
+                         x:Key="HelpBrush"
+                         AlignmentX="Left"
+                         Opacity="0.5"
+                         Stretch="None"
+                         TileMode="None">
+                <VisualBrush.Visual>
+
+                  <!--  "请输入Recipe文件/文件夹名称关键字搜索"  -->
+                  <TextBlock FontStyle="Italic" Text="Search" />
+                </VisualBrush.Visual>
+              </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+              <Style TargetType="TextBox">
+                <Style.Triggers>
+                  <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Background" Value="{StaticResource HelpBrush}" />
+                  </Trigger>
+                  <Trigger Property="Text" Value="">
+                    <Setter Property="Background" Value="{StaticResource HelpBrush}" />
+                  </Trigger>
+                </Style.Triggers>
+              </Style>
+            </TextBox.Style>
+          </TextBox>
+        
+          <Image
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 Margin="8,8,15,8"
+                 Visibility="{Binding SearchText,Converter={StaticResource StrToVCvt},UpdateSourceTrigger=PropertyChanged}">
+            <Image.Source>
+              <DrawingImage>
+                <DrawingImage.Drawing>
+                  <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#0F54C6" Geometry="M568.6 512l346.6-346.6c15.6-15.6 15.6-40.9 0-56.6-15.6-15.6-40.9-15.6-56.6 0L512 455.4 165.4 108.9c-15.6-15.6-40.9-15.6-56.6 0-15.6 15.6-15.6 40.9 0 56.6L455.4 512 108.9 858.6c-15.6 15.6-15.6 40.9 0 56.6 7.8 7.8 18 11.7 28.3 11.7s20.5-3.9 28.3-11.7L512 568.6l346.6 346.6c7.8 7.8 18 11.7 28.3 11.7s20.5-3.9 28.3-11.7c15.6-15.6 15.6-40.9 0-56.6L568.6 512z" />
+                  </DrawingGroup>
+                </DrawingImage.Drawing>
+              </DrawingImage>
+            </Image.Source>
+            <handy:Interaction.Triggers>
+              <handy:EventTrigger EventName="MouseLeftButtonDown">
+                <handy:InvokeCommandAction Command="{Binding ClearSearchCommand}" />
+              </handy:EventTrigger>
+            </handy:Interaction.Triggers>
+          </Image>
+
+          <Image
+         Grid.Row="0"
+         Grid.Column="2"
+         Margin="5,5,15,5"
+         >
+            <Image.Source>
+              <DrawingImage>
+                <DrawingImage.Drawing>
+                  <DrawingGroup Opacity="1">
+                    <GeometryDrawing Brush="#0F54C6" Geometry="M663.006587 602.400314l-32.11848 0-12.063745-12.080118c40.177008-44.250786 64.278915-104.586905 64.278915-168.934382 0-144.831451-116.607671-261.4381-261.439123-261.4381-144.787449 0-261.386934 116.606648-261.386934 261.4381 0 144.831451 116.598462 261.387958 261.386934 261.387958 64.390455 0 124.725551-24.09372 168.993733-64.279938l12.011556 12.081141 0 32.162482 201.112213 201.051838 60.32691-60.335096L663.006587 602.400314zM421.664154 602.400314c-100.589875 0-181.021662-80.43281-181.021662-181.014499 0-100.641041 80.43281-181.014499 181.021662-181.014499 100.624668 0 181.005289 80.373458 181.005289 181.014499C602.669443 521.967504 522.288822 602.400314 421.664154 602.400314" />
+                  </DrawingGroup>
+                </DrawingImage.Drawing>
+              </DrawingImage>
+            </Image.Source>
+          </Image>
+        </Grid>
+      </Border>
+
+      <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
+        <TreeView
+  x:Name="treeView"
+  Background="#FAFAFA"
+  VerticalAlignment="Stretch" 
+  FlowDirection="LeftToRight" 
+  ItemContainerStyle="{DynamicResource TreeViewItemBaseStyle}"
+  ItemTemplate="{DynamicResource TreeViewDropItemTemplate}"
+  ItemsSource="{Binding AllNodes}"   SelectedItemChanged="treeView_SelectedItemChanged">
+
+        </TreeView>
+      </ScrollViewer>
+    </Grid>
+    <Border
+    Grid.Row="0"
+    Grid.Column="1"
+    Margin="0,20,20,20"
+    BorderBrush="#ccc"
+    BorderThickness="1" CornerRadius="4">
+      <Grid Grid.Column="1" >
+        <Grid.RowDefinitions>
+          <RowDefinition Height="40"></RowDefinition>
+          <RowDefinition Height="56"></RowDefinition>
+          <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0" Background="#D5E0E6" Orientation="Horizontal" >
+          <TextBlock Text="Batch Name:" VerticalAlignment="Center" FontSize="16" Margin="10"></TextBlock>
+          <TextBlock Text="{Binding SelectedNode.Name}" VerticalAlignment="Center" FontSize="16" Margin="10"></TextBlock>
+        </StackPanel>
+        <Border Grid.Row="1" Background="#F3F4F7"  CornerRadius="0" Margin="0">
+          <Grid IsEnabled="{Binding SelectedNode,Converter={StaticResource OtbCVT}}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition></ColumnDefinition>
+              <ColumnDefinition></ColumnDefinition>
+              <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Add Job"  Command="{Binding AddJobCommand}"></Button>
+            <Button Grid.Column="1" Content="Remove Jobs"  Command="{Binding RemoveJobsCommand}" ></Button>
+            <Button Grid.Column="2" Content="Run batch"   Command="{Binding RunBatchCommand}" ></Button>
+          </Grid>
+        </Border>
+        <Border Grid.Row="2" Margin="0" >
+          <DataGrid x:Name="dgJobs" ItemsSource="{Binding BatchJobs}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedJob}"  VerticalAlignment="Top"   BorderThickness="0" RowStyle="{DynamicResource DataGridRowStyleBase}">
+            <DataGrid.ContextMenu >
+              <ContextMenu   >
+                <MenuItem  Command="{Binding EditJobCommand}" Style="{DynamicResource IconTreeMenuItem}" Header ="Edit Job" Tag="{x:Static icon:MegaIconKind.ButtonEditIcon}"  />
+                <MenuItem Command="{Binding InsertJobCommand}" Style="{DynamicResource IconTreeMenuItem}" Header="Insert Job" Tag="{x:Static icon:MegaIconKind.RecipeAdd}"  />
+                <MenuItem Command="{Binding MoveUpJobCommand}" Style="{DynamicResource IconTreeMenuItem}" Tag="{x:Static icon:MegaIconKind.MoveUpIcon}" Header="Move Up"  />
+                <MenuItem Command="{Binding MoveDownJobCommand}" Style="{DynamicResource IconTreeMenuItem}" Tag="{x:Static icon:MegaIconKind.MoveDownIcon}" Header="Move Down"  />
+               
+                <MenuItem  Command="{Binding JoinCommand}" Style="{DynamicResource IconTreeMenuItem}" Tag="{x:Static icon:MegaIconKind.RecipeAdd}" Header="Join Job Queue"  />
+                <MenuItem Command="{Binding DeleteJobCommand}" Style="{DynamicResource IconTreeMenuItem}" Tag="{x:Static icon:MegaIconKind.RecipeDelete}" Header="Delete Job"  />
+              </ContextMenu>
+            </DataGrid.ContextMenu>
+            
+            <DataGrid.Columns>
+              <DataGridTemplateColumn Header="Index" Width="60" >
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Border Background="Transparent" >
+                      <TextBlock Text="{Binding OrderNum}"  HorizontalAlignment="Center"  />
+                    </Border>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTemplateColumn Width="*" Header="Lot ID">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Border Background="Transparent" >
+                      <TextBlock
+        Width="120"
+        MaxWidth="150"
+        HorizontalAlignment="Center"
+VerticalAlignment="Center"
+        Text="{Binding LotId}"
+        TextAlignment="Center"
+        TextTrimming="WordEllipsis"
+        ToolTip="{Binding LotId}" />
+                    </Border>
+                 
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTemplateColumn Width="*" Header="Recipe">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Grid Background="Transparent">
+                      <TextBlock
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Text="{Binding RecipeName}"
+          TextAlignment="Center"
+          TextTrimming="WordEllipsis"
+          ToolTip="{Binding RecipeName}" />
+                    </Grid>
+
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </Border>
+
+        
+      </Grid>
+    </Border>
+      
+  </Grid>
+  
+</Window>

@@ -1,0 +1,705 @@
+﻿<Window x:Class="Ovl.UI.WaferHandler.View.WaferHandler600View"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:converts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:handy="https://handyorg.github.io/handycontrol"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:icon="clr-namespace:InteVega.CBB.Prism.UI.Extensions.Icon;assembly=InteVega.CBB.Prism.UI.Extensions"
+    xmlns:local="clr-namespace:Ovl.UI.WaferHandler.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewModel="clr-namespace:Ovl.UI.WaferHandler.ViewModel"
+    xmlns:wafer="clr-namespace:Ovl.UI.WaferHandler.View"
+    Title="Wafer Handler"
+    Width="800"
+    Height="450"
+    AllowDrop="True"
+    Closing="Window_Closing"
+    DataContext="{prism:ContainerProvider {x:Type viewModel:WaferHandler600ViewModel}}"
+    Loaded="Window_Loaded"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static ApplicationCommands.Stop}" Executed="EscCommand" />
+    </Window.CommandBindings>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converts:ObjectToBool x:Key="ObjectToBool" />
+            <convert:PortItemToStringConverter x:Key="PortItemToString" />
+            <Style x:Key="WaferPortLabelStyle" TargetType="Label">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Label">
+                            <Grid
+                                Width="184"
+                                Height="22"
+                                Margin="0,8,0,0">
+                                <TextBlock
+                                    x:Name="txtContent"
+                                    Width="145"
+                                    Height="16"
+                                    VerticalAlignment="Center"
+                                    Background="#80B436"
+                                    Foreground="#95ffffff"
+                                    Text="{TemplateBinding Content,
+                                                           Converter={StaticResource PortItemToString},
+                                                           ConverterParameter=2}"
+                                    TextAlignment="Center" />
+                                <Grid VerticalAlignment="Bottom">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="18" />
+                                        <RowDefinition Height="1.5" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Width="18"
+                                        Height="18"
+                                        Padding="0,2,0,0"
+                                        HorizontalAlignment="Left"
+                                        Background="#0F54C6"
+                                        Foreground="#80ffffff"
+                                        Text="{TemplateBinding Content,
+                                                               Converter={StaticResource PortItemToString},
+                                                               ConverterParameter=0}"
+                                        TextAlignment="Center" />
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Background="#0F54C6" />
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Width="18"
+                                        Height="18"
+                                        Padding="0,2,0,0"
+                                        HorizontalAlignment="Right"
+                                        Background="#0F54C6"
+                                        Foreground="#80ffffff"
+                                        Text="{TemplateBinding Content,
+                                                               Converter={StaticResource PortItemToString},
+                                                               ConverterParameter=1}"
+                                        TextAlignment="Center" />
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Background="#0F54C6" />
+                                </Grid>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Content" Value="">
+                                    <Setter TargetName="txtContent" Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="0">
+                                    <Setter TargetName="txtContent" Property="Background" Value="#80B436" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="1">
+                                    <Setter TargetName="txtContent" Property="Background" Value="#FFC01E" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="2">
+                                    <Setter TargetName="txtContent" Property="Background" Value="#C72A29" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="3">
+                                    <Setter TargetName="txtContent" Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="StackPanel_SlotItem" TargetType="StackPanel">
+                <Setter Property="Background" Value="#fff" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#dedede" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="745" />
+            <ColumnDefinition Width="1" />
+            <ColumnDefinition Width="6.5*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="95" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240" />
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="250" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="15,15,0,0"
+                IsEnabled="{Binding Port1Enb}"
+                Style="{DynamicResource Container_PortLabelStyleOther}"
+                Tag="Port1">
+                <Border Margin="15">
+                    <StackPanel>
+                        <ItemsControl
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ItemsSource="{Binding SlotItemList}"
+                            MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel
+                                        AllowDrop="True"
+                                        DragDrop.DragOver="StackPanel_DragOver"
+                                        DragDrop.Drop="StackPanel_Drop"
+                                        MouseRightButtonUp="Slot_MouseRightButtonUp"
+                                        Style="{DynamicResource StackPanel_SlotItem}"
+                                        Tag="{Binding}">
+                                        <wafer:SlotView Content="{Binding SlotItem, UpdateSourceTrigger=PropertyChanged}" Tag="{Binding SlotItem.Status}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Label>
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="15,15,5,0"
+                IsEnabled="{Binding Port2Enb}"
+                Style="{DynamicResource Container_PortLabelStyleOther}"
+                Tag="Port2">
+                <Border Margin="15">
+                    <StackPanel Orientation="Vertical">
+                        <ItemsControl
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ItemsSource="{Binding SlotItemList2}"
+                            MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel
+                                        AllowDrop="True"
+                                        Background="#fff"
+                                        DragDrop.DragOver="StackPanel_DragOver"
+                                        DragDrop.Drop="StackPanel_Drop"
+                                        MouseRightButtonUp="Slot_MouseRightButtonUp"
+                                        Style="{DynamicResource StackPanel_SlotItem}"
+                                        Tag="{Binding}">
+                                        <wafer:SlotView Content="{Binding SlotItem, UpdateSourceTrigger=PropertyChanged}" Tag="{Binding SlotItem.Status}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Label>
+            <Label
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="15,15,5,0"
+                    IsEnabled="{Binding Port3Enb}"
+                    Style="{DynamicResource Container_PortLabelStyleOther}"
+                    Tag="Port3">
+                <Border Margin="15">
+                    <StackPanel Orientation="Vertical">
+                        <ItemsControl
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    ItemsSource="{Binding SlotItemList3}"
+                                    MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel
+                                                AllowDrop="True"
+                                                Background="#fff"
+                                                DragDrop.DragOver="StackPanel_DragOver"
+                                                DragDrop.Drop="StackPanel_Drop"
+                                                MouseRightButtonUp="Slot_MouseRightButtonUp"
+                                                Style="{DynamicResource StackPanel_SlotItem}"
+                                                Tag="{Binding}">
+                                        <wafer:SlotView Content="{Binding SlotItem, UpdateSourceTrigger=PropertyChanged}" Tag="{Binding SlotItem.Status}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Label>
+            <Grid
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="15,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Height="25"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    ToolTip="Port1 Wafer Size">
+                    <TextBlock
+                        Margin="0,3,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding CurrentWaferSize1}"
+                        TextAlignment="Center" />
+                </Border>
+
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="auto"
+                    Height="32"
+                    Command="{Binding Load1Command}"
+                    Content="Load"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="auto"
+                    Height="32"
+                    Margin="10,0,0,0"
+                    Command="{Binding Unload1Command}"
+                    Content="Unload"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="auto"
+                    Height="32"
+                    Margin="10,0,0,0"
+                    Command="{Binding Map1Command}"
+                    Content="Map"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="15,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Height="25"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    ToolTip="Port2 Wafer Size">
+                    <TextBlock
+                        Margin="0,3,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding CurrentWaferSize2}"
+                        TextAlignment="Center" />
+                </Border>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="auto"
+                    Height="32"
+                    Command="{Binding Load2Command}"
+                    Content="Load"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="auto"
+                    Height="32"
+                    Margin="10,0,0,0"
+                    Command="{Binding Unload2Command}"
+                    Content="Unload"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="auto"
+                    Height="32"
+                    Margin="10,0,0,0"
+                    Command="{Binding Map2Command}"
+                    Content="Map"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="15,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Height="25"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    ToolTip="Port2 Wafer Size">
+                    <TextBlock
+                        Margin="0,3,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding CurrentWaferSize2}"
+                        TextAlignment="Center" />
+                </Border>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="auto"
+                    Height="32"
+                    Command="{Binding Load3Command}"
+                    Content="Load"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="auto"
+                    Height="32"
+                    Margin="10,0,0,0"
+                    Command="{Binding Unload3Command}"
+                    Content="Unload"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="auto"
+                    Height="32"
+                    Margin="10,0,0,0"
+                    Command="{Binding Map3Command}"
+                    Content="Map"
+                    FontSize="14"
+                    IsEnabled="{Binding ButtonIsEnable}"
+                    Style="{DynamicResource NormalButtonStyle}" />
+            </Grid>
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="15,0,15,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Border
+                    Width="12"
+                    Height="12"
+                    Margin="0,0,5,0"
+                    Background="#80B436" />
+                <TextBlock Margin="0,0,15,0" Text="Normal" />
+                <Border
+                    Width="12"
+                    Height="12"
+                    Margin="0,0,5,0"
+                    Background="#FFC01E" />
+                <TextBlock Margin="0,0,15,0" Text="Skew" />
+                <Border
+                    Width="12"
+                    Height="12"
+                    Margin="0,0,5,0"
+                    Background="#C72A29" />
+                <TextBlock Margin="0,0,10,0" Text="Overlap" />
+            </StackPanel>
+        </Grid>
+        <Border
+            Grid.Row="0"
+            Grid.Column="1"
+            Background="#ccc" />
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="274" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="240" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2.5*" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="5,15,5,0"
+                    Style="{DynamicResource Container_PortLabelStyle}"
+                    Tag="EFEM Device Operation">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Width="200"
+                            Height="30"
+                            Command="{Binding InitCommand}"
+                            Content="Init"
+                            IsEnabled="{Binding ButtonIsEnable}"
+                            Style="{DynamicResource AddButtonStyle_Custom}"
+                            Tag="ButtonInitIcon" />
+                        <Button
+                            Grid.Row="1"
+                            Width="200"
+                            Height="30"
+                            Command="{Binding ClearErrorCommand}"
+                            Content="Reset"
+                            IsEnabled="{Binding ButtonIsEnable}"
+                            Style="{DynamicResource AddButtonStyle_Custom}"
+                            Tag="ButtonClearErrorIcon" />
+                        <Button
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Width="200"
+                            Height="30"
+                            Command="{Binding EmergencyStopCommand}"
+                            Content="E-Stop"
+                            IsEnabled="{Binding ButtonIsEnable}"
+                            Style="{DynamicResource EmergencyStopButtonStyle_Custom}" />
+                    </Grid>
+                </Label>
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5,15,5,0"
+                    Style="{DynamicResource Container_PortLabelStyle}"
+                    Tag="Stage">
+                    <Grid Margin="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel
+                            x:Name="StagePanel"
+                            Grid.Column="1"
+                            Height="35"
+                            AllowDrop="True"
+                            Background="#fff"
+                            DragDrop.DragOver="StackPanel_DragOver"
+                            DragDrop.Drop="StackPanel_Drop"
+                            MouseRightButtonUp="Slot_MouseRightButtonUp">
+                            <wafer:SlotView
+                                Content="{Binding StagePortItem}"
+                                MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown"
+                                Tag="{Binding StagePortItem.Status}" />
+                        </StackPanel>
+                        <Grid Grid.Row="1" Margin="15,5,15,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Height="24"
+                                Margin="5,5,0,0"
+                                HorizontalAlignment="Left"
+                                Text="Direction(°):"
+                                TextAlignment="Center" />
+                            <hc:NumericUpDown
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Width="80"
+                                Height="24"
+                                Maximum="360"
+                                Minimum="0"
+                                Style="{StaticResource NumericUpDownExtend}"
+                                Value="{Binding WaferOrientaion}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Width="Auto"
+                                Height="28"
+                                Margin="5,5,8,0"
+                                Command="{Binding SetWaferDataCommand}"
+                                Content="Apply"
+                                IsEnabled="{Binding ButtonIsEnable}"
+                                Style="{DynamicResource NormalButtonStyle}" />
+                        </Grid>
+                    </Grid>
+                </Label>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="5,15,5,0"
+                    Style="{DynamicResource Container_PortLabelStyle}"
+                    Tag="Aligner">
+                    <Grid Margin="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            x:Name="AlignerPanel"
+                            Grid.Column="1"
+                            Height="35"
+                            AllowDrop="True"
+                            Background="#fff"
+                            DragDrop.DragOver="StackPanel_DragOver"
+                            DragDrop.Drop="StackPanel_Drop"
+                            MouseRightButtonUp="Slot_MouseRightButtonUp">
+                            <wafer:SlotView
+                                Content="{Binding AlignerPortItem}"
+                                MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown"
+                                Tag="{Binding AlignerPortItem.Status}" />
+                        </StackPanel>
+                    </Grid>
+                </Label>
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="5,15,5,0"
+                    Style="{DynamicResource Container_PortLabelStyle}"
+                    Tag="Robot">
+                    <Grid Margin="15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*" />
+                            <RowDefinition Height="3*" />
+                            <RowDefinition Height="4*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            x:Name="RobotPanel"
+                            Grid.Column="1"
+                            Height="35"
+                            AllowDrop="True"
+                            Background="#fff"
+                            DragDrop.DragOver="StackPanel_DragOver"
+                            DragDrop.Drop="StackPanel_Drop">
+                            <wafer:SlotView
+                                Content="{Binding RobotPortItem1}"
+                                MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown"
+                                Tag="{Binding RobotPortItem1.Status}" />
+                        </StackPanel>
+                        <StackPanel
+                            x:Name="RobotPanel2"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Height="35"
+                            AllowDrop="True"
+                            Background="#fff"
+                            DragDrop.DragOver="StackPanel_DragOver"
+                            DragDrop.Drop="StackPanel_Drop">
+                            <wafer:SlotView
+                                Content="{Binding RobotPortItem2}"
+                                MouseLeftButtonDown="ItemsControl_MouseLeftButtonDown"
+                                Tag="{Binding RobotPortItem2.Status}" />
+                        </StackPanel>
+                    </Grid>
+                </Label>
+            </Grid>
+            <Grid
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Border
+                    Grid.Row="0"
+                    Margin="0,15,15,0"
+                    Padding="20"
+                    Background="#F3F4F7"
+                    BorderBrush="#E6E7EA"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <Image Source="{Binding JitImageSource}" />
+                </Border>
+                <Label
+                    Grid.Row="1"
+                    Margin="0,15,15,15"
+                    Style="{DynamicResource Container_PortLabelStyle}"
+                    Tag="Operation Log">
+                    <Border Margin="0">
+                        <wafer:EFEMLogView />
+                    </Border>
+                </Label>
+            </Grid>
+        </Grid>
+        <StackPanel
+            Grid.Column="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:Growl.Token="WaferHandleMessage" />
+    </Grid>
+</Window>

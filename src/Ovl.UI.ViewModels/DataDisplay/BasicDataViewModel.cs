@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,7 +7,7 @@ using Ovl.Biz.Common.Measure.Models;
 namespace Ovl.UI.ViewModels.DataDisplay;
 
 /// <summary>BasicData 面板页签节点。</summary>
-public sealed record MenuNode(int Id, string Name, bool IsSelect);
+public sealed record BasicMenuNode(int Id, string Name, bool IsSelect);
 
 /// <summary>异常数据行（对应原版 JobAlarmList 条目）。</summary>
 public sealed record JobAlarmRow(int Index, DateTime RestoreTime, string Message, string States);
@@ -28,11 +28,11 @@ public sealed partial class BasicDataViewModel : ObservableObject
     }
 
     /// <summary>页签（History / Log / Alarm）。</summary>
-    public ObservableCollection<MenuNode> MenuNodeList { get; } =
+    public ObservableCollection<BasicMenuNode> MenuNodeList { get; } =
     [
-        new MenuNode(0, "History", true),
-        new MenuNode(1, "Log", false),
-        new MenuNode(2, "Alarm", false),
+        new BasicMenuNode(0, "History", true),
+        new BasicMenuNode(1, "Log", false),
+        new BasicMenuNode(2, "Alarm", false),
     ];
 
     [ObservableProperty]

@@ -1,0 +1,171 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.Test_Physical_New"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:uiControls="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+    xmlns:vm="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    d:DataContext="{d:DesignInstance Type=vm:Test_PhysicalNewViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+    DataContext="{prism:ContainerProvider {x:Type vm:Test_PhysicalNewViewModel}}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Marvel.ComModule;component/Style/CardPropertyGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+        <ColumnDefinition Width="{Binding MultiRoiWidth}" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ItemsControl Grid.Column="0"
+                x:Name="ic"
+                Margin="0,0,5,5"
+                ItemTemplateSelector="{StaticResource PropertyTemplateSelector}"
+                ItemsSource="{Binding PropertyViewModels}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Height="{Binding ActualHeight, ElementName=ic}" Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="MinWidth" Value="400" />
+                        <Setter Property="MaxWidth" Value="600" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+            <Border Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Content="Save" Margin="0,8,75,0" Panel.ZIndex="10" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding SaveCDMultiRoiCommand}"></Button>
+                    <Button Content="Add" Margin="0,8,15,0" Panel.ZIndex="10" HorizontalAlignment="Right" Command="{Binding AddCDMultiRoiCommand}" VerticalAlignment="Top" Style="{StaticResource MarvelDarkButton}"></Button>
+                    <Label Grid.Row="0" Margin="5" Style="{DynamicResource ContainerLabelStyle}" Tag="CD Settings" 
+                           Visibility="{Binding IsBrowsable, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <DataGrid x:Name="dgCDMultiRoi" Padding="0" HorizontalAlignment="Stretch"
+                        AutoGenerateColumns="False" Background="Transparent" ItemsSource="{Binding MultiRoiList}"
+                        BorderThickness="0,0" CanUserAddRows="False"
+                        CanUserDeleteRows="False" CanUserReorderColumns="False"
+                        CanUserResizeRows="True" CanUserSortColumns="False" CellStyle="{DynamicResource TargetDataGridCellStyle}"
+                        RowHeight="40" RowStyle="{DynamicResource TargetListDataGridRowStyle}"
+                        SelectionMode="Single" Style="{DynamicResource DataGrid.Small}"
+                        VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn  Header="ID" IsReadOnly="True">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding Id}" BorderThickness="0" Background="Transparent" VerticalAlignment="Center"></Label>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="CD Name">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="100"></TextBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Nominal CD Dimenslons(um)">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="2,0" Orientation="Horizontal">
+                                                <hc:NumericUpDown Width="95" Height="24" Margin="0,0,0,0" DecimalPlaces="3" Style="{StaticResource NumericUpDownExtend}" Value="{Binding NominalDimenslons, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Delete">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Delete" Command="{Binding DataContext.DeleteMultiRoiCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                                    CommandParameter="{Binding}"></Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Label>
+          <Label Grid.Row="1" Margin="5" Style="{DynamicResource ContainerLabelStyle}" Tag="Matching Formula and Coefficients (Y=A0+A1*X)" 
+       Visibility="{Binding IsBrowsable, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <DataGrid x:Name="dgCDMultiRoi2" Padding="0" HorizontalAlignment="Stretch"
+    AutoGenerateColumns="False" Background="Transparent" ItemsSource="{Binding MultiRoiList}"
+    BorderThickness="0,0" CanUserAddRows="False"
+    CanUserDeleteRows="False" CanUserReorderColumns="False"
+    CanUserResizeRows="True" CanUserSortColumns="False" CellStyle="{DynamicResource TargetDataGridCellStyle}"
+    RowHeight="40" RowStyle="{DynamicResource TargetListDataGridRowStyle}"
+    SelectionMode="Single" Style="{DynamicResource DataGrid.Small}"
+    VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn  Header="CD ID" IsReadOnly="True">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding Id}" BorderThickness="0" Background="Transparent"></Label>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="CD Name" MinWidth="130">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding Name}" BorderThickness="0" Background="Transparent"></Label>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="A0">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="2,0" Orientation="Horizontal">
+                                                <hc:NumericUpDown Width="80" Height="24" Margin="0,0,0,0" DecimalPlaces="3" Style="{StaticResource NumericUpDownExtend}" Value="{Binding A0, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="A1">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="2,0" Orientation="Horizontal">
+                                                <hc:NumericUpDown Width="80" Height="24" Margin="0,0,0,0" DecimalPlaces="3" Style="{StaticResource NumericUpDownExtend}" Value="{Binding A1, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Enable">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ToggleButton
+                HorizontalAlignment="Right"
+                IsChecked="{Binding Enable, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ToggleButtonSwitch}" />
+                                            <!--<Button Content="Delete" Command="{Binding DataContext.DeleteMultiRoiCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                CommandParameter="{Binding}"></Button>-->
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Label>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -10,6 +10,20 @@
     <PackageReference Include="HandyControl" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
+    <!-- M4b/M5b vendor 依赖（Marvel.Main 原样迁入；Prism 仅 vendor 域使用） -->
+    <PackageReference Include="Prism.Core" />
+    <PackageReference Include="Prism.Wpf" />
+    <PackageReference Include="Prism.DryIoc" />
+    <PackageReference Include="ScottPlot.WPF" />
+    <PackageReference Include="Microsoft.Extensions.AI.OpenAI" />
+    <PackageReference Include="InteVega.CBB.EfemApi" />
+    <PackageReference Include="Ovl.Encryption.DoNet" />
+    <PackageReference Include="OVL.Algorithm.DoNet" />
+    
+    <PackageReference Include="InteVega.CBB.Log.Display" />
+    <PackageReference Include="AdonisUI" />
+    <PackageReference Include="Quartz" />
+    <PackageReference Include="Superpower" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +33,72 @@
     <ProjectReference Include="..\Ovl.UI.ViewModels\Ovl.UI.ViewModels.csproj" />
     <!-- 自 packages 搬入的配方/系统配置层（M4b 深度配方编辑的基础） -->
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
+    <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Interface\InteVega.CBB.Recipe.Interface.csproj" />
+    <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Ui\InteVega.CBB.Recipe.Ui.csproj" />
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.SystemConfig\InteVega.CBB.SystemConfig\InteVega.CBB.SystemConfig.csproj" />
+    <!-- marvel 历史工程直引（引用解析规则：packages 找不到去 marvel） -->
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.DomainLib\InteVega.CBB.DomainLib.csproj" />
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.DomainService.Api\InteVega.CBB.DomainService.Api.csproj" />
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.MotionController.Ui\InteVega.CBB.MotionController.Ui.csproj" />
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.StageControlModule\InteVega.CBB.StageControlModule.csproj" />
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.TemplateMatching.Core\InteVega.CBB.TemplateMatching.Core.csproj" />
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.TemplateMatchingModule\InteVega.CBB.TemplateMatchingModule.csproj" />
+    <ProjectReference Include="..\..\..\marvel\DomainService\Megarobo.Ovl.Service.Interface\Megarobo.Ovl.Service.Interface.csproj" />
+    <ProjectReference Include="..\..\packages\InteVega.CBB.User\InteVega.CBB.User.Ui\InteVega.CBB.User.Ui.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.Application\Marvel.Application.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.Application40\Marvel.Application40.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.AppModels\Marvel.DataModels\Marvel.DataModels.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.AppModels\Marvel.DataModels40\Marvel.DataModels40.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.ComModule\Marvel.ComModule.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.LogViewCommon\Marvel.LogViewCommon.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.WaferMapCommon\Marvel.WaferMapCommon.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.Commons\Marvel.Commons.csproj" />
+    <ProjectReference Include="..\..\..\marvel\TargetSelectionControl\Marvel.TargetSelectionControl.csproj" />
+    <ProjectReference Include="..\..\packages\InteVega.CBB.HPImageViewer\HPImageViewer\HPImageViewer.csproj" />
+  </ItemGroup>
+
+  <!-- marvel/Marvel.Main 原样迁入：沿用其 csproj 的编译排除清单（废/旧实现不参与编译） -->
+  <ItemGroup>
+    <Compile Remove="Controls\AutoWrapPanel.cs" />
+    <Compile Remove="Controls\ControlTargetArray.xaml.cs" />
+    <Compile Remove="Controls\ControlTestIcon.cs" />
+    <Compile Remove="Controls\DrawTarget.cs" />
+    <Compile Remove="Controls\DynamicPanel.cs" />
+    <Compile Remove="Controls\FieldElement.cs" />
+    <Compile Remove="Controls\TargetSettingControl.cs" />
+    <Compile Remove="Controls\WaferMapControl.xaml.cs" />
+    <Compile Remove="Controls\WaferMapControl_Check.cs" />
+    <Compile Remove="Controls\WaferMapControl_Mouse.cs" />
+    <Compile Remove="Controls\WaferMapControl_Qmerit.cs" />
+    <Compile Remove="Controls\WaferMapControl_Select.cs" />
+    <Compile Remove="Recipe\View\AlignmentView.xaml.cs" />
+    <Compile Remove="Recipe\View\CPLParamView.xaml.cs" />
+    <Compile Remove="Recipe\View\Test_Physical.xaml.cs" />
+    <Compile Remove="Recipe\View\Test_TargetSetting.xaml.cs" />
+    <Compile Remove="Recipe\View\Test_Train40_CD_Param_View.xaml.cs" />
+    <Compile Remove="Recipe\View\Test_TrainView.xaml.cs" />
+    <Compile Remove="Recipe\View\Test_Train_AimXYS_View.xaml.cs" />
+    <Compile Remove="Recipe\View\WaferMapShiftFieldView.xaml.cs" />
+    <Compile Remove="Recipe\ViewModel\Test_TrainViewModel.cs" />
+    <Compile Remove="Recipe\ViewModel\Test_TrainViewModel_CPL.cs" />
+    <Compile Remove="Recipe\ViewModel\Test_PhysicalViewModel.cs" />
+    <Compile Remove="Recipe\ViewModel\Test_TargetSettingViewModel.cs" />
+    <Compile Remove="Recipe\ViewModel\Test_TrainViewModel_Old.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Controls\ControlStyles.xaml" />
+    <Page Remove="Controls\ControlTargetArray.xaml" />
+    <Page Remove="Controls\WaferMapControl.xaml" />
+    <Page Remove="Recipe\View\AlignmentView.xaml" />
+    <Page Remove="Recipe\View\CPLParamView.xaml" />
+    <Page Remove="Recipe\View\Test_Physical.xaml" />
+    <Page Remove="Recipe\View\Test_TargetSetting.xaml" />
+    <Page Remove="Recipe\View\Test_Train40_CD_Param_View.xaml" />
+    <Page Remove="Recipe\View\Test_TrainView.xaml" />
+    <Page Remove="Recipe\View\Test_Train_AimXYS_View.xaml" />
+    <Page Remove="Recipe\View\WaferMapShiftFieldView.xaml" />
+    <Page Remove="Resources\Languages\ViewDict_ch.xaml" />
+    <Page Remove="Resources\Languages\ViewDict_en.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +110,19 @@
   <!-- 嵌入资源：XAML 通过 pack URI（/Ovl.UI;component/Assets/...）引用 -->
   <ItemGroup>
     <Resource Include="Assets\ImageViewer.png" />
+    <Resource Include="Resources\Images\img_jit%402x.png" />
+    <Resource Include="Resources\Images\img_jit%403x.png" />
+    <Resource Include="Resources\Languages\ViewDict_ch.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Resources\Languages\ViewDict_en.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
   </ItemGroup>
+
 
 </Project>

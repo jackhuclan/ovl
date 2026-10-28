@@ -1,0 +1,212 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.SummaryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:comControl="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+    xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:cvt="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:recipe="clr-namespace:Ovl.UI.Recipe.View"
+    xmlns:viewModel="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    DataContext="{prism:ContainerProvider {x:Type viewModel:SummaryViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="BorderRecipeTabItem" TargetType="Border">
+                <Setter Property="CornerRadius" Value="5,5,0,0" />
+                <Setter Property="Background" Value="#fff" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+            <Style x:Key="ButtonRecipeTabItem" TargetType="Button">
+                <Setter Property="Margin" Value="0,0,4,0" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+            <Style x:Key="TextBlockTableItem" TargetType="TextBlock">
+                <Setter Property="Margin" Value="16,5,16,5" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Foreground" Value="#444" />
+            </Style>
+            <cvt:TestTypeConverter x:Key="TestTypeConverter1" />
+            <cvt:VersionToVisibilityConverter x:Key="VersionToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Margin="20,20,10,20">
+            <recipe:RecipeBaseView DataContext="{Binding RecipeBaseViewModel}" />
+        </Border>
+        <Border Grid.Column="1" Margin="0,20,20,20">
+            <Label Style="{DynamicResource ContainerLabelStyle}" Tag="Recipe elements">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="36" />
+                        <RowDefinition Height="*" />
+                        <!--<RowDefinition Height="20" />-->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{DynamicResource RowLabelStyle}"
+                        Tag="Wafer Map：">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="#444"
+                            Text="{Binding WaferMapStatus}" />
+                    </Label>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{DynamicResource RowLabelStyle}"
+                        Tag="Alignment：">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="#444"
+                            Text="{Binding AlignmentStatus}" />
+                    </Label>
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{DynamicResource RowLabelStyle}"
+                        Tag="Run Parameters：">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="#444"
+                            Text="{Binding RunParametersStatus}" />
+                    </Label>
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{DynamicResource RowLabelStyle}"
+                        Tag="Tests：" />
+                    <DataGrid
+                        x:Name="testinfos"
+                        Grid.Row="4"
+                        Margin="0,0"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeRows="True"
+                        CanUserSortColumns="False"
+                        ItemsSource="{Binding TestDataList}"
+                        SelectionMode="Single"
+                        Style="{StaticResource DataGrid.Small}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn
+                                MinWidth="50"
+                                Header="No."
+                                IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent">
+                                            <comControl:CtlAutoNo
+                                                Margin="2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                AncestorType="{x:Type DataGrid}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                Width="*"
+                                MinWidth="100"
+                                Header="Name"
+                                IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Name}" />
+                                        </Border>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                MinWidth="50"
+                                Header="Status"
+                                IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding TrainSetting.IsTrained}" />
+                                        </Border>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn
+                                MinWidth="80"
+                                Header="FaceMode"
+                                IsReadOnly="True"
+                                Visibility="{x:Static cvt:VersionToVisibilityConverter.OM40Visibility}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding FaceMode}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                MinWidth="50"
+                                Header="Enable"
+                                IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding IsEnable}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Label>
+        </Border>
+    </Grid>
+
+
+</UserControl>

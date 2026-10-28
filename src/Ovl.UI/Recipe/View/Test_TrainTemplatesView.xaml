@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Ovl.UI.Recipe.View.Test_TrainTemplatesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+             xmlns:localControl="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+             xmlns:tempmachview="clr-namespace:InteVega.CBB.TemplateMatchingModule.Views;assembly=InteVega.CBB.TemplateMatchingModule"
+             xmlns:hc="clr-namespace:HandyControl.Controls;assembly=HandyControl"
+             mc:Ignorable="d"
+             x:Name="templatesViewRoot"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <GroupBox  Margin="3"
+     
+     Header="Template models"
+     Style="{DynamicResource ExpandGroupBoxStyle}">
+        <StackPanel>
+            <Grid    Margin="3,6,3,3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label
+     Grid.Row="0"
+     HorizontalAlignment="Left"
+     VerticalAlignment="Center"
+     Style="{x:Null}">
+                    Search Area:
+                </Label>
+                <StackPanel
+     Grid.Row="0"
+     Grid.Column="1"
+     Margin="0,5,5,5"
+     HorizontalAlignment="Right"
+     IsEnabled="{Binding SearchROI_SetEnabled, Converter={StaticResource OtvCVT}}"
+     Orientation="Horizontal">
+                    <Button
+         Width="75"
+         Margin="5,0,0,0"
+         Command="{Binding SearchRoi_SetCommand}"
+         IsEnabled="{Binding SearchROI_SetEnabled}"
+         Style="{StaticResource ButtonPrimary}"
+         Visibility="{Binding SearchROI_SetEnabled, Converter={StaticResource OtvCVT}}">
+                        Set
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding SearchROI_SetEnabled, Converter={StaticResource OtvReCVT}}">
+                        <Button
+             Width="75"
+             Margin="5,0,0,0"
+             HorizontalAlignment="Right"
+             Command="{Binding SearchRoi_ConfirmCommand}"
+             Style="{StaticResource ButtonPrimary}">
+                            Confirm
+                        </Button>
+                        <Button
+             Width="75"
+             Margin="5,0,0,0"
+             Command="{Binding SearchRoi_CancelCommand}"
+             Style="{StaticResource ButtonDefault}">
+                            Cancel
+                        </Button>
+
+                        <Button
+             Width="75"
+             Margin="5,0,0,0"
+             Command="{Binding SearchRoi_ClearCommand}"
+             Style="{StaticResource ButtonDefault}">
+                            Clear
+                        </Button>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+            <GroupBox
+                 Margin="3"
+                Header="Inner Model"
+                Style="{DynamicResource ExpandGroupBoxStyle}">
+                <StackPanel>
+                    <StackPanel
+                        Height="28"
+                        Margin="8,1,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <TextBlock Margin="0,8,10,0" Text="ExtendSize(pixel):" />
+                        <hc:NumericUpDown
+                            Width="85"
+                            Height="24"
+                            DecimalPlaces="0"
+                            Style="{StaticResource NumericUpDownExtend}"
+                            Value="{Binding RoiExtendSize_Inner, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <tempmachview:SingleTemplateControl  
+                        x:Name="innerModelTemplateControl"
+                        ImageViewer="{Binding ImageViewer, ElementName=templatesViewRoot}"
+                        IsShowSearArea="False"
+                        IsShowCleanup="False" />
+                </StackPanel>
+            </GroupBox>
+
+
+            <GroupBox
+                Margin="3"
+                Header="Outer Model"
+                Style="{DynamicResource ExpandGroupBoxStyle}">
+                <StackPanel>
+                    <StackPanel
+                        Height="28"
+                        Margin="8,1,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <TextBlock Margin="0,8,10,0" Text="ExtendSize(pixel):" />
+                        <hc:NumericUpDown
+                            Width="85"
+                            Height="24"
+                            DecimalPlaces="0"
+                            Style="{StaticResource NumericUpDownExtend}"
+                            Value="{Binding RoiExtendSize_Outer, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <tempmachview:SingleTemplateControl
+                        x:Name="outerModelTemplateControl"
+                        ImageViewer="{Binding ImageViewer, ElementName=templatesViewRoot}"
+                        IsShowSearArea="False"
+                        IsShowCleanup="False" />
+                </StackPanel>
+            </GroupBox>
+
+            <localControl:PositioningModelControl
+            x:Name="positioningModelControl" 
+            IsForEachTarget="{Binding TrainSetting.PositioningTemplateInfo.IsForEachTarget, Mode=TwoWay}"
+            IsPositioningEnabled="{Binding TrainSetting.PositioningTemplateInfo.IsEnable, Mode=TwoWay}" />
+        </StackPanel>
+    </GroupBox>
+</UserControl>

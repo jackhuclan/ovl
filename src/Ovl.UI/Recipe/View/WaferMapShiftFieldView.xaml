@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="Ovl.UI.Recipe.View.WaferMapShiftFieldView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+               xmlns:hc="https://handyorg.github.io/handycontrol"
+  xmlns:lc="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+xmlns:wafermap="clr-namespace:Marvel.WaferMapCommon;assembly=Marvel.WaferMapCommon"
+             xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+    <Grid.RowDefinitions >
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Label
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  Margin="0,0,0,10"
+                  Style="{DynamicResource ContainerLabelStyle}"
+                  Tag="Wafer Grid Shift Vector - R1">
+      <Grid Margin="10">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Style="{DynamicResource TextBlockTitle}"
+                          Text="Reference Point："
+                          Visibility="Collapsed" />
+        <CheckBox
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          Margin="0,0,10,10"
+                          Content="Manual"
+                          Foreground="#444"
+                          IsChecked="{Binding WaferMapInfo.IsManual}" />
+        <CheckBox
+                          Grid.Row="0"
+                          Grid.Column="3"
+                          Grid.ColumnSpan="2"
+                          Margin="0,0,10,10"
+                          Click="CheckBoxFieldCenter_Click"
+                          Content="Center of field"
+                          Foreground="#444"
+                          IsChecked="{Binding WaferMapInfo.IsFieldCenter}" />
+        <TextBlock
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Style="{DynamicResource TextBlockTitle}"
+                          Text="X(mm)：" />
+        <hc:NumericUpDown
+                          Grid.Row="1"
+                          Grid.Column="2"
+                          Height="24"
+                          Margin="0,0,10,0"
+                          HorizontalAlignment="Left"
+                          DecimalPlaces="6"
+                          IsEnabled="{Binding WaferMapInfo.IsManual}"
+                          Style="{StaticResource NumericUpDownExtend}"
+                          Value="{Binding WaferMapInfo.R1.X}" />
+        <TextBlock
+                          Grid.Row="1"
+                          Grid.Column="3"
+                          Style="{DynamicResource TextBlockTitle}"
+                          Text="Y(mm)：" />
+        <hc:NumericUpDown
+                          Grid.Row="1"
+                          Grid.Column="4"
+                          Height="24"
+                          HorizontalAlignment="Left"
+                          DecimalPlaces="6"
+                          IsEnabled="{Binding WaferMapInfo.IsManual}"
+                          Style="{StaticResource NumericUpDownExtend}"
+                          Value="{Binding WaferMapInfo.R1.Y}" />
+
+      </Grid>
+    </Label>
+
+    <WrapPanel Grid.Row="2"  >
+     
+     
+    </WrapPanel>
+
+    <Label
+Grid.Row="1"
+Grid.Column="0"
+Margin="0,0,0,10"
+Style="{DynamicResource ContainerLabelStyle}"
+Tag="Shot/Field"
+  >
+      <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+        Grid.Row="0"
+        Grid.Column="0"
+        Style="{DynamicResource TextBlockTitle}"
+        Text="Horizontal：" />
+        <hc:NumericUpDown
+        Grid.Row="0"
+        Grid.Column="1"
+        Height="24"
+        Margin="0,0,10,0"
+        DecimalPlaces="0"
+        Minimum="1"
+        Style="{StaticResource NumericUpDownExtend}"
+        Value="{Binding WaferMapInfo.FieldColumnSpan}" />
+        <TextBlock
+        Grid.Row="0"
+        Grid.Column="2"
+        Style="{DynamicResource TextBlockTitle}"
+        Text="Vertical：" />
+        <hc:NumericUpDown
+        Grid.Row="0"
+        Grid.Column="3"
+        Height="24"
+        DecimalPlaces="0"
+        Minimum="1"
+        Style="{StaticResource NumericUpDownExtend}"
+        Value="{Binding WaferMapInfo.FieldRowSpan}" />
+      </Grid>
+    </Label>
+
+    <wafermap:WaferMapControl
+       x:Name="wmc"
+       Grid.Row="3"
+       Margin="10"
+       VerticalAlignment="Top"
+       Cursor="Arrow"
+       EditMode="None" />
+  </Grid>
+</UserControl>

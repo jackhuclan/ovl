@@ -1,0 +1,305 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.Test_DataCulling"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataModelenum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:uicommon="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+    xmlns:vm="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    d:DataContext="{d:DesignInstance Type=vm:Test_DataCullingViewModel}"
+    d:DesignHeight="300"
+    d:DesignWidth="1000"
+    DataContext="{prism:ContainerProvider {x:Type vm:Test_DataCullingViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_en.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_ch.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="0,0,10,0" />
+            </Style>
+            <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,10,0,0"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Wafer Pass/Fail Criteria">
+                <Grid Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            X Range(um):
+                        </Label>
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            Y Range(um):
+                        </Label>
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            SitesPassThreshold (%):
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <hc:NumericUpDown
+                            Margin="3"
+                            DecimalPlaces="3"
+                            Minimum="0"
+                            Value="{Binding TestInfo.DataCulling.WaferPassCulling.XErrorUpperLimit}" />
+                        <hc:NumericUpDown
+                            Margin="3"
+                            DecimalPlaces="3"
+                            Minimum="0"
+                            Value="{Binding TestInfo.DataCulling.WaferPassCulling.YErrorUpperLimit}" />
+                        <hc:NumericUpDown
+                            Margin="3"
+                            DecimalPlaces="3"
+                            Minimum="0"
+                            Value="{Binding TestInfo.DataCulling.WaferPassCulling.PassCriteria}" />
+                    </StackPanel>
+                </Grid>
+            </Label>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10,10,0,0"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Threshold for TIS Culling">
+                <Grid Grid.Column="1" Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            Tis Culling On:
+                        </Label>
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            X Range(um):
+                        </Label>
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            Y Range(um):
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <CheckBox
+                            Margin="3"
+                            HorizontalAlignment="Right"
+                            IsChecked="{Binding TestInfo.DataCulling.TisCulling.IsEnableTisCulling}"
+                            Style="{StaticResource ToggleButtonSwitch}" />
+                        <hc:NumericUpDown
+                            Margin="3"
+                            DecimalPlaces="3"
+                            Minimum="0"
+                            Value="{Binding TestInfo.DataCulling.TisCulling.XTisCulling}" />
+                        <hc:NumericUpDown
+                            Margin="3"
+                            DecimalPlaces="3"
+                            Minimum="0"
+                            Value="{Binding TestInfo.DataCulling.TisCulling.YTisCulling}" />
+                    </StackPanel>
+                </Grid>
+            </Label>
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="10,10,0,10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Threshold for QMerit Culling">
+                <Grid Grid.Column="1" Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            QMerit Culling on:
+                        </Label>
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            Threshold (%) :
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <CheckBox
+                            Margin="3"
+                            HorizontalAlignment="Right"
+                            IsChecked="{Binding TestInfo.DataCulling.QMeritCulling.IsEnableQMeritCulling}"
+                            Style="{StaticResource ToggleButtonSwitch}" />
+                        <hc:NumericUpDown
+                            Margin="3"
+                            DecimalPlaces="3"
+                            Minimum="0"
+                            Value="{Binding TestInfo.DataCulling.QMeritCulling.QMeritCullingThreshold}" />
+                    </StackPanel>
+                </Grid>
+            </Label>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,10,0,0"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Static Measurement Iterations">
+                <Grid Margin="2">
+                    <StackPanel>
+                        <Grid>
+                            <Label
+                                HorizontalAlignment="Left"
+                                FontWeight="Bold"
+                                Style="{x:Null}">
+                                Iterations During Autorun:
+                            </Label>
+                            <hc:NumericUpDown
+                                Margin="3"
+                                HorizontalAlignment="Right"
+                                Value="{Binding TestInfo.DataCulling.MeasurementIterations.IterationsAutorun}" />
+                        </Grid>
+                        <Grid Margin="1,3">
+                            <Label FontWeight="Bold" Style="{x:Null}">Report Data:</Label>
+                            <WrapPanel HorizontalAlignment="Right">
+                                <!--<RadioButton Style="{x:Null}" Content="Report all Measurements"></RadioButton>
+                <RadioButton Margin="20 0 20 0" Style="{x:Null}" Content="ReportAverageOnly"></RadioButton>-->
+
+                                <RadioButton
+                                    Content="Report all Measurements"
+                                    GroupName="ReportDataGroup"
+                                    IsChecked="{Binding TestInfo.DataCulling.MeasurementIterations.ReportData, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumReportData.ReportAllMeasurenments}, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{DynamicResource RadioButtonStyle}" />
+
+                                <RadioButton
+                                    Margin="20,0,20,0"
+                                    Content="ReportAverageOnly"
+                                    GroupName="ReportDataGroup"
+                                    IsChecked="{Binding TestInfo.DataCulling.MeasurementIterations.ReportData, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumReportData.ReportAverageOnly}, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{DynamicResource RadioButtonStyle}" />
+
+
+                            </WrapPanel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Label>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10,10,0,10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Threshold for Box Correlation">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            Measurement Culling on:
+                        </Label>
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            Inner Box (%):
+                        </Label>
+                        <Label
+                            Margin="3"
+                            HorizontalAlignment="Left"
+                            FontWeight="Bold"
+                            Style="{x:Null}">
+                            Outer Box (%):
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <CheckBox
+                            Margin="3"
+                            HorizontalAlignment="Right"
+                            IsChecked="{Binding TestInfo.DataCulling.BoxCorrelation.IsOpenMeasurementCulling}"
+                            Style="{StaticResource ToggleButtonSwitch}" />
+                        <hc:NumericUpDown
+                            Margin="3"
+                            HorizontalAlignment="Right"
+                            DecimalPlaces="3"
+                            Value="{Binding TestInfo.DataCulling.BoxCorrelation.InnerBox}" />
+                        <hc:NumericUpDown
+                            Margin="3"
+                            HorizontalAlignment="Right"
+                            DecimalPlaces="3"
+                            Value="{Binding TestInfo.DataCulling.BoxCorrelation.OuterBox}" />
+                    </StackPanel>
+                </Grid>
+
+            </Label>
+        </Grid>
+    </Grid>
+</UserControl>

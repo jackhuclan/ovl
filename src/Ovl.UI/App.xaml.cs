@@ -1,19 +1,19 @@
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ovl.Biz.Services;
 using Ovl.UI.Services;
-using Ovl.UI.ViewModels.DataDisplay;
+using Ovl.UI.Views.Shell;
+
+using Ovl.UI.DataDisplay.ViewModel;
 using Ovl.UI.ViewModels.Dialogs;
-using Ovl.UI.ViewModels.Recipe;
-using Ovl.UI.ViewModels.Setting;
-using Ovl.UI.ViewModels.Tools;
 using Ovl.UI.ViewModels.Measure;
 using Ovl.UI.ViewModels.Navigation;
 using Ovl.UI.ViewModels.Placeholder;
+using Ovl.UI.ViewModels.Recipe;
+using Ovl.UI.ViewModels.Setting;
 using Ovl.UI.ViewModels.Shell;
-using Ovl.UI.Views.Shell;
-
+using Ovl.UI.ViewModels.Tools;
 namespace Ovl.UI;
 
 /// <summary>

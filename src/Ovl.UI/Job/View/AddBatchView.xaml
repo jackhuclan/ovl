@@ -1,0 +1,112 @@
+﻿<Window
+  x:Class="Ovl.UI.Job.View.AddBatchView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:Ovl.UI.Job.View"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  Title="Add Batch"
+  Width="600"
+  Height="400"
+  SizeToContent="Height"
+  mc:Ignorable="d">
+  <Window.Resources>
+    <Style x:Key="txtBlockTitle" TargetType="TextBlock">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="FontWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="#000000" />
+      <Setter Property="Margin" Value="20,0,0,0" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="MaxWidth" Value="200" />
+    </Style>
+  </Window.Resources>
+  <Grid Margin="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="20" />
+      <RowDefinition Height="auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <TextBlock
+      Grid.Row="0"
+      Grid.Column="0"
+      Style="{StaticResource txtBlockTitle}"
+      Text="Parent Folder:" />
+    <TextBlock
+      x:Name="txtParent"
+      Grid.Row="0"
+      Grid.Column="1"
+      Margin="20,5"
+      HorizontalAlignment="Left"
+      FontWeight="Normal"
+      Style="{StaticResource txtBlockTitle}" />
+    <TextBlock
+      x:Name="txtOldNameTitle"
+      Grid.Row="1"
+      Grid.Column="0"
+      Style="{StaticResource txtBlockTitle}"
+      Text="Old Name:" />
+    <TextBlock
+      x:Name="txtOldName"
+      Grid.Row="1"
+      Grid.Column="1"
+      Margin="20,5"
+      HorizontalAlignment="Left"
+      FontWeight="Normal"
+      Style="{StaticResource txtBlockTitle}" />
+    <TextBlock
+      x:Name="txtNameTitle"
+      Grid.Row="2"
+      Grid.Column="0"
+      Style="{StaticResource txtBlockTitle}"
+      Text="New Name:" />
+    <TextBox
+      x:Name="txtName"
+      Grid.Row="2"
+      Grid.Column="1"
+      Margin="20,5" />
+    <Grid
+      Grid.Row="4"
+      Grid.Column="1"
+      Grid.ColumnSpan="2"
+      Margin="20,0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition Width="auto" />
+      </Grid.ColumnDefinitions>
+      <StackPanel
+        Grid.Column="1"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Center"
+        Orientation="Horizontal">
+        <Button
+          x:Name="btnSave"
+          Margin="10,0"
+          Click="btnSave_Click"
+          Content="Save"
+          Style="{StaticResource ButtonPrimary}" />
+        <Button
+          x:Name="btnClose"
+          Click="btnClose_Click"
+          Content="Cancel"
+          Style="{StaticResource ButtonDefault}" />
+      </StackPanel>
+      <TextBlock
+        x:Name="txtError"
+        Grid.Row="2"
+        Grid.Column="0"
+        VerticalAlignment="Center"
+        Foreground="Red"
+        Text=""
+        TextWrapping="Wrap" />
+    </Grid>
+
+  </Grid>
+</Window>

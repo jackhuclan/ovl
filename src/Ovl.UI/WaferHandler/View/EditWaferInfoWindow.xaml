@@ -1,0 +1,56 @@
+﻿<Window x:Class="Ovl.UI.WaferHandler.View.EditWaferInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit Wafer Info"
+        Width="360"
+        Height="260"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+    <Border Padding="16">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Position:"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding PositionName}"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Wafer Size:"/>
+            <ComboBox Grid.Row="2" Grid.Column="1"
+          ItemsSource="{Binding WaferSizes}"
+          SelectedItem="{Binding SelectedWaferSize}"
+          MinWidth="180"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Source LP:"/>
+            <ComboBox Grid.Row="4" Grid.Column="1"
+          ItemsSource="{Binding SourcePorts}"
+          SelectedItem="{Binding SelectedSourcePort}"
+          MinWidth="180"/>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="Source Slot:"/>
+            <TextBox Grid.Row="6" Grid.Column="1"
+         Text="{Binding SourceSlot, UpdateSourceTrigger=PropertyChanged}"
+         MinWidth="180"/>
+
+            <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+                <Button Width="90" Margin="0,0,8,0" Content="Save" Command="{Binding SaveCommand}"/>
+                <Button Width="90" Content="Cancel" Command="{Binding CancelCommand}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,79 @@
+﻿<Window
+  x:Class="Ovl.UI.Motion.View.MotionView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:Ovl.UI.Motion.View"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:prism="http://prismlibrary.com/"
+  xmlns:view="clr-namespace:InteVega.CBB.MotionController.Ui.View;assembly=InteVega.CBB.MotionController.Ui"
+  xmlns:viewModel="clr-namespace:InteVega.CBB.MotionController.Ui.ViewModel;assembly=InteVega.CBB.MotionController.Ui"
+  Title="Axis/Io"
+  Width="1600"
+  Height="900"
+  Loaded="View_Loaded"
+  ResizeMode="NoResize"
+  mc:Ignorable="d">
+
+  <Window.CommandBindings>
+    <CommandBinding Command="{x:Static ApplicationCommands.Stop}" Executed="EscCommand" />
+  </Window.CommandBindings>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="70" />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="80" />
+        <RowDefinition Height="80" />
+        <!--<RowDefinition Height="80" />-->
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <!--<Button
+        Name="btnMachine"
+        Grid.Row="0"
+        Width="66"
+        Height="66"
+        Click="btnMachine_Click"
+        Content="Module" />-->
+
+      <Button
+        Name="btnIO"
+        Width="66"
+        Height="66"
+        Click="btnIO_Click"
+        Content="IO" />
+
+      <Button
+        Name="btnAxis"
+        Grid.Row="1"
+        Width="66"
+        Height="66"
+        Click="btnAxis_Click"
+        Content="轴控制" />
+
+    </Grid>
+    <view:AxisControlMain
+      Name="viewAxis"
+      Grid.Column="1"
+      Margin="5"
+      DataContext="{prism:ContainerProvider {x:Type viewModel:AxisControlViewModel}}"
+      Visibility="Collapsed" />
+
+    <view:IoControlMain
+      Name="viewIO"
+      Grid.Column="1"
+      Margin="5"
+      DataContext="{prism:ContainerProvider {x:Type viewModel:IoControlViewModel}}" />
+    <!--<view:MachineModuleMain
+            Name="viewMachine"
+            Grid.Column="1"
+            Margin="5"
+            DataContext="{prism:ContainerProvider {x:Type viewModel:MachineModuleMainViewModel}}" />-->
+  </Grid>
+</Window>

@@ -1,0 +1,243 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.AddTestView_OM40"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
+
+    xmlns:enumhelper="clr-namespace:InteVega.CBB.ComUI.Helpers;assembly=InteVega.CBB.ComUI"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mtc="clr-namespace:Marvel.TargetSelectionControl.Control;assembly=Marvel.TargetSelectionControl"
+    xmlns:local="clr-namespace:Ovl.UI.Recipe.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="350"
+    d:DesignWidth="500"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Marvel.TargetSelectionControl;component/Control/ControlStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!--  Converters  -->
+            <local:MultiBooleanVisibilityConverter x:Key="MultiBoolVisConverter" />
+            <!--<Style BasedOn="{StaticResource ComboBoxBaseStyle}" TargetType="ComboBox">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Height" Value="24" />
+            </Style>-->
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="gd" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition MinWidth="200" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!--  TestName Row  -->
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="12"
+                Style="{DynamicResource TextBlockTitle}"
+                Text="Test Name：" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Height="24"
+                Margin="10"
+                Text="{Binding Test.Name}" />
+
+            <!--  FaceMode Row  -->
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                FontSize="12"
+                Style="{DynamicResource TextBlockTitle}"
+                Text="Face Mode："
+                Visibility="{Binding IsRename, Converter={StaticResource OtvReCVT}}" />
+            <ComboBox
+                x:Name="cbFaceMode"
+                Grid.Row="1"
+                Grid.Column="1"
+                Height="24"
+                Margin="10"
+                VerticalAlignment="Center"
+                SelectionChanged="cbFaceMode_SelectionChanged"
+                Visibility="{Binding IsRename, Converter={StaticResource OtvReCVT}}" />
+
+            <!--  TestType Row  -->
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                FontSize="12"
+                Style="{DynamicResource TextBlockTitle}"
+                Text="Test Type："
+                Visibility="{Binding IsRename, Converter={StaticResource OtvReCVT}}" />
+
+            <ComboBox
+                x:Name="cbTestType"
+                Grid.Row="2"
+                Grid.Column="1"
+                Height="24"
+                Margin="10"
+                VerticalAlignment="Center"
+                SelectionChanged="cbTestType_SelectionChanged">
+                <ComboBox.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="IsSingleFace" />
+                    </MultiBinding>
+                </ComboBox.Visibility>
+            </ComboBox>
+            <TextBlock
+                x:Name="tbTestType"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="15,10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="12"
+                Style="{DynamicResource TextBlockTitle}"
+                Text="Overlay"
+                TextAlignment="Center">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="IsDoubleFace" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+
+            <!--  SubType/InnerType Row  -->
+            <TextBlock
+                x:Name="txtSubType"
+                Grid.Row="3"
+                Grid.Column="0"
+                FontSize="12"
+                Style="{DynamicResource TextBlockTitle}"
+                Text="Sub Type：">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="ShowSubType" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+            <ComboBox
+                x:Name="cbSubType"
+                Grid.Row="3"
+                Grid.Column="1"
+                Height="24"
+                Margin="10"
+                VerticalAlignment="Center"
+                SelectionChanged="cbSubType_SelectionChanged">
+                <ComboBox.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="ShowSubType" />
+                    </MultiBinding>
+                </ComboBox.Visibility>
+            </ComboBox>
+            <TextBlock
+                x:Name="txtInnerType"
+                Grid.Row="3"
+                Grid.Column="0"
+                FontSize="12"
+                Style="{DynamicResource TextBlockTitle}"
+                Text="Inner Type：">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="IsDoubleFace" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+            <ComboBox
+                x:Name="cbInnerType"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="10"
+                VerticalAlignment="Center"
+                SelectionChanged="cbInnerType_SelectionChanged">
+                <ComboBox.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="IsDoubleFace" />
+                    </MultiBinding>
+                </ComboBox.Visibility>
+            </ComboBox>
+
+            <!--  OuterType Row (Only for DoubleFace)  -->
+            <TextBlock
+                x:Name="txtOuterType"
+                Grid.Row="4"
+                Grid.Column="0"
+                FontSize="12"
+                Style="{DynamicResource TextBlockTitle}"
+                Text="Outer Type：">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="IsDoubleFace" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+            <ComboBox
+                x:Name="cbOuterType"
+                Grid.Row="4"
+                Grid.Column="1"
+                Height="24"
+                Margin="10"
+                VerticalAlignment="Center"
+                SelectionChanged="cbOuterType_SelectionChanged">
+                <ComboBox.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBoolVisConverter}">
+                        <Binding Path="IsRename" />
+                        <Binding Path="IsDoubleFace" />
+                    </MultiBinding>
+                </ComboBox.Visibility>
+            </ComboBox>
+
+            <!--  Icon display  -->
+            <mtc:ControlTestIcon
+                x:Name="cti"
+                Grid.RowSpan="5"
+                Grid.Column="2"
+                Width="80"
+                Height="80"
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Grid>
+        <StackPanel
+            Grid.Row="1"
+            Margin="20,10"
+            HorizontalAlignment="Right"
+            DockPanel.Dock="Bottom"
+            Orientation="Horizontal">
+            <Button
+                Margin="0,0,15,0"
+                Command="{Binding SaveDataCommand}"
+                Content="Submit" />
+            <Button Command="{Binding CloseCommand}" Content="Cancel" />
+        </StackPanel>
+    </Grid>
+</UserControl>

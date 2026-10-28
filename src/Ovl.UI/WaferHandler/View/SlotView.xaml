@@ -1,0 +1,130 @@
+﻿<UserControl
+    x:Class="Ovl.UI.WaferHandler.View.SlotView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ovl.UI.WaferHandler.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    AllowDrop="True"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <convert:PortItemToStringConverter x:Key="PortItemToString" />
+            <Style x:Key="WaferPortLabelStyle" TargetType="Label">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Label">
+                            <Grid
+                                Width="184"
+                                Height="22"
+                                Margin="0,8,0,0">
+                                <TextBlock
+                                    x:Name="txtContent"
+                                    Width="145"
+                                    Height="16"
+                                    VerticalAlignment="Center"
+                                    Background="#80B436"
+                                    Foreground="#95ffffff"
+                                    Text="{TemplateBinding Content,
+                                                           Converter={StaticResource PortItemToString},
+                                                           ConverterParameter=2}"
+                                    TextAlignment="Center" />
+                                <Grid VerticalAlignment="Bottom">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="18" />
+                                        <RowDefinition Height="1.5" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="80" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Width="18"
+                                        Height="18"
+                                        Padding="0,2,0,0"
+                                        HorizontalAlignment="Left"
+                                        Background="#0F54C6"
+                                        Foreground="#80ffffff"
+                                        Text="{TemplateBinding Content,
+                                                               Converter={StaticResource PortItemToString},
+                                                               ConverterParameter=0}"
+                                        TextAlignment="Center" />
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Background="#0F54C6" />
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Width="18"
+                                        Height="18"
+                                        Padding="0,2,0,0"
+                                        HorizontalAlignment="Right"
+                                        Background="#0F54C6"
+                                        Foreground="#80ffffff"
+                                        Text="{TemplateBinding Content,
+                                                               Converter={StaticResource PortItemToString},
+                                                               ConverterParameter=1}"
+                                        TextAlignment="Center" />
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Background="#0F54C6" />
+                                </Grid>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Content" Value="">
+                                    <Setter TargetName="txtContent" Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="Normal">
+                                    <Setter TargetName="txtContent" Property="Background" Value="#80B436" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="Tilted">
+                                    <Setter TargetName="txtContent" Property="Background" Value="#FFC01E" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="Overlap">
+                                    <Setter TargetName="txtContent" Property="Background" Value="#C72A29" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="Empty">
+                                    <Setter TargetName="txtContent" Property="Visibility" Value="Collapsed" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--<Grid>
+    <Grid.RowDefinitions>
+    <RowDefinition></RowDefinition>
+    <RowDefinition></RowDefinition>
+  </Grid.RowDefinitions>
+  <Ellipse Grid.Row="0" x:Name="circleUI"
+         Height="100" Width="100"
+         Fill="Blue" />
+  <TextBlock Grid.Row="1" x:Name="txtName" Foreground="#000" Background="Aquamarine" Text="{Binding Text, RelativeSource={RelativeSource AncestorType=UserControl}}"></TextBlock>
+  </Grid>-->
+    <Grid>
+
+        <Label
+            x:Name="lblSolt"
+            Margin="0,0,0,0"
+            Content="{Binding Content, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}"
+            Style="{DynamicResource WaferPortLabelStyle}"
+            Tag="{Binding Tag, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</UserControl>

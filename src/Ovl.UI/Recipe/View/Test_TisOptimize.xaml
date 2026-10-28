@@ -1,0 +1,358 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.Test_TisOptimize"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model_enum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
+    xmlns:commonModelEnum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.Commons" 
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:vm="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    x:Name="tis_uc"
+    d:DataContext="{d:DesignInstance Type=vm:Test_TisOptViewModel}"
+    d:DesignHeight="550"
+    d:DesignWidth="1000"
+    DataContext="{prism:ContainerProvider {x:Type vm:Test_TisOptViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_en.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_ch.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Marvel.ComModule;component/Style/CardPropertyGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:IntToNullableDoubleConverter x:Key="IntToNullableDoubleConverter" />
+            <converter:ObjectToBool x:Key="ObjectToBool" />
+            <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="0,0,10,0" />
+            </Style>
+            <ControlTemplate x:Key="NumericUpDownWithTextBlockTemplate" TargetType="ContentControl">
+                <UniformGrid Margin="5" Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="{TemplateBinding Content}" />
+                    <hc:NumericUpDown
+                        Height="24"
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        DecimalPlaces="3"
+                        Minimum="0"
+                        Style="{StaticResource NumericUpDownExtend}"
+                        Value="{Binding RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Path=Tag}" />
+                </UniformGrid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="ToggleButtonWithTextBlockTemplate" TargetType="ContentControl">
+                <UniformGrid Margin="5" Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="{TemplateBinding Content}" />
+                    <ToggleButton
+                        HorizontalAlignment="Right"
+                        IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Path=Tag}"
+                        Style="{StaticResource ToggleButtonSwitch}" />
+                </UniformGrid>
+            </ControlTemplate>
+            <ObjectDataProvider
+                x:Key="Optimizeby"
+                MethodName="GetValues"
+                ObjectType="{x:Type system:Enum}">
+                <ObjectDataProvider.MethodParameters>
+          <x:Type TypeName="commonModelEnum:EnumOptimizeType" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider
+                x:Key="OptimizeMode"
+                MethodName="GetValues"
+                ObjectType="{x:Type system:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="model_enum:EnumTisOptimizeMode" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <converter:EnumToDesConverter x:Key="EnumToDescriptionConverter" />
+            <DataTemplate x:Key="EnumToDescriptionTemplate">
+                <Border>
+                    <TextBlock Text="{Binding Converter={StaticResource EnumToDescriptionConverter}}" />
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <WrapPanel
+        Height="{Binding ActualHeight, ElementName=tis_uc}"
+        ItemWidth="380"
+        Orientation="Vertical">
+        <!--  TOF  -->
+        <Label
+            Margin="5"
+            Style="{DynamicResource ContainerLabelStyle}"
+            Tag="TOF (TIS Optimization Focus)">
+            <StackPanel>
+                <!--<ContentControl
+                    Content="Number of Slices:"
+                    Tag="{Binding TOF.Config.Slices, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource IntToNullableDoubleConverter}}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" />-->
+                <UniformGrid Margin="5" Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Number of Slices:" />
+                    <hc:NumericUpDown
+                        Height="24"
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        DecimalPlaces="0"
+                        Minimum="0"
+                        Style="{StaticResource NumericUpDownExtend}"
+                        Value="{Binding TOF.Config.Slices, Mode=TwoWay}" />
+                </UniformGrid>
+                <UniformGrid Margin="5" Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Distance Between Slices(um):" />
+                    <hc:NumericUpDown
+                        Height="24"
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        DecimalPlaces="3"
+                        Minimum="0.01"
+                        Style="{StaticResource NumericUpDownExtend}"
+                        Value="{Binding TOF.Config.DistanceSlices, Mode=TwoWay}" />
+                </UniformGrid>
+                <UniformGrid
+                    Margin="5"
+                    Rows="1"
+                    Visibility="Collapsed">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Optimize By:" />
+                    <ComboBox
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                        ItemsSource="{Binding Source={StaticResource Optimizeby}}"
+                        SelectedItem="{Binding TOF.Config.OptimizeType}" IsEnabled="{Binding IsOptimizeByEnable}"/>
+                </UniformGrid>
+                <ContentControl
+                    Content="Site by Site:"
+                    Tag="{Binding TOF.Config.IsSiteBySite, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource ToggleButtonWithTextBlockTemplate}" />
+                <UniformGrid
+                    Margin="5"
+                    IsEnabled="{Binding TOF.Config.IsSiteBySite, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                    Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Optimization Mode:" />
+                    <ComboBox
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                        ItemsSource="{Binding Source={StaticResource OptimizeMode}}"
+                        SelectedItem="{Binding TOF.Config.TisOptimizeMode}" />
+                </UniformGrid>
+                <ContentControl>
+                    <UniformGrid
+                        Margin="5"
+                        IsEnabled="{Binding TOF.Config.IsSiteBySite, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                        Rows="1">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Style="{DynamicResource TextBlockBaseStyle}"
+                            Text="Points Selected:" />
+                        <Button
+                            Height="24"
+                            MinWidth="100"
+                            MaxWidth="550"
+                            HorizontalAlignment="Right"
+                            Command="{Binding SelectFieldCommand}"
+                            CommandParameter="TOF"
+                            Content="Select"
+                            Style="{StaticResource ButtonPrimary}" />
+                    </UniformGrid>
+                </ContentControl>
+            </StackPanel>
+        </Label>
+
+        <!--  TOV  -->
+        <Label
+            Margin="5"
+            Style="{DynamicResource ContainerLabelStyle}"
+            Tag="TOV (TIS Optimization Vision)">
+            <StackPanel>
+                <ContentControl
+                    Content="X_Step(μm):"
+                    Tag="{Binding TOV.Config.X_Step, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" />
+                <ContentControl
+                    Content="X_Range(μm):"
+                    Tag="{Binding TOV.Config.X_Range, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" />
+                <ContentControl
+                    Content="Y_Step(μm):"
+                    Tag="{Binding TOV.Config.Y_Step, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" />
+                <ContentControl
+                    Content="Y_Range(μm):"
+                    Tag="{Binding TOV.Config.Y_Range, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" />
+
+                <UniformGrid Margin="5" Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Optimize By:" />
+                    <ComboBox
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                        ItemsSource="{Binding Source={StaticResource Optimizeby}}"
+                        SelectedItem="{Binding TOV.Config.OptimizeType}"  IsEnabled="{Binding IsOptimizeByEnable}"/>
+                </UniformGrid>
+                <ContentControl
+                    Content="Site by Site:"
+                    Tag="{Binding TOV.Config.IsSiteBySite, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource ToggleButtonWithTextBlockTemplate}" />
+                <UniformGrid
+                    Margin="5"
+                    IsEnabled="{Binding TOV.Config.IsSiteBySite, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                    Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Optimization Mode:" />
+                    <ComboBox
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                        ItemsSource="{Binding Source={StaticResource OptimizeMode}}"
+                        SelectedItem="{Binding TOV.Config.TisOptimizeMode}" />
+                </UniformGrid>
+                <ContentControl>
+                    <UniformGrid
+                        Margin="5"
+                        IsEnabled="{Binding TOV.Config.IsSiteBySite, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                        Rows="1">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Style="{DynamicResource TextBlockBaseStyle}"
+                            Text="Points Selected:" />
+                        <Button
+                            Height="24"
+                            MinWidth="100"
+                            MaxWidth="550"
+                            HorizontalAlignment="Right"
+                            Command="{Binding SelectFieldCommand}"
+                            CommandParameter="TOV"
+                            Content="Select"
+                            Style="{StaticResource ButtonPrimary}" />
+                    </UniformGrid>
+                </ContentControl>
+            </StackPanel>
+        </Label>
+
+        <!--  TON  -->
+        <Label
+            Grid.Row="1"
+            Margin="5"
+            Style="{DynamicResource ContainerLabelStyle}"
+            Tag="TON(TIS Optimization NA)">
+            <StackPanel>
+                <ContentControl
+                    Content="X_Step(μm):"
+                    Tag="{Binding TON.Config.X_Step, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" />
+                <ContentControl
+                    Content="X_Range(μm):"
+                    Tag="{Binding TON.Config.X_Range, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" />
+                <ContentControl
+                    Content="Y_Step(μm):"
+                    Tag="{Binding TON.Config.Y_Step, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}" Visibility="{Binding TONYVisibility}" />
+                <ContentControl
+                    Content="Y_Range(μm):"
+                    Tag="{Binding TON.Config.Y_Range, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource NumericUpDownWithTextBlockTemplate}"  Visibility="{Binding TONYVisibility}"/>
+
+        <UniformGrid Margin="5" Rows="1"  Visibility="{Binding TONYVisibility}">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Optimize By:" />
+                    <ComboBox
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                        ItemsSource="{Binding Source={StaticResource Optimizeby}}"
+                        SelectedItem="{Binding TON.Config.OptimizeType}"  IsEnabled="{Binding IsOptimizeByEnable}"/>
+                </UniformGrid>
+                <ContentControl
+                    Content="Site by Site:"
+                    Tag="{Binding TON.Config.IsSiteBySite, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Template="{StaticResource ToggleButtonWithTextBlockTemplate}" />
+                <UniformGrid
+                    Margin="5"
+                    IsEnabled="{Binding TON.Config.IsSiteBySite, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                    Rows="1">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource TextBlockBaseStyle}"
+                        Text="Optimization Mode:" />
+                    <ComboBox
+                        MinWidth="100"
+                        MaxWidth="550"
+                        HorizontalAlignment="Right"
+                        ItemTemplate="{StaticResource EnumToDescriptionTemplate}"
+                        ItemsSource="{Binding Source={StaticResource OptimizeMode}}"
+                        SelectedItem="{Binding TON.Config.TisOptimizeMode}" />
+
+                </UniformGrid>
+                <ContentControl>
+                    <UniformGrid
+                        Margin="5"
+                        IsEnabled="{Binding TON.Config.IsSiteBySite, Converter={StaticResource ObjectToBool}, ConverterParameter='false'}"
+                        Rows="1">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Style="{DynamicResource TextBlockBaseStyle}"
+                            Text="Points Selected:" />
+                        <Button
+                            Height="24"
+                            MinWidth="100"
+                            MaxWidth="550"
+                            HorizontalAlignment="Right"
+                            Command="{Binding SelectFieldCommand}"
+                            CommandParameter="TON"
+                            Content="Select"
+                            Style="{StaticResource ButtonPrimary}" />
+                    </UniformGrid>
+                </ContentControl>
+            </StackPanel>
+        </Label>
+    </WrapPanel>
+</UserControl>

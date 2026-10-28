@@ -1,0 +1,69 @@
+﻿<UserControl
+    x:Class="Ovl.UI.ViewModels.Controls.PositioningModelControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tempmachview="clr-namespace:InteVega.CBB.TemplateMatchingModule.Views;assembly=InteVega.CBB.TemplateMatchingModule"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <GroupBox
+            Margin="3"
+            Header="Positioning Model"
+            Style="{DynamicResource ExpandGroupBoxStyle}">
+            <Grid IsEnabled="{Binding IsPositioningEnabled, RelativeSource={RelativeSource AncestorType=local:PositioningModelControl}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <CheckBox
+                    Margin="15,10"
+                    Content="Positioning for each target"
+                    IsChecked="{Binding IsForEachTarget, RelativeSource={RelativeSource AncestorType=local:PositioningModelControl}}"
+                    Visibility="{Binding CheckPositionModelForeachVisible}">
+                    <CheckBox.Command>
+                        <PriorityBinding>
+                            <Binding Path="FindTarget0Command" RelativeSource="{RelativeSource AncestorType=local:PositioningModelControl}" />
+                            <Binding Path="FindTarget0Command" />
+                        </PriorityBinding>
+                    </CheckBox.Command>
+                </CheckBox>
+                <tempmachview:SingleTemplateControl
+                    x:Name="positionTemplateControl"
+                    Grid.Row="1"
+                    Margin="0,0,0,0"
+                    IsShowSearArea="False" />
+                <StackPanel  Grid.Row="2"
+ Margin="0,10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"  >
+                    <Button
+    
+Padding="4" Margin="15,0"
+HorizontalAlignment="Right"
+VerticalAlignment="Bottom"
+Command="{Binding ToPositionModelCommand}"
+Content="To Positioning Model" />
+                    <Button
+    
+     Padding="4"
+     HorizontalAlignment="Right"
+     VerticalAlignment="Bottom"
+     Command="{Binding TestPositionCommand}"
+     Content="Test Positioning" />
+                </StackPanel>
+               
+            </Grid>
+
+        </GroupBox>
+        <CheckBox
+            Margin="8,10,50,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Content="Enable"
+            IsChecked="{Binding IsPositioningEnabled, RelativeSource={RelativeSource AncestorType=local:PositioningModelControl},Mode=TwoWay}" />
+
+    </Grid>
+</UserControl>

@@ -1,10 +1,10 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Ovl.UI.Common.Controls;
-using Ovl.UI.ViewModels.DataDisplay;
-using Ovl.UI.ViewModels.Measure;
 
+using Ovl.UI.DataDisplay.ViewModel;
+using Ovl.UI.ViewModels.Measure;
 namespace Ovl.UI.Views.Measure;
 
 /// <summary>

@@ -1,0 +1,465 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.OMVersion.EdgeAlignView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:localControl="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    d:DesignHeight="480"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <system:Double x:Key="CoarseMinWidth">300</system:Double>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="2.5*" />
+            </Grid.ColumnDefinitions>
+            <WrapPanel Grid.Column="0">
+                <Label
+                    Margin="20,0"
+                    Content="Mode："
+                    FontWeight="Bold" VerticalAlignment="Center" />
+            </WrapPanel>
+            <StackPanel Orientation="Horizontal" 
+                Grid.Column="1" VerticalAlignment="Center" 
+                MinWidth="{StaticResource CoarseMinWidth}"
+                IsEnabled="{Binding IsEnableSwitchTable}">
+                
+                <RadioButton
+                    x:Name="AutoGetWaferCenter"
+                    Grid.Column="0"
+                    HorizontalAlignment="Right"
+                    Content="Auto"
+                    IsChecked="True" />
+                <RadioButton
+                    x:Name="ManualGetWaferCenter"
+                    Grid.Column="1" Margin="10,0,0,0"
+                    HorizontalAlignment="Right"
+                    Content="Manual"
+                    IsChecked="{Binding IfManualCal}" />
+        <CheckBox Margin="10,0,0,0"
+                    HorizontalAlignment="Right"
+                    Content="Is contain notch" IsChecked="{Binding AlignmentInfo.IsUseNotch,Mode=TwoWay}" Visibility="{Binding IsUseNotchVisible}"></CheckBox>
+            </StackPanel>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            IsEnabled="{Binding ElementName=ManualGetWaferCenter, Path=IsChecked}"
+            Visibility="{Binding ElementName=ManualGetWaferCenter, Path=IsChecked, Converter={StaticResource Boolean2VisibilityConverter}}">
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,10,0,10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="{DynamicResource StrPre_DefCir3Point}">
+                <Grid Margin="5">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+     x:Name="btnGet"
+     Grid.Column="0"
+     HorizontalAlignment="Right"
+     Command="{Binding GetWaferEdgePointCommand}"
+     CommandParameter="0"
+     Content="Get"
+     IsEnabled="{Binding IsEnableClick}"
+     Style="{StaticResource MarvelLightButton}" />
+                    <Label Margin="5,2" Grid.Column="1" Content="X1(mm):" />
+                    <hc:NumericUpDown
+                        Grid.Column="2"
+                        Margin="5,2"
+                        DecimalPlaces="6"
+                        IsEnabled="False"
+                        Value="{Binding Pre_Define_CircelPoint1_X}" />
+
+                    <Label
+                        Grid.Column="3"
+                        Margin="5,2"
+                        Content="Y1(mm):" />
+                    <hc:NumericUpDown
+                        Grid.Column="4"
+                        Margin="5,2"
+                        DecimalPlaces="6"
+                        IsEnabled="False"
+                        Value="{Binding Pre_Define_CircelPoint1_Y}" />
+                    <!--<Button>边缘点详情...</Button>-->
+
+
+                    <Button
+     Grid.Row="1"
+     Grid.Column="0"
+     HorizontalAlignment="Right"
+     Command="{Binding GetWaferEdgePointCommand}"
+     CommandParameter="1"
+     Content="Get"
+     IsEnabled="{Binding IsEnableClick}"
+     Style="{StaticResource MarvelLightButton}" />
+                    <Label
+                        Grid.Row="1" Grid.Column="1"
+                        Margin="5,2"
+                        Content="X2(mm):" />
+                    <hc:NumericUpDown
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="5,2"
+                        DecimalPlaces="6"
+                        IsEnabled="False"
+                        Value="{Binding Pre_Define_CircelPoint2_X}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Margin="5,2"
+                        Content="Y2(mm):" />
+                    <hc:NumericUpDown
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        Margin="5,2"
+                        DecimalPlaces="6"
+                        IsEnabled="False"
+                        Value="{Binding Pre_Define_CircelPoint2_Y}" />
+
+
+                    <Button
+        Grid.Row="2"
+        Grid.Column="0"
+        HorizontalAlignment="Right"
+        Command="{Binding GetWaferEdgePointCommand}"
+        CommandParameter="2"
+        Content="Get"
+        IsEnabled="{Binding IsEnableClick}"
+        Style="{StaticResource MarvelLightButton}" />
+                    <Label
+                        Grid.Row="2" Grid.Column="1"
+                        Margin="5,2"
+                        Content="X3(mm):" />
+                    <hc:NumericUpDown
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Margin="5,2"
+                        DecimalPlaces="6"
+                        IsEnabled="False"
+                        Value="{Binding Pre_Define_CircelPoint3_X}" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        Margin="5,2"
+                        Content="Y3(mm):" />
+
+                    <hc:NumericUpDown
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        Margin="5,2"
+                        DecimalPlaces="6"
+                        IsEnabled="False"
+                        Value="{Binding Pre_Define_CircelPoint3_Y}" />
+                
+
+                </Grid>
+            </Label>
+            <Button
+                Width="{Binding ActualWidth, ElementName=btnGet}"
+                Margin="0,12.5,11,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding ResetEdgePointsCommand}"
+                Content="Reset" />
+            <hc:LoadingCircle
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Visibility="{Binding IsEnableClick, Converter={StaticResource OtvReCVT}}" />
+        </Grid>
+        <Grid Grid.Row="2" MinWidth="{StaticResource CoarseMinWidth}">
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,10,0,10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag=" Center Of Wafer">
+                <Grid Margin="5">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="1,5,1,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="1"  Visibility="{Binding IsEnableClick, Converter={StaticResource OtvCVT}}">
+                            <WrapPanel VerticalAlignment="Center">
+                                <Label>X(mm):</Label>
+                                <hc:NumericUpDown
+                                    HorizontalAlignment="Center"
+                                    DecimalPlaces="6"
+                                    IsEnabled="False"
+                                    Value="{Binding AbsoluteCow.X, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=0.####}" />
+                            </WrapPanel>
+                        </Grid>
+                        <Grid Grid.Column="2"  Visibility="{Binding IsEnableClick, Converter={StaticResource OtvCVT}}">
+                            <WrapPanel VerticalAlignment="Center">
+                                <Label>Y(mm):</Label>
+                                <hc:NumericUpDown
+                                    HorizontalAlignment="Center"
+                                    DecimalPlaces="6"
+                                    IsEnabled="False"
+                                    Value="{Binding AbsoluteCow.Y, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            </WrapPanel>
+                        </Grid>
+                        <Grid
+                            Grid.Column="0"
+                            Margin="0,2,5,2"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <WrapPanel VerticalAlignment="Center">
+                                <!--  手动获取晶圆边缘点时隐藏Stop按钮  -->
+                                <Border Visibility="{Binding ElementName=ManualGetWaferCenter, Path=IsChecked, Converter={StaticResource OtvReCVT}}">
+                                    <Button
+                                        Margin="10,1"
+                                        Command="{Binding ExitExecute3PointWaferCenterThreadCommand}"
+                                        Content="Stop"
+                                        Style="{StaticResource ButtonDanger}"
+                                        Visibility="{Binding IsEnableClick, Converter={StaticResource OtvReCVT}}" />
+                                </Border>
+
+                                <Button
+                                    Margin="10,1"
+                                    Command="{Binding ContinueExecute3PointWaferCenterThreadCommand}"
+                                    Content="Continue"
+                                    Style="{StaticResource ButtonSuccess}"
+                                    Visibility="{Binding IsErrored, Converter={StaticResource OtvCVT}}" />
+                                <Button
+                                    Width="80"
+                                    Margin="8,0,0,0"
+                                    Command="{Binding ExitExecute3PointWaferCenterThreadCommand}"
+                                    Style="{StaticResource ButtonDefault}"
+                                    Visibility="{Binding IsErrored, Converter={StaticResource OtvCVT}}">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="Cancel" />
+                                </Button>
+                                <Button Margin="2,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding CaculateWaferCenterCommand}"
+                                    CommandParameter="{Binding ElementName=ManualGetWaferCenter, Path=IsChecked}"
+                                    IsEnabled="{Binding IsEnableClick}"
+                                    Visibility="{Binding IsErrored, Converter={StaticResource OtvReCVT}}">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource ButtonDefault}" TargetType="Button">
+                                            <Style.Triggers />
+                                        </Style>
+                                    </Button.Style>
+                                    <StackPanel
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <TextBlock Foreground="Blue" Text="{DynamicResource CaculateEn}" />
+                                        <Viewbox>
+                                            <hc:LoadingCircle
+                                                Margin="10,0,0,0"
+                                                Foreground="Blue"
+                                                Visibility="{Binding IsEnableClick, Converter={StaticResource OtvReCVT}}" />
+                                        </Viewbox>
+                                    </StackPanel>
+                                </Button>
+
+                            </WrapPanel>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+            </Label>
+        </Grid>
+        <Grid Grid.Row="3" MinWidth="{StaticResource CoarseMinWidth}">
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,10,0,10"
+                IsEnabled="{Binding IsEnableClick}"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag=" Define Focus Pos">
+                <Grid Margin="5,10">
+                    <StackPanel
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            MinWidth="60"
+                            Margin="5,0,10,0"
+                            Command="{Binding UpdateFocusPosCommand}"
+                            Content="Get"
+                            Style="{DynamicResource ButtonPrimary}" />
+                        <Button
+                            MinWidth="60"
+                            Command="{Binding ToFocusPosCommand}"
+                            Content="To" />
+                        <Label Margin="10,0" VerticalAlignment="Center">Focus Position:</Label>
+                    </StackPanel>
+                </Grid>
+
+            </Label>
+        </Grid>
+        <StackPanel Grid.Row="4" IsEnabled="True">
+
+            <Label
+                Margin="0,10,0,10"
+                IsEnabled="{Binding IsEnableClick}"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Edge Detect Parameters">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Margin="10,0,5,0" VerticalAlignment="Center">Back Threshold:</Label>
+                    <hc:NumericUpDown
+                        Grid.Column="1"
+                        Margin="5,2"
+                        HorizontalAlignment="Center"
+                        DecimalPlaces="0"
+                        IsEnabled="True"
+                        Value="{Binding AlignmentInfo.EdgeParams.BackThreshHigh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=0.####}" />
+                    <Label
+                        Grid.Column="2"
+                        Margin="10,0,5,0"
+                        VerticalAlignment="Center">
+                        Edge Threshold:
+                    </Label>
+                    <hc:NumericUpDown
+                        Grid.Column="3"
+                        Margin="5,2"
+                        HorizontalAlignment="Center"
+                        DecimalPlaces="0"
+                        IsEnabled="True"
+                        Value="{Binding AlignmentInfo.EdgeParams.EdgeThresh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    <Label
+                        Grid.Row="2"
+                        Margin="10,0,5,0"
+                        VerticalAlignment="Center">
+                        Min Notch Radius:
+                    </Label>
+                    <hc:NumericUpDown
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5,2"
+                        HorizontalAlignment="Center"
+                        DecimalPlaces="0"
+                        IsEnabled="True"
+                        Value="{Binding AlignmentInfo.EdgeParams.MinNotchRadius, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=0.####}" />
+
+                    <Grid
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5,2"
+                        Visibility="Collapsed">
+                        <WrapPanel>
+                            <Label>Transition Type:</Label>
+                            <ComboBox
+                                ItemsSource="{Binding DetectEdgeTransitionEnum}"
+                                SelectedItem="{Binding AlignmentInfo.EdgeParams.Transition}"
+                                Style="{StaticResource ComboBox.Small}" />
+                        </WrapPanel>
+                    </Grid>
+                </Grid>
+            </Label>
+
+            <Label
+                Margin="0,10,0,10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Flat Detect Parameters"
+                Visibility="{Binding FlatDetectParamVisibility}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Margin="10,0,5,0" VerticalAlignment="Center">Back Threshold:</Label>
+                    <hc:NumericUpDown
+                        Grid.Column="1"
+                        Margin="5,2"
+                        HorizontalAlignment="Stretch"
+                        DecimalPlaces="0"
+                        IsEnabled="True"
+                        Value="{Binding AlignmentInfo.FlatDetecParam.BackThreshHigh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=0.####}" />
+                    <Label
+                        Grid.Column="2"
+                        Margin="10,0,5,0"
+                        VerticalAlignment="Center">
+                        Edge Threshold:
+                    </Label>
+                    <hc:NumericUpDown
+                        Grid.Column="3"
+                        Margin="5,2"
+                        HorizontalAlignment="Center"
+                        DecimalPlaces="0"
+                        IsEnabled="True"
+                        Value="{Binding AlignmentInfo.FlatDetecParam.EdgeThresh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    <Label
+                        Grid.Row="1"
+                        Margin="10,0,5,0"
+                        VerticalAlignment="Center">
+                        Fitting Error:
+                    </Label>
+                    <hc:NumericUpDown
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5,2"
+                        HorizontalAlignment="Stretch"
+                        DecimalPlaces="2"
+                        IsEnabled="True"
+                        Value="{Binding AlignmentInfo.FlatDetecParam.LineError, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </Grid>
+
+            </Label>
+            <!--<Button Content="Train Notch Align" Command="{Binding TrainNotchCommand}" HorizontalAlignment="Left" Margin="0,5" VerticalAlignment="Center"  Visibility="{Binding ElementName=ManualGetWaferCenter, Path=IsChecked, Converter={StaticResource Boolean2VisibilityConverter}}"   />-->
+        </StackPanel>
+    </Grid>
+</UserControl>

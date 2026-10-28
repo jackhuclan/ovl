@@ -1,0 +1,508 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.Test_Physical"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:converts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataModelenum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
+    xmlns:enumhelper="clr-namespace:InteVega.CBB.ComUI.Helpers;assembly=InteVega.CBB.ComUI"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:uicommon="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+    xmlns:vm="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    d:DataContext="{d:DesignInstance Type=vm:Test_PhysicalViewModel}"
+    d:DesignHeight="550"
+    d:DesignWidth="1000"
+    DataContext="{prism:ContainerProvider {x:Type vm:Test_PhysicalViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_en.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_ch.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <converts:ObjectToBool x:Key="ObjectToBool" />
+            <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+            <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Foreground" Value="#666" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Margin" Value="0,0,10,0" />
+            </Style>
+            <!--<converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />-->
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,10,0,0"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Light Settings">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="2">
+                        <StackPanel>
+                            <Label
+                                Margin="1,5"
+                                FontWeight="Bold"
+                                Style="{x:Null}">
+                                Light Intensity(%):
+                            </Label>
+                            <Label
+                                Margin="1,5"
+                                FontWeight="Bold"
+                                Style="{x:Null}">
+                                NA:
+                            </Label>
+                            <Label
+                                Margin="1,5"
+                                FontWeight="Bold"
+                                Style="{x:Null}">
+                                Filter:
+                            </Label>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="2">
+                        <StackPanel>
+                            <hc:NumericUpDown Margin="1,5" Visibility="Hidden" />
+                            <ComboBox
+                                Margin="1,5"
+                                ItemsSource="{Binding EnumNAModeList}"
+                                SelectedItem="{Binding TestInfo.Physical.LightSourceParam.Na}" />
+                            <ComboBox
+                                Margin="1,5"
+                                ItemsSource="{Binding EnumFilterModeList}"
+                                SelectedItem="{Binding TestInfo.Physical.LightSourceParam.Filter}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="2" Margin="2">
+                        <StackPanel>
+                            <CheckBox
+                                Margin="1,5"
+                                FontWeight="Bold"
+                                IsChecked="{Binding TestInfo.Physical.LightSourceParam.IsAutoLight}">
+                                Auto Intensity
+                            </CheckBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Label>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10,10,0,0"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Test Method">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="2">
+                        <StackPanel>
+                            <Label
+                                Margin="1,5"
+                                FontWeight="Bold"
+                                Style="{x:Null}">
+                                Grab Method:
+                            </Label>
+                            <Label
+                                Margin="1,5"
+                                FontWeight="Bold"
+                                Style="{x:Null}">
+                                Layer Height:
+                            </Label>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="1,5">
+                        <StackPanel>
+                            <RadioButton
+                                Content="Single Grab"
+                                GroupName="GrabMethod"
+                                IsChecked="{Binding TestInfo.Physical.TestSettings.GrabMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumGrabMode.SingleGrab}, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{DynamicResource RadioButtonStyle}" />
+                            <hc:NumericUpDown Margin="1,20,1,5" Value="{Binding TestInfo.Physical.TestSettings.LayerHight}" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="2" Margin="1,5">
+                        <StackPanel>
+                            <RadioButton
+                                Content="Double Grab"
+                                GroupName="GrabMethod"
+                                IsChecked="{Binding TestInfo.GrabMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumGrabMode.DoubleGrab}, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{DynamicResource RadioButtonStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Label>
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="10,10,0,10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="ANRA">
+                <Grid Margin="2">
+                    <StackPanel>
+                        <WrapPanel Margin="1,5">
+                            <Label FontWeight="Bold" Style="{x:Null}">Enable ANRA:</Label>
+                            <CheckBox
+                                Margin="38,0,0,0"
+                                IsChecked="{Binding TestInfo.Physical.AnraSettings.IsEnableAnra}"
+                                Style="{StaticResource ToggleButtonSwitch}" />
+                        </WrapPanel>
+                        <WrapPanel Margin="1,5" Visibility="Collapsed">
+                            <Label FontWeight="Bold" Style="{x:Null}">Mode</Label>
+                            <!--<RadioButton FontWeight="Bold" Margin="85 0 0 0" Content="Auto" HorizontalAlignment="Center"></RadioButton>
+              <RadioButton FontWeight="Bold" Margin="20 0 0 0" Content="Manual" HorizontalAlignment="Center"></RadioButton>-->
+                            <RadioButton
+                                Margin="85,0,0,0"
+                                Content="Auto"
+                                GroupName="ModeANRA"
+                                IsChecked="{Binding TestInfo.Physical.AnraSettings.AnraMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumAnraMode.Auto}, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{DynamicResource RadioButtonStyle}" />
+
+                            <RadioButton
+                                Margin="20,0,0,0"
+                                Content="Manual"
+                                GroupName="ModeANRA"
+                                IsChecked="{Binding TestInfo.Physical.AnraSettings.AnraMode, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumAnraMode.Manual}, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{DynamicResource RadioButtonStyle}" />
+
+                        </WrapPanel>
+                        <WrapPanel Margin="1,5">
+                            <Label FontWeight="Bold" Style="{x:Null}">Num Of Images:</Label>
+                            <hc:NumericUpDown
+                                Margin="20,0,0,0"
+                                DecimalPlaces="0"
+                                Value="{Binding TestInfo.Physical.AnraSettings.AnraCount}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+            </Label>
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="10,10,0,10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="QMerit"
+                Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{x:Null}">
+                        QMerit Per Layer：
+                    </Label>
+                    <CheckBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        IsChecked="{Binding TestInfo.QmeritPerLayer}"
+                        Style="{StaticResource ToggleButtonSwitch}" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontWeight="Bold"
+                        Style="{x:Null}">
+                        QMerit Derivative Order：
+                    </Label>
+                    <hc:NumericUpDown
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Value="{Binding TestInfo.QmeritDerivativeOrderOrder}" />
+                </Grid>
+            </Label>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,10,0,0"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Auto Focus">
+                <StackPanel>
+                    <Label
+                        Margin="10"
+                        Style="{DynamicResource ContainerLabelStyle}"
+                        Tag="Coarse Focus">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="2">
+                                <StackPanel>
+                                    <Label
+                                        Margin="1,5"
+                                        FontWeight="Bold"
+                                        Style="{x:Null}">
+                                        Enable:
+                                    </Label>
+                                    <Label
+                                        Margin="1,5"
+                                        FontWeight="Bold"
+                                        Style="{x:Null}">
+                                        Coarse Focuse Offset(num):
+                                    </Label>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" Margin="2">
+                                <StackPanel>
+                                    <WrapPanel HorizontalAlignment="Right">
+                                        <CheckBox
+                                            Margin="1,5"
+                                            FontWeight="Bold"
+                                            IsChecked="{Binding TestInfo.Physical.FocusSettings.IsEnableCoarseFocus}"
+                                            Style="{StaticResource ToggleButtonSwitch}" />
+                                    </WrapPanel>
+                                    <WrapPanel HorizontalAlignment="Right">
+                                        <hc:NumericUpDown Margin="1,3" Value="{Binding TestInfo.Physical.FocusSettings.CoareFocuseOffset}" />
+                                        <Button
+                                            Margin="1,5"
+                                            Content="Focus"
+                                            Foreground="Blue"
+                                            Style="{StaticResource ButtonDefault}" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Label>
+                    <Label
+                        Margin="10,0,10,10"
+                        Style="{DynamicResource ContainerLabelStyle}"
+                        Tag="Focus Settings">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="2">
+                                <StackPanel Margin="1,3">
+                                    <Label
+                                        Margin="1,5"
+                                        FontWeight="Bold"
+                                        Style="{x:Null}">
+                                        Focus Base:
+                                    </Label>
+                                    <Label
+                                        Margin="1,5"
+                                        FontWeight="Bold"
+                                        Style="{x:Null}">
+                                        Focus Method:
+                                    </Label>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" Margin="2">
+                                <StackPanel>
+                                    <WrapPanel Margin="1,10">
+                                        <RadioButton
+                                            Margin="1,5"
+                                            Content="Overall Mark"
+                                            GroupName="FocusBaseGroup"
+                                            IsChecked="{Binding TestInfo.Physical.FocusSettings.FocusBasedOn, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusBasedOn.AverageFromInner}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{DynamicResource RadioButtonStyle}" />
+                                        <RadioButton
+                                            Margin="1,5"
+                                            Content="Inner"
+                                            GroupName="FocusBaseGroup"
+                                            IsChecked="{Binding TestInfo.Physical.FocusSettings.FocusBasedOn, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusBasedOn.Inner}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{DynamicResource RadioButtonStyle}" />
+                                        <RadioButton
+                                            Margin="1,5"
+                                            Content="Outer"
+                                            GroupName="FocusBaseGroup"
+                                            IsChecked="{Binding TestInfo.Physical.FocusSettings.FocusBasedOn, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusBasedOn.Outer}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{DynamicResource RadioButtonStyle}" />
+                                    </WrapPanel>
+                                    <WrapPanel Margin="1">
+                                        <RadioButton
+                                            Margin="1,5"
+                                            Content="Image"
+                                            GroupName="FocusMethodGroup"
+                                            IsChecked="{Binding TestInfo.Physical.FocusSettings.FocusMethod, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusMethod.Image}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{DynamicResource RadioButtonStyle}" />
+
+                                        <RadioButton
+                                            Margin="1,5"
+                                            Content="Linnik"
+                                            GroupName="FocusMethodGroup"
+                                            IsChecked="{Binding TestInfo.Physical.FocusSettings.FocusMethod, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusMethod.Linnik}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{DynamicResource RadioButtonStyle}" />
+
+                                        <RadioButton
+                                            Margin="1,5"
+                                            Content="Image and Linnik"
+                                            GroupName="FocusMethodGroup"
+                                            IsChecked="{Binding TestInfo.Physical.FocusSettings.FocusMethod, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static dataModelenum:EnumFocusMethod.ImageAndLinnik}, UpdateSourceTrigger=PropertyChanged}"
+                                            Style="{DynamicResource RadioButtonStyle}" />
+                                        <!--<RadioButton Style="{x:Null}" Margin="1 5"  Content="Image"></RadioButton>
+                    <RadioButton Style="{x:Null}" Margin="1 5"  Content="Linnik"></RadioButton>
+                    <RadioButton Style="{x:Null}" Margin="1 5"  Content="Image and Linnik"></RadioButton>-->
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Label>
+                </StackPanel>
+            </Label>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10"
+                Style="{DynamicResource ContainerLabelStyle}"
+                Tag="Calibration Coefficients">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="10"
+                        Style="{DynamicResource ContainerLabelStyle}"
+                        Tag="Tis Correction">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="2">
+                                <StackPanel Margin="1,3">
+                                    <Grid>
+                                        <Label
+                                            Margin="1,5"
+                                            FontWeight="Bold"
+                                            Style="{x:Null}">
+                                            X(um):
+                                        </Label>
+                                        <hc:NumericUpDown
+                                            Margin="1,5"
+                                            HorizontalAlignment="Right"
+                                            Value="{Binding TestInfo.Physical.TisCorrectionSettings.XTisCorrection}" />
+                                    </Grid>
+                                    <Label
+                                        Margin="1,5"
+                                        FontWeight="Bold"
+                                        Style="{x:Null}">
+                                        Optimize By:
+                                    </Label>
+                                    <Label
+                                        Margin="1,5"
+                                        Content="Tis site by site:"
+                                        FontWeight="Bold"
+                                        Style="{x:Null}" />
+                                    <Label
+                                        Margin="1,5"
+                                        Content="Negative reasure polarity:"
+                                        FontWeight="Bold"
+                                        Style="{x:Null}" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" Margin="2">
+                                <StackPanel Margin="1,3">
+                                    <Grid>
+                                        <Label
+                                            Margin="1,5"
+                                            HorizontalAlignment="Left"
+                                            Content="Y(um)"
+                                            FontWeight="Bold"
+                                            Style="{x:Null}" />
+                                        <hc:NumericUpDown
+                                            Margin="1,5"
+                                            HorizontalAlignment="Right"
+                                            Value="{Binding TestInfo.Physical.TisCorrectionSettings.YTisCorrection}" />
+                                    </Grid>
+                                    <hc:ComboBox
+                                        Margin="1,5"
+                                        HorizontalAlignment="Right"
+                                        ItemsSource="{Binding EnumOptimizeTypeList}"
+                                        SelectedItem="{Binding TestInfo.Physical.TisCorrectionSettings.OptimizeType}" />
+                                    <CheckBox
+                                        Margin="1,5"
+                                        HorizontalAlignment="Right"
+                                        IsChecked="{Binding TestInfo.Physical.TisCorrectionSettings.IsSiteBySite}"
+                                        Style="{StaticResource ToggleButtonSwitch}" />
+                                    <CheckBox
+                                        Margin="1,5"
+                                        HorizontalAlignment="Right"
+                                        IsChecked="{Binding TestInfo.Physical.TisCorrectionSettings.IsNegativePolarity}"
+                                        Style="{StaticResource ToggleButtonSwitch}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Label>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10"
+                        Style="{DynamicResource ContainerLabelStyle}"
+                        Tag="OVL Linear Model">
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Margin="1,5"
+                                FontWeight="Bold"
+                                Style="{x:Null}">
+                                Model Calculate Type:
+                            </Label>
+                            <hc:ComboBox
+                                Grid.Column="1"
+                                Margin="1,5"
+                                HorizontalAlignment="Right"
+                                ItemsSource="{Binding EnumCalculateTypeList}"
+                                SelectedItem="{Binding TestInfo.Physical.CalculateSettings.CalculateType}" />
+                            <!--<ComboBox Grid.Column="1"  Margin="1 5">
+                <ComboBoxItem Content="ce"></ComboBoxItem>
+                <ComboBoxItem Content="ce2"></ComboBoxItem>
+              </ComboBox>-->
+                        </Grid>
+                    </Label>
+                </Grid>
+            </Label>
+        </Grid>
+    </Grid>
+</UserControl>

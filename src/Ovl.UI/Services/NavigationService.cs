@@ -1,8 +1,8 @@
-using Microsoft.Extensions.DependencyInjection;
-using Ovl.UI.ViewModels.Measure;
-using Ovl.UI.ViewModels.Navigation;
-using Ovl.UI.ViewModels.Placeholder;
+﻿using Microsoft.Extensions.DependencyInjection;
 
+using Ovl.UI.ViewModels.Navigation;
+using Ovl.UI.ViewModels.Measure;
+using Ovl.UI.ViewModels.Placeholder;
 namespace Ovl.UI.Services;
 
 /// <summary>

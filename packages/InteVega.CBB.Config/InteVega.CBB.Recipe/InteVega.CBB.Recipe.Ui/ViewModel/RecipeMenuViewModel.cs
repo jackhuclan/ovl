@@ -8,7 +8,6 @@ using InteVega.CBB.Recipe.Core;
 using InteVega.CBB.Recipe.Interface;
 using InteVega.CBB.Recipe.Ui.Interface;
 using InteVega.CBB.User.Interface;
-using Marvel.Agent.Abstractions;
 using Microsoft.Win32;
 using Prism.Events;
 using Prism.Services.Dialogs;
@@ -58,33 +57,24 @@ namespace InteVega.CBB.Recipe.Ui.ViewModel
         IRecipeManager _recipeManager;
         IMessageBoxService _MessageBoxService;
         IRecipeWindow _recipeWindow;
-        private readonly IAIToolService _aIToolService;
 
         public RecipeMenuViewModel(IRecipeService recipeService,
             IRecipeManager recipeManager,
             IMessageBoxService messageBoxService,
             IRecipeWindow recipeWindow,
-            IAIToolService aIToolService,
             IEventAggregator aggregator)
         {
             _MessageBoxService = messageBoxService;
             _recipeService = recipeService;
             _recipeManager = recipeManager;
             _recipeWindow = recipeWindow;
-            _aIToolService = aIToolService;
             IsShowSearchImg = Visibility.Visible;
             IsShowClearImg = Visibility.Hidden;
             _recipeProofJobEvent = aggregator.GetEvent<RecipeProofJobEvent>();
             //List<RecipeInfo> recipeInfoList = _recipeService.GetRecipeAll()?.ToList();
             //LoadMenuTree(recipeInfoList);
 
-            _aIToolService.AddTool(this.selectRecipeByName,
-                "select_recipe",
-                "选择配方，根据用户提供的配方名称来选择配方");
-
-            _aIToolService.AddTool(this.openRecipeDialogByFolderName,
-                "open_recipe_dialog",
-                "根据文件夹名称选中文件夹，并打开创建配方对话框");
+            // vendor 适配：IAIToolService（Marvel.Agent.Core）相关 AI 工具注册代码已按需求移除
         }
 
         #region 加载菜单和子菜单

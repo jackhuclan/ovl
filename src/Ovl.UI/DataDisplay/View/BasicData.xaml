@@ -1,0 +1,336 @@
+﻿<UserControl
+    x:Class="Ovl.UI.DataDisplay.View.BasicData"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Data="clr-namespace:Ovl.UI.DataDisplay.View"
+    xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:handy="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.ViewModels.DataDisplay;assembly=Ovl.UI.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:Ovl.UI.DataDisplay.ViewModel"
+    d:DataContext="{d:DesignInstance Type=viewmodel:BasicDataViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Border.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBlock.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <convert:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <Style x:Key="BorderStyle_Local1" TargetType="Border">
+                <Setter Property="Background" Value="Transparent" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#0F54C6" />
+                        <Setter Property="TextBlock.Foreground" Value="White" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="#D1D1D1" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <convert:LotStatisticsDataUnitFactorConverter x:Key="LotStatisticsDataUnitFactorConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#D5E0E6">
+            <StackPanel
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Orientation="Horizontal">
+                <ItemsControl ItemsSource="{Binding MenuNodeList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button
+                                Command="{Binding DataContext.OpenGridCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                CommandParameter="{Binding Id}"
+                                Style="{DynamicResource TabItemButtonStyle}">
+                                <Border Background="{Binding IsSelect, Converter={StaticResource BoolToStringConverter}, ConverterParameter=#fff;#60ffffff}" Style="{DynamicResource TabItemBorderStyle}">
+                                    <TextBlock Style="{DynamicResource TableItemTextBlockStyle}" Text="{Binding Name}" />
+                                </Border>
+                            </Button>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+        <Border
+            Grid.Row="1"
+            Margin="2,0,2,2"
+            Background="#F3F4F7"
+            CornerRadius="5">
+            <Grid>
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    CanUserReorderColumns="False"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding OverlayJobHistoryData}"
+                    Style="{StaticResource DataGrid.Small}"
+                    Visibility="{Binding HistoryVisible}">
+
+                    <handy:Interaction.Triggers>
+                        <handy:EventTrigger EventName="MouseDoubleClick">
+                            <handy:InvokeCommandAction Command="{Binding DataContext.LotStatisticsDataMouseDoubleAsyncCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=SelectedItem}" />
+                        </handy:EventTrigger>
+                    </handy:Interaction.Triggers>
+                    <!--<DataGrid.RowStyle>
+            <Style BasedOn="{StaticResource DefaultDataGridRow}" TargetType="{x:Type DataGridRow}">
+              <Setter Property="Foreground" Value="red" />
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding PassOrFailStr}" Value="Pass">
+                  <Setter Property="Foreground" Value="Black" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </DataGrid.RowStyle>-->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Binding="{Binding LotID}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Lot ID" />
+                        <DataGridTextColumn
+                            Binding="{Binding RecipeName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Recipe name" />
+                        <DataGridTextColumn
+                            Binding="{Binding Time, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Time" />
+                        <!--<DataGridTextColumn
+                            Binding="{Binding JobItem.Axis}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Axis" />-->
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="XMax" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="XMax"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="YMax" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="YMax"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="XMin" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="XMin"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="YMin" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="YMin"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="XMean" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="XMean"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="YMean" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="YMean"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="X3σ" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="X3Sigma"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Y3σ" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource LotStatisticsDataUnitFactorConverter}" Mode="OneWay">
+                                    <Binding Path="Y3Sigma"/>
+                                    <Binding Path="DataContext.MeasureValueUnitFactor" 
+                                     RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                    <!-- 静态值 -->
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
+                        <!--<DataGridTextColumn
+                            Binding="{Binding PassOrFailStr}"
+                            CellStyle="{DynamicResource StatusCellStyle}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Status" />-->
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Border Visibility="{Binding LogVisible}">
+                    <Data:Log />
+                </Border>
+
+                <!--<DataGrid
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    CanUserReorderColumns="False"
+                    ItemsSource="{Binding JobInfoModelList}"
+                  Style="{StaticResource DataGrid.Small}"
+                    Visibility="{Binding LogVisible}">
+          <DataGrid.Columns>
+            <DataGridTextColumn
+
+                            Binding="{Binding Num}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Lot ID" />
+            <DataGridTextColumn
+                           Width="*"
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="Recipe" />
+            <DataGridTextColumn
+
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="时间" />
+            <DataGridTextColumn
+
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="轴" />
+            <DataGridTextColumn
+
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="最大值" />
+            <DataGridTextColumn
+
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="最小值" />
+            <DataGridTextColumn
+
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="平均值" />
+            <DataGridTextColumn
+
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="3σ值" />
+            <DataGridTextColumn
+
+                            Binding="{Binding JobName}"
+                            ClipboardContentBinding="{x:Null}"
+                            Header="状态" />
+          </DataGrid.Columns>
+        </DataGrid>-->
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    CanUserReorderColumns="False"
+                    ItemsSource="{Binding JobAlarmList}"
+                    Style="{StaticResource DataGrid.Small}"
+                    Visibility="{Binding ErrorVisible}">
+                    <handy:Interaction.Triggers>
+                        <handy:EventTrigger EventName="MouseDoubleClick">
+                            <handy:InvokeCommandAction Command="{Binding DataContext.AlarmMouseDoubleCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=SelectedItem}" />
+                        </handy:EventTrigger>
+                    </handy:Interaction.Triggers>
+                    <DataGrid.RowStyle>
+                        <Style BasedOn="{StaticResource DefaultDataGridRow}" TargetType="{x:Type DataGridRow}">
+                            <Setter Property="Foreground" Value="#000" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding States}" Value="UnProcessed">
+                                    <Setter Property="Foreground" Value="red" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="1*" Header="序号">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Index}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="2*" Header="时间">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RestoreTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="3*" Header="异常信息">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Message}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

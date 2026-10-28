@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Define colors  -->
+    <Color x:Key="PrimaryColor">#3498db</Color>
+    <Color x:Key="SecondaryColor">#2ecc71</Color>
+    <Color x:Key="AccentColor">#e74c3c</Color>
+    <Color x:Key="MarvelLabelTitleBackGround">#F2F2F2</Color>
+    <Color x:Key="MarvelTitleBorderColor">#E6E7EA</Color>
+    <!--  Use SolidColorBrush to create brushes from colors  -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
+    <!--  label标题背景  -->
+    <SolidColorBrush x:Key="LabelTitleBackGroundBrush" Color="{StaticResource MarvelLabelTitleBackGround}" />
+    <!--  边框颜色  -->
+    <SolidColorBrush x:Key="TitleBorderColorBrush" Color="{StaticResource MarvelTitleBorderColor}" />
+</ResourceDictionary>

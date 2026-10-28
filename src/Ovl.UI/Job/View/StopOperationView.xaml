@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Ovl.UI.Job.View.StopOperationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:local="clr-namespace:Ovl.UI.Job.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="500">
+  <UserControl.Resources>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+  </UserControl.Resources>
+  <prism:Dialog.WindowStyle>
+    <Style TargetType="Window">
+      <!--  窗体的宽和高根据内容的大小设置  -->
+      <Setter Property="Width" Value="500" />
+      <Setter Property="Height" Value="250" />
+      <!--  不允许调整窗体尺寸  -->
+      <Setter Property="ResizeMode" Value="NoResize" />
+      <Setter Property="WindowStyle" Value="None" />
+      <!--  设置窗体的启动位置在屏幕中间  -->
+      <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+    </Style>
+  </prism:Dialog.WindowStyle>
+  <Border BorderThickness="1" BorderBrush="LightGray">
+    <Grid >
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Grid Margin="20">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="You can choose from the following options on how to continue or abort the processing:" FontSize="20" TextWrapping="Wrap" />
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <!--<ColumnDefinition />-->
+          </Grid.ColumnDefinitions>
+          <Button Content="Abort Wafer" HorizontalAlignment="Left" Width="100" Command="{Binding AbortWaferCommand}"
+                  Visibility="{Binding IsAbortWaferVisible,Converter={StaticResource BooleanToVisibilityConverter} }"/>
+          <Button Grid.Column="1" Content="Abort Job" HorizontalAlignment="Center" Width="100"  Command="{Binding AbortJobCommand}"/>
+          <Button Grid.Column="2" Content="Abort Queue"  HorizontalAlignment="Right"   Width="100"  Command="{Binding AbortQueueCommand}"/>
+        
+        </Grid>
+      </Grid>
+      <Border Grid.Row="1" BorderThickness="1" BorderBrush="LightGray">
+        <Grid Margin="20,0" Grid.Row="1" VerticalAlignment="Center" >
+          <Grid Grid.Row="1" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+
+            </Grid.ColumnDefinitions>
+
+              <Button Grid.Column="3" Content="Cancel" HorizontalAlignment="Right" Width="100"  Command="{Binding CancelCommand}"/>
+          </Grid>
+        </Grid>
+      </Border>
+     
+    </Grid>
+  </Border>
+
+</UserControl>

@@ -32,8 +32,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\InteVega.CBB.User\InteVega.CBB.User.Interface\InteVega.CBB.User.Interface.csproj" />
-		<ProjectReference Include="..\..\..\..\Marvel.Agent.Core\Marvel.Agent.Abstractions.csproj" />
+		<ProjectReference Include="..\..\..\InteVega.CBB.User\InteVega.CBB.User.Interface\InteVega.CBB.User.Interface.csproj" />
+		<!-- vendor 适配：Marvel.Agent.Core(IAIToolService) 已按需求移除 -->
 		<ProjectReference Include="..\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
 	</ItemGroup>
 

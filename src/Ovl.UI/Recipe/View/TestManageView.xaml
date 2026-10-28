@@ -1,0 +1,366 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Recipe.View.TestManageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:comControl="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
+    xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:cvt="clr-namespace:Ovl.UI.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:handy="https://handyorg.github.io/handycontrol"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.Recipe.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mtc="clr-namespace:Marvel.TargetSelectionControl.Control;assembly=Marvel.TargetSelectionControl"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:vm="clr-namespace:Ovl.UI.Recipe.ViewModel"
+    d:DataContext="{d:DesignInstance Type=vm:TestManageViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="1200"
+    DataContext="{prism:ContainerProvider {x:Type vm:TestManageViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <cvt:TestTypeConverter x:Key="TestTypeConverter1" />
+            <cvt:BoolToVisibilityConvert x:Key="BoolToVisibilityConverter" />
+            <cvt:VersionToVisibilityConverter x:Key="VersionToVisibilityConverter" />
+            <DataTemplate DataType="{x:Type vm:Test_TargetViewModel}">
+                <local:Test_TargetView />
+            </DataTemplate>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_en.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Languages/ViewDict_ch.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/ContextMenu.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Marvel.TargetSelectionControl;component/Control/ControlStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <Grid Margin="20" IsEnabled="{Binding IsEnable}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Border
+            BorderBrush="{StaticResource TitleBorderColorBrush}"
+            BorderThickness="1"
+            CornerRadius="3 3 0 0">
+            <WrapPanel Margin="3">
+                <Label
+                    VerticalAlignment="Center"
+                    Content="Test List"
+                    Style="{x:Null}" />
+                <Button
+                    Command="{Binding CreateTestCommand}"
+                    Content="Add Test"
+                    Style="{StaticResource MarvelLightButton}" />
+                <Button
+                    Command="{Binding ClearTestsCommand}"
+                    Content="Empty"
+                    Style="{StaticResource MarvelLightButton}" />
+                <Button
+                    Width="90"
+                    Command="{Binding OpenTestTrainViewCommand}"
+                    Content="Train Test"
+                    Style="{StaticResource MarvelDarkButton}"
+                    Visibility="Hidden" />
+            </WrapPanel>
+        </Border>
+        <Border
+            Grid.Row="1"
+            BorderBrush="{StaticResource TitleBorderColorBrush}"
+            BorderThickness="1,0,1,1"
+            CornerRadius="0,0,3,3">
+            <DataGrid
+                x:Name="testinfos"
+                Padding="0"
+                AutoGenerateColumns="False"
+                Background="Transparent"
+                BorderThickness="0"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserReorderColumns="False"
+                CanUserResizeRows="True"
+                CanUserSortColumns="False"
+                MouseDown="testinfos_MouseRightButtonDown"
+                MouseRightButtonDown="testinfos_MouseRightButtonDown"
+                SelectedItem="{Binding SelectTestRowData}"
+                SelectionChanged="testinfos_SelectionChanged"
+                SelectionMode="Single"
+                Style="{DynamicResource DataGrid.Small}">
+
+                <DataGrid.RowStyle>
+                    <Style BasedOn="{StaticResource TestListDataGridRowStyle}" TargetType="DataGridRow" />
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn
+                        MinWidth="50"
+                        Header="No"
+                        IsReadOnly="True">
+
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Background="Transparent">
+                                    <comControl:CtlAutoNo
+                                        Margin="2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AncestorType="{x:Type DataGrid}" />
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Width="*"
+                        MinWidth="100"
+                        Header="Name">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Background="Transparent">
+                                    <!--<ComboBox
+     Margin="5,0"
+
+     SelectedItem="{Binding OrgionPoint, UpdateSourceTrigger=PropertyChanged}" Height="8" />-->
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Name}"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTip="{Binding Name}" />
+                                </Border>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+
+
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        MinWidth="120"
+                        Header="Type"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Left" Background="Transparent">
+                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                        <mtc:ControlTestIcon
+                                            Margin="2"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center" />
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding ., Converter={StaticResource TestTypeConverter1}}" />
+                                    </StackPanel>
+                                </Border>
+
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn
+                        MinWidth="50"
+                        Header="Status"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent">
+                                    <TextBlock Text="{Binding TestInfo.TrainSetting.IsTrained}" />
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn
+                        MinWidth="100"
+                        Header="FaceMode"
+                        IsReadOnly="True"
+                        Visibility="{x:Static cvt:VersionToVisibilityConverter.OM40Visibility}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border Background="Transparent">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding TestInfo.FaceMode}" />
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        MinWidth="80"
+                        Header="Enabled"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent">
+                                    <TextBlock Text="{Binding TestInfo.IsEnable}" />
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </Border>
+
+        <Grid
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="10,0,0,0"
+            IsEnabled="{Binding SelectTestRowData, Converter={StaticResource OtbCVT}}">
+            <Border
+                BorderBrush="{StaticResource TitleBorderColorBrush}"
+                BorderThickness="1"
+                CornerRadius="3,3,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <RadioButton
+                            x:Name="TestTarget"
+                            Width="150"
+                            Margin="2,0,0,0"
+                            Content="①Target"
+                            IsChecked="True"
+                            IsEnabled="True"
+                            Style="{DynamicResource RadioTableItemButtonStyle_First}" />
+                        <RadioButton
+                            x:Name="TestPysical"
+                            Grid.Column="1"
+                            Width="150"
+                            Content="②Physical"
+                            IsEnabled="True"
+                            Style="{DynamicResource RadioTableItemButtonStyle}" />
+                        <RadioButton
+                            x:Name="TestDataCulling"
+                            Grid.Column="2"
+                            Width="150"
+                            Content="③Data Processing"
+                            IsEnabled="True"
+                            Style="{DynamicResource RadioTableItemButtonStyle}" />
+                        <RadioButton
+                            x:Name="TestTis"
+                            Grid.Column="3"
+                            Width="150"
+                            Content="④Tis Optimization"
+                            IsEnabled="True"
+                            Style="{DynamicResource RadioTableItemButtonStyle}"
+                            Visibility="{Binding IsOvlTest, Converter={StaticResource OtvCVT}}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="10,0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Button
+                            Height="25"
+                            Margin="1"
+                            Click="nextpage"
+                            Content="Next"
+                            Style="{StaticResource MarvelDarkButton}" />
+                        <Button
+                            Margin="10,0,0,0"
+                            Click="previousepage"
+                            Content="Return"
+                            Style="{StaticResource MarvelLightButton}" />
+                        <Button
+                            Margin="1"
+                            Command="{Binding SaveCommand}"
+                            Content="Save"
+                            Style="{StaticResource MarvelLightButton}"
+                            Visibility="Collapsed" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10,0,0,0"
+            IsEnabled="{Binding SelectTestRowData, Converter={StaticResource OtbCVT}}">
+            <Border
+                BorderBrush="{StaticResource TitleBorderColorBrush}"
+                BorderThickness="1,0,1,1"
+                CornerRadius="0 0 3 3">
+
+
+                <Grid x:Name="Grid_content">
+                    <local:Test_TargetView
+                        Grid.Column="1"
+                        Loaded="Test_TargetView_Loaded"
+                        Visibility="{Binding ElementName=TestTarget, Path=IsChecked, Converter={StaticResource Boolean2VisibilityConverter}}" />
+
+                    <local:Test_Physical_New Grid.Column="1" Visibility="{Binding ElementName=TestPysical, Path=IsChecked, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                    <local:Test_TisOptimize Grid.Column="1" Visibility="{Binding ElementName=TestTis, Path=IsChecked, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                    <local:Test_DataCulling_New
+                        Grid.Column="1"
+                        Loaded="Test_DataCulling_New_Loaded"
+                        Visibility="{Binding ElementName=TestDataCulling, Path=IsChecked, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                    <Grid Background="White" Visibility="{Binding SelectTestRowData, Converter={StaticResource OtvReCVT}}">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="#555555"
+                            Text="Please add tests and select one!" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+
+
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Button
+                Margin="0,20,0,0"
+                HorizontalAlignment="Right"
+                Command="{Binding SaveCommand}"
+                Content="Save"
+                Style="{StaticResource MarvelDarkButton}" />
+        </Grid>
+
+        <hc:CircleProgressBar
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="Orange"
+            IsIndeterminate="True"
+            Visibility="{Binding IsEnable, Converter={StaticResource OtvReCVT}}" />
+    </Grid>
+
+</UserControl>

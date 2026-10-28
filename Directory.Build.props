@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
+    <!-- VerifyDebug：marvel 侧 DomainService.Api 等工程按 Configuration Choose 源码/包分支，
+         构建需用 -c VerifyDebug 使其走源码工程分支（与厂内构建语义一致） -->
+    <Configurations>Debug;Release;VerifyDebug</Configurations>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,0 +1,22 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="StrCoarseAlignment">Coarse Alignmnet</system:String>
+    <system:String x:Key="StrFineAlignment">Fine Alignmnet</system:String>
+    <system:String x:Key="StrWaferCenter">COW</system:String>
+    <system:String x:Key="StrPre_DefCir3Point">Pre_DefineCircle3Point</system:String>
+    <system:String x:Key="StrNextToFineAlignment">Next Step</system:String>
+    <system:String x:Key="StrBackToCoarseAlignment">Lase Step</system:String>
+
+
+
+    <!--#region test菜单栏-->
+    <system:String x:Key="TargetLocation">Target Location</system:String>
+    <system:String x:Key="FieldSelect">FieldSelect</system:String>
+    <system:String x:Key="MeasueMethodAndEnv">MeasueMethodAndEnv</system:String>
+    <system:String x:Key="JudgeMeasueResult">JudgeMeasueResult</system:String>
+    <system:String x:Key="TrainTest">TrainTest</system:String>
+    <!--#endregion-->
+    <system:String x:Key="LightSourceLocation">LightSourceLocation</system:String>
+</ResourceDictionary>

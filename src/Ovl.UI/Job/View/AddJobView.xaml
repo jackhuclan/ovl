@@ -1,0 +1,390 @@
+﻿<UserControl
+    x:Class="Ovl.UI.Job.View.AddJobView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:Ovl.UI.Job.View"
+    xmlns:main="clr-namespace:Ovl.UI.Recipe.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:recipe="clr-namespace:InteVega.CBB.Recipe.Ui.View;assembly=InteVega.CBB.Recipe.Ui"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converts:ObjectToBool x:Key="ObjectToBool" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <!--  窗体的宽和高根据内容的大小设置  -->
+            <Setter Property="Width" Value="1200" />
+            <Setter Property="Height" Value="800" />
+            <!--  不允许调整窗体尺寸  -->
+            <!--<Setter Property="ResizeMode" Value="NoResize" />-->
+            <!--  设置窗体的启动位置在屏幕中间  -->
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <DockPanel>
+
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="10"
+            HorizontalAlignment="Right"
+            DockPanel.Dock="Bottom"
+            Orientation="Horizontal">
+      <Button
+                Margin="0,0,15,0"
+                Command="{Binding SaveDataCommand}"
+                Content="Submit" 
+              >
+        
+      </Button>
+      <Button Command="{Binding CloseCommand}" Content="Cancel" />
+        </StackPanel>
+        <Grid Grid.Row="0" IsEnabled="{Binding IsLocalOperationAllowed}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <recipe:RecipeMenu
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="5,5,0,5"
+                DataContext="{Binding RecipeMenuViewModel}" />
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5"
+                Padding="0"
+                BorderBrush="#E6E7EA"
+                BorderThickness="1"
+                Visibility="{Binding IsShowContent}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid
+      Grid.Row="0"
+      Panel.ZIndex="1"
+      Background="#D5E0E6">
+            <TextBlock
+          Margin="16,0"
+          HorizontalAlignment="Left"
+          VerticalAlignment="Center"
+          FontSize="16"
+          FontWeight="Black"
+          Text="{Binding RecipeName}" />
+            <StackPanel
+     Grid.Row="1"
+     Orientation="Horizontal"  Margin="16,10"
+ HorizontalAlignment="Left"
+ VerticalAlignment="Center"
+ >
+              <TextBlock Text="Selected Recipe：" FontSize="16"
+FontWeight="Black"/>
+              <TextBlock Text="{Binding JobItem.RecipeName}" FontSize="16"
+FontWeight="Black" />
+            </StackPanel>
+
+          </Grid>
+          <Border Grid.Row="1">
+            <Label
+                            Height="Auto"
+                            Margin="10,15"
+                            Style="{DynamicResource Container_PortLabelStyle}"
+                            Tag="Job Information">
+              <Grid Margin="10">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="36" />
+                  <RowDefinition Height="36" />
+                  <RowDefinition Height="36" />
+                  <RowDefinition Height="36" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" MinWidth="80" />
+                  <ColumnDefinition Width="5"/>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" MinWidth="80" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" MinWidth="80" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                               
+                                    <TextBlock
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     FontSize="12"
+                     Style="{DynamicResource TextBlockTitle}"
+                     Text="Lot ID：" />
+                                    <TextBlock
+     Grid.Row="0"
+     Grid.Column="0"
+     FontSize="12"
+     Foreground="Red"
+     HorizontalAlignment="Right" 
+     VerticalAlignment="Center"
+     Text="*" />
+                               
+               
+                <TextBox
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Name="txtLotId"
+                                    Text="{Binding JobItem.LotId,UpdateSourceTrigger=PropertyChanged}"
+                                    
+                                    FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                  
+                  >
+                  <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+
+                      <i:CallMethodAction MethodName="RefreshSaveState" TargetObject="{Binding}" />
+                    </i:EventTrigger>
+                  </i:Interaction.Triggers>
+
+
+                </TextBox>
+               
+                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="5"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Margin="5,0,0,0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Batch Add："
+                                    Visibility="{Binding IsShowBatchAdd}" />
+                <hc:NumericUpDown
+                                    Grid.Row="0"
+                                    Grid.Column="6"
+                                    Width="60"
+                                    Height="24"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    DecimalPlaces="0"
+                                    Minimum="1"
+                                    Style="{StaticResource NumericUpDownExtend}"
+                                    Visibility="{Binding IsShowBatchAdd}"
+                                    Value="{Binding JobItem.Batch}" />
+                <!--<TextBlock Grid.Row="0" Grid.Column="4" FontSize="12" Text="Load Port：" Style="{DynamicResource TextBlockTitle}"></TextBlock>
+                <StackPanel Grid.Row="0" Grid.Column="5" Orientation="Horizontal" Margin="0,8,0,0">
+                  <RadioButton Content="Port1" GroupName="GroupPort" IsChecked="{Binding PortIndex,Converter={StaticResource ObjectToBool},ConverterParameter='1'}" Style="{DynamicResource RadioButtonStyle}"></RadioButton>
+                  <RadioButton Content="Port2" GroupName="GroupPort" IsChecked="{Binding PortIndex,Converter={StaticResource ObjectToBool},ConverterParameter='2'}" Style="{DynamicResource RadioButtonStyle}"></RadioButton>
+                </StackPanel>-->
+
+                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="3"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Margin="5,0,0,0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Replace Cassette：" />
+                <ToggleButton
+                                    Grid.Row="0"
+                                    Grid.Column="4"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    IsChecked="{Binding JobItem.ReplaceCassette}"
+                                    Style="{StaticResource ToggleButtonSwitch}" />
+
+                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Current Exp：" />
+                <TextBox
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding JobItem.CurrentExpToolID,UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Margin="5,0,0,0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Previous Exp：" />
+                <TextBox
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding JobItem.PreviousExpToolID,UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Margin="5,0,0,0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Layer ID：" />
+                <TextBox
+                                    Grid.Row="1"
+                                    Grid.Column="6"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding JobItem.LayerID,UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Process ID：" />
+                <TextBox
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding JobItem.ProcessID,UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="3"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Margin="5,0,0,0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Product ID：" />
+                <TextBox
+                                    Grid.Row="2"
+                                    Grid.Column="4"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding JobItem.ProductID,UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="5"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Margin="5,0,0,0"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Device ID：" />
+                <TextBox
+                                    Grid.Row="2"
+                                    Grid.Column="6"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding JobItem.DeviceID,UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Tool ID：" />
+                <TextBox
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Height="24"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    IsReadOnly="True" IsEnabled="False" 
+                                    Text="{Binding JobItem.ToolID,UpdateSourceTrigger=PropertyChanged}" />
+
+                                <Button Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"  Margin="5,0,0,0"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                        Content="Load wafer infos"  
+ Command="{Binding LoadWafersCommand}"/>
+
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    FontSize="12"
+                                    Style="{DynamicResource TextBlockTitle}"
+                                    Text="Comments：" />
+                <TextBox
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="8"
+                                    MinHeight="40"
+                                    Margin="0,5,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalContentAlignment="Top"
+                                    AcceptsReturn="True"
+                                    Text="{Binding JobItem.Comments}"
+                                    TextAlignment="Left"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+              </Grid>
+            </Label>
+          </Border>
+
+          <Border Grid.Row="2">
+            <!--  运动参数  -->
+            <!--<ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+
+            </ScrollViewer>-->
+            <main:RunParamView Margin="0,0,10,15" DataContext="{Binding RunParamViewModel}" IsAddJob="True" />
+
+          </Border>
+        </Grid>
+
+      </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5"
+                Padding="5"
+                BorderBrush="#E6E7EA"
+                BorderThickness="1">
+                <TextBlock
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="76"
+                    Foreground="#a1a1a1"
+                    Text="Please select a recipe"
+                    Visibility="{Binding IsShowFirst}" />
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>
