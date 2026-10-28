@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <!-- conf 配置目录整体拷贝到输出（ConfFileService 默认根 = 运行目录/conf） -->
+    <None Include="conf\**\*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <!-- 嵌入资源：XAML 通过 pack URI（/Ovl.UI;component/Assets/...）引用 -->

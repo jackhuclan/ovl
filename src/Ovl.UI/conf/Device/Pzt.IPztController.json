@@ -1,0 +1,86 @@
+{
+  "DeviceConfigSet`1.IPztController": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.PZT.Interface.IPztController, InteVega.CBB.PZT.Interface]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.PZT.MockPZT.MockPZTConfig, InteVega.CBB.PZT.MockPZT",
+        "HardwareInfo": {
+          "Manufacturer": "MockPZT",
+          "HardwareId": "",
+          "Name": "",
+          "Description": ""
+        },
+        "DeviceIdentity": {
+          "Id": "na1",
+          "Name": "",
+          "DeviceType": 6
+        },
+        "Id": "0",
+        "Manufacturer": "MockPZT",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.PZT.MockPZT.MockPZTConfig, InteVega.CBB.PZT.MockPZT",
+        "HardwareInfo": {
+          "Manufacturer": "MockPZT",
+          "HardwareId": "",
+          "Name": "",
+          "Description": ""
+        },
+        "DeviceIdentity": {
+          "Id": "na2",
+          "Name": "",
+          "DeviceType": 6
+        },
+        "Id": "0",
+        "Manufacturer": "MockPZT",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Pzt.Nators.NatorsConfig, InteVega.CBB.Pzt.Nators",
+        "ConnectionDesc": "network:192.168.1.3:2000",
+        "HomeTmo": 30000,
+        "Scale": 1.0,
+        "Mid": 0.0,
+        "HardwareInfo": {
+          "Manufacturer": "nators",
+          "HardwareId": "@0",
+          "Name": "nators",
+          "Description": "nators"
+        },
+        "DeviceIdentity": {
+          "Id": "na1",
+          "Name": "NA",
+          "DeviceType": 6
+        },
+        "Id": "0",
+        "Manufacturer": "NATORS",
+        "Disabled": true
+      },
+      
+      {
+        "$type": "InteVega.CBB.Pzt.NanoMotion.NanoMotionConfig, InteVega.CBB.Pzt.NanoMotion",
+        "Com": "com3",
+        "Baud": 9600,
+        "Scale": 1.0,
+        "Mid": 0.0,
+        "HardwareInfo": {
+          "Manufacturer": "nanomotion",
+          "HardwareId": "@0",
+          "Name": "nanomotion",
+          "Description": "nanomotion"
+        },
+        "DeviceIdentity": {
+          "Id": "na2",
+          "Name": "NA",
+          "DeviceType": 6
+        },
+        "Id": "0",
+        "Manufacturer": "NANOMOTION",
+        "Disabled": true
+      }
+    ]
+  }
+}

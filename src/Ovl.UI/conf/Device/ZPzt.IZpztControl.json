@@ -1,0 +1,46 @@
+{
+  "DeviceConfigSet`1.IZpztControl": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.ZPZT.Interface.IZpztControl, InteVega.CBB.ZPZT.Interface]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.ZPzt.MockZpzt2.Zpzt2Config, InteVega.CBB.ZPzt.MockZpzt2",
+        
+        "HardwareInfo": {
+          "Manufacturer": "mock",
+          "HardwareId": "@0",
+          "Name": "megarobo",
+          "Description": "megarobo"
+        },
+        "DeviceIdentity": {
+          "Id": "mockzpzt",
+          "Name": "mockzpzt",
+          "DeviceType": 94
+        },
+        "Id": "0",
+        "Manufacturer": "mock",
+        "Disabled": false
+      },
+    
+      {
+        "$type": "InteVega.CBB.ZPZT.ZPzt2.Zpzt2Config, InteVega.CBB.ZPZT.ZPzt2",
+        "Host": "192.168.1.103",
+        "Port": 5555,
+        "HardwareInfo": {
+          "Manufacturer": "megarobo",
+          "HardwareId": "@0",
+          "Name": "megarobo",
+          "Description": "megarobo"
+        },
+        "DeviceIdentity": {
+          "Id": "megarobo",
+          "Name": "megarobo",
+          "DeviceType": 94
+        },
+        "Id": "0",
+        "Manufacturer": "megarobo",
+        "Disabled": true
+      }
+      
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "DeviceConfigSet`1.ITurret": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Turret.Interfaces.ITurret, InteVega.CBB.Turret.Interfaces]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.Turret.Interfaces.TurretConfig, InteVega.CBB.Turret.Interfaces",
+        "PortName": "COM1",
+        "BaudRate": 9600,
+        "DataBit": 8,
+        "Parity": 0,
+        "StopBits": 1,
+        "Id": "MockTurret",
+        "Manufacturer": "MockTurret",
+        "Disabled": false
+      }
+    ]
+  }
+}

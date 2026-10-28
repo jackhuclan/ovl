@@ -1,0 +1,19 @@
+﻿	< L [3] 
+		< U2 [1] DATAID>
+		< U4 [1] 33 >
+		< L [1] 
+			< L [2] 
+				< U2 [1] 20 >
+				< L [8] 
+					< A [LOTID_LENGTH] "LOTID" >
+					< A [PORTID_LENGTH] "PORTID" >
+					< A [CURRENT_SLOT_ID_LENGTH] "CURRENT_SLOT_ID" >
+					< A [CURRENTPATTERNID_LENGTH] "CURRENTPATTERNID" >
+					< A [PATTERNNAME_LENGTH] "PATTERNNAME" >
+					< A [ISPASSED_LENGTH] "ISPASSED" >
+					< A [OVERLAY_X_LENGTH] "OVERLAY_X" >
+					< A [OVERLAY_Y_LENGTH] "OVERLAY_Y" >
+				>
+			>
+		>
+	>

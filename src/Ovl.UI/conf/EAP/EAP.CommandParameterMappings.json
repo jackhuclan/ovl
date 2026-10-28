@@ -1,0 +1,103 @@
+{
+  "CommandMappings": [
+    {
+      "CommandName": "PP_SELECT_S",
+      "MethodName": "SetRecipe",
+      "ParameterMappings": [
+        {
+          "SourceKey": "DEV_NO",
+          "TargetParameter": "recipeId"
+        },
+        {
+          "SourceKey": "LOTID",
+          "TargetParameter": "lotId"
+        },
+        {
+          "SourceKey": "SLOTS",
+          "TargetParameter": "slots"
+        }
+      ]
+    },
+    {
+      "CommandName": "MAPPING",
+      "MethodName": "MappingResReport",
+      "ParameterMappings": [
+        {
+          "SourceKey": "Port",
+          "TargetParameter": "portId"
+        }
+      ]
+    },
+    {
+      "CommandName": "START_S",
+      "MethodName": "Start",
+      "ParameterMappings": [
+        {
+          "SourceKey": "Port",
+          "TargetParameter": "portId"
+        }
+      ]
+    },
+    {
+      "CommandName": "EMERGENCY",
+      "MethodName": "EmergenceStop",
+      "ParameterMappings": []
+    },
+    {
+      "CommandName": "GetRecipeCollection",
+      "MethodName": "GetRecipeCollectionWithSpilter",
+      "ParameterMappings": []
+    },
+    {
+      "CommandName": "GetCurrentRecipeContent",
+      "MethodName": "GetCurrentRecipeContent",
+      "ParameterMappings": [
+        {
+          "SourceKey": "ppid",
+          "TargetParameter": "ppid"
+        }
+      ]
+    },
+    {
+      "CommandName": "AddRecipe",
+      "MethodName": "AddRecipe",
+      "ParameterMappings": [
+        {
+          "SourceKey": "ppid",
+          "TargetParameter": "ppid"
+        }
+      ]
+    },
+    {
+      "CommandName": "RemoveRecipe",
+      "MethodName": "RemoveRecipe",
+      "ParameterMappings": [
+        {
+          "SourceKey": "ppid",
+          "TargetParameter": "ppid"
+        }
+      ]
+    },
+    {
+      "CommandName": "STOP",
+      "MethodName": "Stop",
+      "ParameterMappings": []
+    },
+    {
+      "CommandName": "GO_LOCAL",
+      "MethodName": "GoLocal",
+      "ParameterMappings": []
+    },
+    {
+      "CommandName": "GO_REMOTE",
+      "MethodName": "GoRemote",
+      "ParameterMappings": []
+    }
+  ],
+  "ParameterConverters": {
+    "DEV_NO": "string",
+    "LOTID": "string",
+    "SLOTS": "string",
+    "Port": "string"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "Chucks": [
+    {
+      "Chuck": 1,
+      "OnIoCfgs": [
+        
+      ],
+      "OffIoCfgs": [
+        
+      ],
+      "FbIosOn": null,
+      "FbIosOff": null,
+      "FbAisOn": [
+        
+      ],
+      "FbAisOff": [
+        
+      ],
+      "VacTime": {
+        "OnRdy": 0,
+        "OnTmo": 1000,
+        "OffRdy": 0,
+        "OffTmo": 1000,
+        "Tick": 10
+      }
+    },
+    {
+      "Chuck": 2,
+      "OnIoCfgs": [
+        
+      ],
+      "OffIoCfgs": [
+        
+      ],
+      "FbIosOn": null,
+      "FbIosOff": null,
+      "FbAisOn": [
+        
+      ],
+      "FbAisOff": [
+        
+      ],
+      "VacTime": {
+        "OnRdy": 0,
+        "OnTmo": 1000,
+        "OffRdy": 0,
+        "OffTmo": 1000,
+        "Tick": 10
+      }
+    }
+  ]
+}

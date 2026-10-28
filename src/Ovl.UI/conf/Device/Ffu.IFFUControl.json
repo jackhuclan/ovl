@@ -1,0 +1,58 @@
+{
+  "DeviceConfigSet`1.IFFUControl": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.FFU.Interface.IFFUControl, InteVega.CBB.FFU.Interface]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.FFU.AAFFFU.FFUConfig, InteVega.CBB.FFU.AAFFFU",
+        "Id": "1",
+        "Manufacturer": "AAF",
+        "Disabled": true,
+        "ProtocolInfo": {
+          "PortName": "COM1",
+          "BaudRate": 9600,
+          "DataBit": 8,
+          "Parity": 0,
+          "StopBits": 1,
+          "RtsEnable": false,
+          "HeadByte": 0,
+          "Encoding": {
+            "$type": "System.Text.ASCIIEncoding+ASCIIEncodingSealed, System.Private.CoreLib",
+            "IsSingleByte": true,
+            "BodyName": "us-ascii",
+            "EncodingName": "US-ASCII",
+            "HeaderName": "us-ascii",
+            "WebName": "us-ascii",
+            "WindowsCodePage": 1252,
+            "IsBrowserDisplay": false,
+            "IsBrowserSave": false,
+            "IsMailNewsDisplay": true,
+            "IsMailNewsSave": true,
+            "EncoderFallback": {
+              "$type": "System.Text.EncoderReplacementFallback, System.Private.CoreLib",
+              "DefaultString": "?",
+              "MaxCharCount": 1
+            },
+            "DecoderFallback": {
+              "$type": "System.Text.DecoderReplacementFallback, System.Private.CoreLib",
+              "DefaultString": "?",
+              "MaxCharCount": 1
+            },
+            "IsReadOnly": true,
+            "CodePage": 20127
+          },
+          "IsHex": false,
+          "HexSplit": "",
+          "MsgEnds": [
+            "DQo=",
+            "Ow0K",
+            "Ow0=",
+            "Cg==",
+            "Ow=="
+          ]
+        },
+        "Slave": 1,
+        "DefaultSpeed": 300
+      }
+    ]
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "LightConfig": {
+    "$type": "InteVega.CBB.MachineSystem.Interface.Model.LightConfig, InteVega.CBB.MachineSystem.Interface",
+    "ENABLE_AUTO_EXPOSURE": false,
+    "ENABLE_FULLSIGHT_EXPOSURE": false,
+    "ENABLE_SYSTEM_EXPOSURETHRESHHOLD": false,
+    "AUTO_EXPOSURE_COUNT": 30,
+    "WHITE_STEP_FACTOR": 1.0,
+    "INFRA_RED_STEP_FACTOR": 0.3,
+    "CALIBRATION_ERROR_RANGE": 2,
+    "EXPOSURE_THRESHHOLD": 5000,
+    "INTENSITY_THRESHHOLD": 50,
+    "GRAY_MAX_THRESHHOLD": 220,
+    "GRAY_MIN_THRESHHOLD": 100,
+    "SNAP_COUNT": 30,
+    "IS_SAVE_IMAGE": false
+  },
+  "WorkFlowConfig": {
+    "$type": "Marvel.DataModels.Config.WorkFlowConfig, Marvel.DataModels",
+    "IsUseCurve": false,
+    "AlignFocusOffset": 50.0,
+    "ZStepMin": 0.02,
+    "ZStepMax": 0.02,
+    "TemplateScore_Wli": 0.9,
+    "PreTemplateScore_Max": 0.9,
+    "PreTemplateScore_Min": 0.3,
+    "AtuoTrainTemplateScore_Min": 0.5,
+    "AtuoTrainTemplateScore_Max": 0.9,
+    "AtuoTrainMaxCount": 5,
+    "IsRunEmptyProcess": false,
+    "EFEMProcessCategory": 1,
+    "IsShowOvlOffset": false,
+    "IsRefreshWaferThicknessAfterAlignAndTrain": false
+  },
+  "VacuumConfig": {
+    "$type": "InteVega.CBB.MachineSystem.Interface.Model.VacuumConfig, InteVega.CBB.MachineSystem.Interface",
+    "PositiveVacuumTime": 100,
+    "InnerVacuumDurationTime": 100,
+    "OuterVacuumCotinueTime": 100,
+    "InnerVacuumJudgeTime": 100,
+    "OuterVacuumJudgeTime": 100,
+    "InnerVacuumSuccessValue": 70,
+    "InnerRelaySuccessValue": 50,
+    "OuterVacuumSuccessValue": 70,
+    "OuterRelaySuccessValue": 50,
+    "VacuumOffsetValue": 5,
+    "VacuumIntervalTime": 10,
+    "IsPressure": false,
+    "IsLogging": false
+  },
+  "SectionImageConfig": {
+    "$type": "InteVega.CBB.SectionManager.Interface.Model.SectionImageConfig, InteVega.CBB.SectionManager.Interface",
+    "IsSaveDefault": true,
+    "IsSaveCoarseAlign": true,
+    "IsSaveFineAlign": true,
+    "IsSaveTest": true,
+    "IsSaveFocus": true,
+    "IsSaveHRegion": true,
+    "MinAnraCount": 5,
+    "BaseSaveDisk": "E:\\",
+    "BaseImageFolder": "Data\\Image",
+    "BaseReportFolder": "Data\\Report",
+    "MRORecipeFolder": "Data\\MroRecipes",
+    "SaveType": "bmp",
+    "FocusSaveType": "jpg",
+    "LeastCapacity": 500,
+    "AnalyzerAppFolder": "E:\\temp\\marvel_eap\\Marvel.App.Analyzer\\bin\\Debug\\net6.0-windows",
+    "AnalyzerAppName": "Marvel.Analyzer.exe"
+  },
+  "WaferCenteringServiceConfig": {
+    "$type": "InteVega.CBB.DomainService.Api.Interfaces.WaferCenteringServiceConfig, InteVega.CBB.DomainService.Api",
+    "DetectEdgeParam": {
+      "MinNotchRadius": 55,
+      "BackThreshHigh": 70,
+      "EdgeThresh": 20,
+      "Transition": 2,
+      "ScanCount": 200,
+      "ScanWidth": 5,
+      "Magnification": 2,
+      "ChuckCenterRow": 0,
+      "ChuckCenterCol": 0
+    },
+    "CircleFitType": 0,
+    "IsFlipNotchAngle": false,
+    "IsFlipAlignmentAngle": false,
+    "CowOffset": {
+      "X": 0.0,
+      "Y": 0.0,
+      "ShapeType": 0
+    }
+  },
+  "TisOptimizeConfig": {
+    "$type": "Marvel.DataModels.Config.TisOptimizeConfig, Marvel.DataModels",
+    "TON": {
+      "FieldsCount_Min": 3,
+      "X_Range_Max": 200.0,
+      "X_Range_Min": 0.0,
+      "X_Step_Max": 200.0,
+      "X_Step_Min": 0.0,
+      "Y_Range_Max": 45.0,
+      "Y_Range_Min": 0.0,
+      "Y_Step_Max": 45.0,
+      "Y_Step_Min": 0.0
+    },
+    "TOV": {
+      "FieldsCount_Min": 3,
+      "X_Range_Max": 20.0,
+      "X_Range_Min": 0.0,
+      "X_Step_Max": 20.0,
+      "X_Step_Min": 0.0,
+      "Y_Range_Max": 20.0,
+      "Y_Range_Min": 0.0,
+      "Y_Step_Max": 20.0,
+      "Y_Step_Min": 0.0
+    },
+    "TOF": {
+      "FoucseRange": 1.2,
+      "Slice_Min": 1,
+      "FieldsCount_Min": 3
+    }
+  },
+  "FocusCfg": {
+    "$type": "InteVega.CBB.DomainService.Api.Models.FocusCfg, InteVega.CBB.DomainService.Api",
+    "AlignExtZMeter": {
+      "HRange": 200.0,
+      "HStep": 20.0,
+      "LRange": 50.0,
+      "LStep": 5.0,
+      "SharpnessMethod": 5,
+      "SpeedRate": 0.0
+    },
+    "AlignZMeter": {
+      "HRange": 200.0,
+      "HStep": 20.0,
+      "LRange": 50.0,
+      "LStep": 5.0,
+      "SharpnessMethod": 5,
+      "SpeedRate": 0.0
+    },
+    "MeasZMeter": {
+      "AllRange": 40.0,
+      "AllRangeStep": 0.1,
+      "SecondSmallRange": 20.0,
+      "CurveSmallRange": 20.0,
+      "HRange": 100.0,
+      "HStep": 10.0,
+      "LRange": 40.0,
+      "LStep": 2.0,
+      "SharpnessMethod": 5,
+      "SpeedRate": 0.0
+    },
+    "MeasZExtMeter": {
+      "AllRange": 40.0,
+      "AllRangeStep": 0.1,
+      "SecondSmallRange": 20.0,
+      "CurveSmallRange": 20.0,
+      "HRange": 100.0,
+      "HStep": 10.0,
+      "LRange": 40.0,
+      "LStep": 2.0,
+      "SharpnessMethod": 5,
+      "SpeedRate": 0.0
+    },
+    "MeasPztMeter": {
+      "AllRange": 40.0,
+      "AllRangeStep": 0.1,
+      "SecondSmallRange": 2.0,
+      "CurveSmallRange": 2.0,
+      "HRange": 20.0,
+      "HStep": 1.0,
+      "LRange": 4.0,
+      "LStep": 0.2,
+      "SharpnessMethod": 5,
+      "SpeedRate": 0.0
+    },
+    "MeasPztExtMeter": {
+      "AllRange": 40.0,
+      "AllRangeStep": 0.1,
+      "SecondSmallRange": 2.0,
+      "CurveSmallRange": 2.0,
+      "HRange": 20.0,
+      "HStep": 1.0,
+      "LRange": 4.0,
+      "LStep": 0.2,
+      "SharpnessMethod": 5,
+      "SpeedRate": 0.0
+    },
+    "MeasZMeterList": [],
+    "InterfMeter": {
+      "Range": 30.0,
+      "Step": 0.06,
+      "IsSaveSample": false,
+      "SmallRange": 1.0
+    }
+  },
+  "HomeConfig": {
+    "$type": "InteVega.CBB.MachineSystem.Interface.Model.HomeConfig, InteVega.CBB.MachineSystem.Interface",
+    "XY_TIMEOUT": 200,
+    "Z_TIMEOUT": 120,
+    "T_TIMEOUT": 120,
+    "TOTAL_TIMEOUT": 500,
+    "POWER_TIMEOUT": 5,
+    "EFEM_CMD_INTERVAL": 3000
+  },
+  "EapConfig": {
+    "$type": "Marvel.DataModels.Config.EapConfig, Marvel.DataModels",
+    "IsEnableProcessDataReport": true,
+    "IsEnableCompensatingParameterUpload": true,
+    "IsEnableJobResultReport": true,
+    "IsEnableGetCstId": false,
+    "IsEnableProcessExceptionReport": true
+  },
+  "ExcelExportConfig": {
+    "$type": "Marvel.DB.Interface.ExcelExportConfig, Marvel.DB.Interface",
+    "IsForDev": false,
+    "IsSaveFieldMeanData": false,
+    "ModelParameterAccuracy": 4,
+    "ModelForwardCompensation": false,
+    "ColumnsForDev": {
+      "OvlColumnCount": "0",
+      "OvlTisOptCount": "0",
+      "CdCloumnCount": "1",
+      "OvlColumns": {},
+      "OvlTisOptColumns": {},
+      "CdCloumns": {
+        "": ""
+      }
+    },
+    "ColumnsForUser": {
+      "OvlColumnCount": "0",
+      "OvlTisOptCount": "0",
+      "CdCloumnCount": "0",
+      "OvlColumns": {},
+      "OvlTisOptColumns": {},
+      "CdCloumns": {}
+    }
+  },
+  "DBConfig": {
+    "$type": "Marvel.DB.Interface.DBConfig, Marvel.DB.Interface",
+    "OpenDb": true,
+    "CodeFirstFlag": true,
+    "DBConnectionKey": "MeasureDataDbConnStR"
+  },
+  "SystemConfigService": {
+    "$type": "InteVega.CBB.SystemConfig.SystemConfigService, InteVega.CBB.SystemConfig"
+  }
+}

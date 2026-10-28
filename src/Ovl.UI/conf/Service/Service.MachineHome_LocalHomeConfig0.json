@@ -1,0 +1,36 @@
+{
+  "HomeTmo": 300000,
+  "HomeStageTmo": 180000,
+  "SysInited": "SysInited",
+  "SysPowerOn": "SysPowerOn",
+  "PreHomeStageBuffers": [
+    1,
+    2,
+    3,
+    4,
+    6
+  ],
+  "HomeStageBuffer": 1,
+  "PostHomeStageBuffers": [],
+  "HomeStageAck": [
+    "HomeOK_X",
+    "HomeOK_Y",
+    "HomeOK_Z",
+    "HomeOK_T"
+  ],
+  "PreChecks": [
+    "IOMappingSucceed",
+    "IN_1(3)",
+    "IN_1(4)"
+  ],
+  "PowerChecks": [
+    "IN_1(5)",
+    "IN_1(6)"
+  ],
+  "PowerCmd": "PowerOnCommand",
+  "PowerRst": "",
+  "PowerPulse": 500,
+  "PowerBuf": -1,
+  "PowerOnTmo": 30000,
+  "PowerOnRdy": 120000
+}

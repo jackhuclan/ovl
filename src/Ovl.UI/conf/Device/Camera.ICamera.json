@@ -1,0 +1,141 @@
+{
+  "DeviceConfigSet`1.ICamera": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Camera.Interface.ICamera, InteVega.CBB.Camera.Interface]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.Camera.MockCamera.MockCameraConfig, InteVega.CBB.Camera.MockCamera",
+        "ImageFolderPath": "../../data/vcamera/vcamera0",
+        "Frequency": 100.0,
+        "HardwareInfo": {
+          "Manufacturer": "MockCamera",
+          "HardwareId": "vcamera0",
+          "Name": "vcamera0",
+          "Description": "vcamera0"
+        },
+        "DeviceIdentity": {
+          "Id": "align",
+          "Name": "vcamera0",
+          "DeviceType": 1
+        },
+        "Id": "vcamera0",
+        "Manufacturer": "MockCamera",
+        "Disabled": false
+      },
+      {
+        "$type": "InteVega.CBB.Camera.MockCamera.MockCameraConfig, InteVega.CBB.Camera.MockCamera",
+        "ImageFolderPath": "../../data/vcamera/vcamera1",
+        "Frequency": 100.0,
+        "HardwareInfo": {
+          "Manufacturer": "MockCamera",
+          "HardwareId": "vcamera1",
+          "Name": "vcamera1",
+          "Description": "vcamera1"
+        },
+        "DeviceIdentity": {
+          "Id": "alignext",
+          "Name": "vcamera1",
+          "DeviceType": 1
+        },
+        "Id": "vcamera1",
+        "Manufacturer": "MockCamera",
+        "Disabled": false
+      },
+      {
+        "$type": "InteVega.CBB.Camera.MockCamera.MockCameraConfig, InteVega.CBB.Camera.MockCamera",
+        "ImageFolderPath": "../../data/vcamera/vcamera2",
+        "Frequency": 100.0,
+        "HardwareInfo": {
+          "Manufacturer": "MockCamera",
+          "HardwareId": "vcamera2",
+          "Name": "vcamera2",
+          "Description": "vcamera2"
+        },
+        "DeviceIdentity": {
+          "Id": "meas",
+          "Name": "vcamera2",
+          "DeviceType": 1
+        },
+        "Id": "vcamera2",
+        "Manufacturer": "MockCamera",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Cameras.Hikrobot.MvCameraConfig, InteVega.CBB.Cameras.Hikrobot",
+        "Sn": null,
+        "TrigLine": 0,
+        "MinFps": 0,
+        "HardwareInfo": {
+          "Manufacturer": "hik",
+          "HardwareId": "@0",
+          "Name": "hik",
+          "Description": "hik"
+        },
+        "DeviceIdentity": {
+          "Id": "align",
+          "Name": "hik",
+          "DeviceType": 1
+        },
+        "Id": "0",
+        "Manufacturer": "HIKROBOT",
+        "Disabled": true
+      },
+      
+      {
+        "$type": "InteVega.CBB.Cameras.Hikrobot.MvCameraConfig, InteVega.CBB.Cameras.Hikrobot",
+        "Sn": null,
+        "TrigLine": 0,
+        "MinFps": 0,
+        "HardwareInfo": {
+          "Manufacturer": "hik",
+          "HardwareId": "@0",
+          "Name": "hik",
+          "Description": "hik"
+        },
+        "DeviceIdentity": {
+          "Id": "alignext",
+          "Name": "hik",
+          "DeviceType": 1
+        },
+        "Id": "0",
+        "Manufacturer": "HIKROBOT",
+        "Disabled": true
+      },
+      
+      {
+        "$type": "InteVega.CBB.Camera.DalsaJai.DalsaJaiConfig, InteVega.CBB.Camera.DalsaJai",
+        "TrigSet": [
+          {
+            "Line": 2,
+            "Level": 1
+          },
+          {
+            "Line": 1,
+            "Level": 64
+          }
+        ],
+        "MaxFps": 100,
+        "Port": "COM133",
+        "Baud": 57600,
+        "Ccf": "",
+        "ServerId": 1,
+        "ResId": 0,
+        "StopTmo": 5000,
+        "HardwareInfo": {
+          "Manufacturer": "DalsaJai",
+          "HardwareId": "serialnumber",
+          "Name": "X100",
+          "Description": "card_camera"
+        },
+        "DeviceIdentity": {
+          "Id": "meas",
+          "Name": "jai",
+          "DeviceType": 1
+        },
+        "Id": "0",
+        "Manufacturer": "DALSAJAI",
+        "Disabled": true
+      }
+    ]
+  }
+}

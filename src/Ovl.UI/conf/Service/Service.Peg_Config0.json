@@ -1,0 +1,50 @@
+{
+  "PreTimeout": 60000,
+  "StreamEnd": 0,
+  "TransEnd": 40,
+  "DummyPer": 20,
+  "SpdScale": 80,
+  "ZMaxSpeed": 0.5,
+  "PztMaxSpeed": 1,
+  "CameraMetas": [
+    {
+      "PegMode": "align",
+      "PegAxis": "z",
+      "PegRef": "",
+      "PegWidth": 1,
+      "MoveAxis": 3,
+      "Camera": "align",
+      "Fps": 15,
+      "MarginZ": 0.05,
+      "MarginPzt": 0,
+      "LineZ": 0,
+      "LinePzt": 0
+    },
+    {
+      "PegMode": "align",
+      "PegAxis": "z",
+      "PegRef": "",
+      "PegWidth": 1,
+      "MoveAxis": 3,
+      "Camera": "meas",
+      "Fps": 15,
+      "MarginZ": 0.05,
+      "MarginPzt": 0.2,
+      "LineZ": 2,
+      "LinePzt": 1
+    },
+    {
+      "PegMode": "align",
+      "PegAxis": "z",
+      "PegRef": "",
+      "PegWidth": 1,
+      "MoveAxis": 3,
+      "Camera": "alignext",
+      "Fps": 15,
+      "MarginZ": 0.05,
+      "MarginPzt": 0,
+      "LineZ": 0,
+      "LinePzt": 0
+    }
+  ]
+}

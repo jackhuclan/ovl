@@ -1,0 +1,45 @@
+{
+  "DeviceConfigSet`1.IModBus": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Bus.Interface.IModBus, InteVega.CBB.Bus.IModBus]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.Bus.MockModBus.MockModBusConfig, InteVega.CBB.Bus.MockModBus",
+        "HardwareInfo": {
+          "Manufacturer": "com",
+          "HardwareId": "com",
+          "Name": "com",
+          "Description": "com"
+        },
+        "DeviceIdentity": {
+          "Id": "modbus",
+          "Name": "MODBUS",
+          "DeviceType": 92
+        },
+        "Id": "0",
+        "Manufacturer": "MOCK-MODBUS",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Bus.ModBus.ModBusConfig, InteVega.CBB.Bus.ModBus",
+        "Port": "com10",
+        "Baud": 9600,
+        "OpenTmo": 5000,
+        "HardwareInfo": {
+          "Manufacturer": "com",
+          "HardwareId": "com",
+          "Name": "com",
+          "Description": "com"
+        },
+        "DeviceIdentity": {
+          "Id": "modbus",
+          "Name": "MODBUS",
+          "DeviceType": 92
+        },
+        "Id": "0",
+        "Manufacturer": "MODBUS",
+        "Disabled": true
+      }
+    ]
+  }
+}

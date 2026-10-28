@@ -1,0 +1,251 @@
+{
+  "MachineSystemConfig": {
+    "$type": "InteVega.CBB.MachineSystem.Interface.Model.MachineSystemConfig, InteVega.CBB.MachineSystem.Interface",
+    "MachineSystemConfigs": [
+      {
+        "Id": "Measurement1",
+        "Name": "Measurement",
+        "DeviceModules": {
+          "$type": "System.Collections.ObjectModel.ObservableCollection`1[[InteVega.CBB.MachineSystem.Interface.Model.DeviceUnitModel, InteVega.CBB.MachineSystem.Interface]], System.ObjectModel",
+          "$values": [
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "exposure",
+                  "DisplayName": " Exposure (ms)：",
+                  "Value": "612"
+                },
+                {
+                  "Item": "gain",
+                  "DisplayName": "Gain（db）：",
+                  "Value": "--"
+                }
+              ],
+              "Name": "Measure Camera",
+              "Status": 0
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "Strength",
+                  "DisplayName": " Strength：",
+                  "Value": "255"
+                }
+              ],
+              "Name": "Light Source",
+              "Status": 1
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "ND",
+                  "DisplayName": " ND：",
+                  "Value": "0.1"
+                }
+              ],
+              "Name": "ND Filter",
+              "Status": 1
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "Color",
+                  "DisplayName": "Color：",
+                  "Value": "White"
+                }
+              ],
+              "Name": "Color Filter",
+              "Status": 1
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "Aperture",
+                  "DisplayName": "Aperture：",
+                  "Value": "High"
+                }
+              ],
+              "Name": "Na",
+              "Status": 1
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "ZPzt",
+                  "DisplayName": "ZPzt(um)：",
+                  "Value": "-0.012"
+                }
+              ],
+              "Name": "ZPzt",
+              "Status": 1
+            }
+          ]
+        }
+      },
+      {
+        "Id": "Alignment1",
+        "Name": "Alignment",
+        "DeviceModules": {
+          "$type": "System.Collections.ObjectModel.ObservableCollection`1[[InteVega.CBB.MachineSystem.Interface.Model.DeviceUnitModel, InteVega.CBB.MachineSystem.Interface]], System.ObjectModel",
+          "$values": [
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "exposure",
+                  "DisplayName": " Exposure (ms)：",
+                  "Value": "612"
+                },
+                {
+                  "Item": "gain",
+                  "DisplayName": "Gain（db）：",
+                  "Value": "55"
+                }
+              ],
+              "Name": "Alignment Camera",
+              "Status": 0
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "Strength",
+                  "DisplayName": " Strength：",
+                  "Value": "255"
+                }
+              ],
+              "Name": "Light Source",
+              "Status": 1
+            }
+          ]
+        }
+      },
+      {
+        "Id": "Stage1",
+        "Name": "Stage",
+        "DeviceModules": {
+          "$type": "System.Collections.ObjectModel.ObservableCollection`1[[InteVega.CBB.MachineSystem.Interface.Model.DeviceUnitModel, InteVega.CBB.MachineSystem.Interface]], System.ObjectModel",
+          "$values": [
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "X",
+                  "DisplayName": " X (mm)：",
+                  "Value": "22.56"
+                },
+                {
+                  "Item": "Y",
+                  "DisplayName": " Y (mm)：",
+                  "Value": "115.120"
+                },
+                {
+                  "Item": "T",
+                  "DisplayName": " T (°)：",
+                  "Value": "0.056"
+                }
+              ],
+              "Name": "XYT Stage",
+              "Status": 0
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "Z",
+                  "DisplayName": " Z (mm)：",
+                  "Value": "0.01"
+                }
+              ],
+              "Name": "Z Stage",
+              "Status": 1
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": " Robot Location",
+                  "DisplayName": " Robot Location：",
+                  "Value": "None"
+                },
+                {
+                  "Item": " Speed",
+                  "DisplayName": " Speed(mm/s):",
+                  "Value": "2.0"
+                }
+              ],
+              "Name": "Efem",
+              "Status": 1
+            }
+          ]
+        }
+      },
+      {
+        "Id": "Environment1",
+        "Name": "Environment",
+        "DeviceModules": {
+          "$type": "System.Collections.ObjectModel.ObservableCollection`1[[InteVega.CBB.MachineSystem.Interface.Model.DeviceUnitModel, InteVega.CBB.MachineSystem.Interface]], System.ObjectModel",
+          "$values": [
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "Battery capacity",
+                  "DisplayName": " Battery capacity(Ah)：",
+                  "Value": "100"
+                },
+                {
+                  "Item": "Battery Health",
+                  "DisplayName": " Battery Health (%)：",
+                  "Value": "0"
+                }
+              ],
+              "Name": "UPS",
+              "Status": 0
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "ffu_speed",
+                  "DisplayName": " Rotate Speed (r/s)：",
+                  "Value": "1000"
+                }
+              ],
+              "Name": "FFU",
+              "Status": 1
+            },
+            {
+              "Id": null,
+              "ModuleDisplayValues": [
+                {
+                  "Item": "Temperature",
+                  "DisplayName": " Temperature (℃)：",
+                  "Value": "26.2"
+                },
+                {
+                  "Item": "Humidity ",
+                  "DisplayName": " Humidity (%Rh)：",
+                  "Value": "55.6"
+                },
+                {
+                  "Item": "Pressure ",
+                  "DisplayName": " Pressure (Pa)：",
+                  "Value": "61.2"
+                }
+              ],
+              "Name": "THP",
+              "Status": 2
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

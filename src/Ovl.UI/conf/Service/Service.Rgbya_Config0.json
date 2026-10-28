@@ -1,0 +1,22 @@
+{
+  "R": {
+    "Active": true,
+    "Name": "SignalLamp_Red"
+  },
+  "G": {
+    "Active": true,
+    "Name": "SignalLamp_Green"
+  },
+  "B": {
+    "Active": true,
+    "Name": "SignalLamp_Blue"
+  },
+  "Y": {
+    "Active": true,
+    "Name": "SignalLamp_Yellow"
+  },
+  "A": {
+    "Active": true,
+    "Name": "SignalLamp_Buzzer"
+  }
+}

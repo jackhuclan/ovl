@@ -1,0 +1,105 @@
+{
+  "AlgorithmParams.AlgorithmParams": {
+    "$type": "InteVega.CBB.TemplateMatching.Core.AlgorithmParams, InteVega.CBB.TemplateMatching.Core",
+    "ParamCreateNccForAlign": {
+      "MethodType": 2,
+      "NumLevels": 4,
+      "AngleStart": -2.0,
+      "AngleExtend": 4.0,
+      "AngleStep": 0.5,
+      "PolarityType": 0,
+      "Feature": 0,
+      "Kernel": 15
+    },
+    "ParamCreateShapeForAlign": {
+      "MethodType": 1,
+      "ReductionType": 0,
+      "PreGenerationType": 1,
+      "LowContrast": 0,
+      "HighContrast": 0,
+      "MinSize": 50,
+      "MinContrast": 0,
+      "NumLevels": 4,
+      "AngleStart": -2.0,
+      "AngleExtend": 4.0,
+      "AngleStep": 0.5,
+      "PolarityType": 0,
+      "Feature": 0,
+      "Kernel": 15
+    },
+    "ParamMatchNccForAlign": {
+      "MethodType": 2,
+      "IsSubPixel": true,
+      "AngleStart": -2.0,
+      "AngleExtend": 4.0,
+      "MinScore": 0.7,
+      "ScoreRatio": 0.3,
+      "NumMatches": 0,
+      "MaxOverlap": 0.5,
+      "NumLevels": 4
+    },
+    "ParamMatchShapeForAlign": {
+      "MethodType": 1,
+      "AccuracyType": 1,
+      "DeformationType": 0,
+      "Greediness": 0.7,
+      "AngleStart": -2.0,
+      "AngleExtend": 4.0,
+      "MinScore": 0.7,
+      "ScoreRatio": 0.3,
+      "NumMatches": 0,
+      "MaxOverlap": 0.5,
+      "NumLevels": 4
+    },
+    "ParamCreateNccForTest": {
+      "MethodType": 2,
+      "NumLevels": 4,
+      "AngleStart": -1.0,
+      "AngleExtend": 2.0,
+      "AngleStep": 0.5,
+      "PolarityType": 0,
+      "Feature": 0,
+      "Kernel": 15
+    },
+    "ParamCreateShapeForTest": {
+      "MethodType": 1,
+      "ReductionType": 0,
+      "PreGenerationType": 1,
+      "LowContrast": 0,
+      "HighContrast": 0,
+      "MinSize": 50,
+      "MinContrast": 0,
+      "NumLevels": 4,
+      "AngleStart": -1.0,
+      "AngleExtend": 2.0,
+      "AngleStep": 0.5,
+      "PolarityType": 0,
+      "Feature": 0,
+      "Kernel": 15
+    },
+    "ParamMatchNccForTest": {
+      "MethodType": 2,
+      "IsSubPixel": true,
+      "AngleStart": -1.0,
+      "AngleExtend": 2.0,
+      "MinScore": 0.7,
+      "ScoreRatio": 0.3,
+      "NumMatches": 0,
+      "MaxOverlap": 0.5,
+      "NumLevels": 4
+    },
+    "ParamMatchShapeForTest": {
+      "MethodType": 1,
+      "AccuracyType": 1,
+      "DeformationType": 0,
+      "Greediness": 0.7,
+      "AngleStart": -1.0,
+      "AngleExtend": 2.0,
+      "MinScore": 0.7,
+      "ScoreRatio": 0.3,
+      "NumMatches": 0,
+      "MaxOverlap": 0.5,
+      "NumLevels": 4
+    }
+  }
+}

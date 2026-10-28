@@ -1,0 +1,15 @@
+{
+  "VMax": 2000,
+  "MovCH": 0,
+  "TrigCH": 0,
+  "QTicks": 100,
+  "MotionRdy": 0,
+  "TrigPulse": 50000,
+  "SamplePulse": 1,
+  "TrigPolarity": 1,
+  "TrigStick": 100,
+  "SampleRate": 500000,
+  "ByPass": false,
+  "Max": 29,
+  "Min": -29
+}

@@ -1,0 +1,17 @@
+{
+  "Doors": [
+    "Exit1",
+    "Door1State",
+    "Exit2",
+    "Door2State"
+  ],
+  "Shields": [
+    "ExitOpen"
+  ],
+  "MonitorAxis": [
+    "X",
+    "Y",
+    "Z",
+    "T"
+  ]
+}

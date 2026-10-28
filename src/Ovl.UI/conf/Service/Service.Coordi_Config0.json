@@ -1,0 +1,16 @@
+{
+  "Cameras": [
+    0,
+    1,
+    2
+  ],
+  "CoordiCfg": {
+    "SloveMode": 0,
+    "AutoCompTheta": false,
+    "CStatic": {
+      "X": 0,
+      "Y": 0
+    },
+    "CcwAngle": false
+  }
+}

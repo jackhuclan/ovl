@@ -1,0 +1,15 @@
+{
+  "SloveMode": 0,
+  "AutoCompTheta": false,
+  "CcwAngle": false,
+  "CStatic": {
+    "X": 0.0,
+    "Y": 0.0,
+    "ShapeType": 0
+  },
+  "CStaticF": {
+    "IsEmpty": true,
+    "X": 0.0,
+    "Y": 0.0
+  }
+}

@@ -1,0 +1,324 @@
+{
+  "0": {
+    "Id": 0,
+    "Name": "Reserved",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "1": {
+    "Id": 1,
+    "Name": "MappingStart",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "2": {
+    "Id": 2,
+    "Name": "MappingEnd",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "3": {
+    "Id": 3,
+    "Name": "FullAutoInitStart",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "4": {
+    "Id": 4,
+    "Name": "FullAutoInitEnd",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "5": {
+    "Id": 5,
+    "Name": "FullAutoStart",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "6": {
+    "Id": 6,
+    "Name": "FullAutoEnd",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "7": {
+    "Id": 7,
+    "Name": "FullAutoInitPauseOrStop",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "8": {
+    "Id": 8,
+    "Name": "FullAutoInitRestart",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "9": {
+    "Id": 9,
+    "Name": "OFFLINE_state_transition",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "10": {
+    "Id": 10,
+    "Name": "LOCAL_substate_transition",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "11": {
+    "Id": 11,
+    "Name": "REMOTE_substate_transition",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "12": {
+    "Id": 12,
+    "Name": "NEUTRAL_state_transition",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "13": {
+    "Id": 13,
+    "Name": "FULLAUTO_state_transition",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "14": {
+    "Id": 14,
+    "Name": "MANUAL_state_transition",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "15": {
+    "Id": 15,
+    "Name": "Wafer_Load_Start",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "16": {
+    "Id": 16,
+    "Name": "Wafer_Load_End",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "17": {
+    "Id": 17,
+    "Name": "Mark_Start",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "18": {
+    "Id": 18,
+    "Name": "Mark_End",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "19": {
+    "Id": 19,
+    "Name": "Alignment_Start",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "20": {
+    "Id": 20,
+    "Name": "Alignment_End",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "21": {
+    "Id": 21,
+    "Name": "Rotate_Start",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "22": {
+    "Id": 22,
+    "Name": "Rotate_End",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "23": {
+    "Id": 23,
+    "Name": "Measuration_Start",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "24": {
+    "Id": 24,
+    "Name": "Measuration_End",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "25": {
+    "Id": 25,
+    "Name": "Wafer_Unload_Start",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "26": {
+    "Id": 26,
+    "Name": "Wafer_Unload_End",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "27": {
+    "Id": 27,
+    "Name": "CT_Process_Completed",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "28": {
+    "Id": 28,
+    "Name": "Process_State_Change",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "29": {
+    "Id": 29,
+    "Name": "System_initialize_Start",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "30": {
+    "Id": 30,
+    "Name": "System_initialize_End",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "31": {
+    "Id": 31,
+    "Name": "Process_program_change",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "32": {
+    "Id": 32,
+    "Name": "Process_program_selected",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "33": {
+    "Id": 33,
+    "Name": "Measure_Report",
+    "IsEnable": true,
+    "LstReport": [
+      20
+    ]
+  },
+  "35": {
+    "Id": 35,
+    "Name": "CompletionOfLoading",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "36": {
+    "Id": 36,
+    "Name": "Stop",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "37": {
+    "Id": 37,
+    "Name": "EMGStop",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "39": {
+    "Id": 39,
+    "Name": "Compensating_Parameter",
+    "IsEnable": true,
+    "LstReport": [
+      60,
+      70,
+      80
+    ]
+  },
+  "40": {
+    "Id": 40,
+    "Name": "RTU",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  },
+  "41": {
+    "Id": 41,
+    "Name": "MaterialDeparture",
+    "IsEnable": true,
+    "LstReport": [
+      90
+    ]
+  }
+}

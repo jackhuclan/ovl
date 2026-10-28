@@ -1,0 +1,72 @@
+{
+  "StageVisionConfig": {
+    "$type": "InteVega.CBB.DomainService.Api.Models.StageVisionConfig, InteVega.CBB.DomainService.Api",
+    "OpticalConfigList": [
+      {
+        "IsFlipPixelX": false,
+        "IsFlipPixelY": false,
+        "CameraCoordId": "Align",
+        "Name": "AlignCamera",
+        "CameraDeviceId": "align",
+        "LightConfigList": [
+          {
+            "Name": "AlignLight",
+            "LightSourceType": "Align_100",
+            "IntensityDeviceId": "@light",
+            "NADeviceId": null,
+            "FilterDeviceId": null
+          }
+        ],
+        "Zoom": 0.03,
+        "ScanRangeRatio": 1.0,
+        "TurrentDeviceId": null
+      },
+      {
+        "IsFlipPixelX": false,
+        "IsFlipPixelY": false,
+        "CameraCoordId": "Meas",
+        "Name": "MeasCamera",
+        "CameraDeviceId": "meas",
+        "LightConfigList": [
+          {
+            "Name": "MeasLight",
+            "LightSourceType": "Measure",
+            "IntensityDeviceId": "Mock002",
+            "NADeviceId": "Mock001",
+            "FilterDeviceId": "Mock001"
+          }
+        ],
+        "Zoom": 0.03,
+        "ScanRangeRatio": 1.0,
+        "TurrentDeviceId": null
+      },
+      {
+        "IsFlipPixelX": false,
+        "IsFlipPixelY": false,
+        "CameraCoordId": "AlignExt",
+        "Name": "AlignExt",
+        "CameraDeviceId": "alignext",
+        "LightConfigList": [
+          {
+            "Name": "MeasLight",
+            "LightSourceType": "Align_100",
+            "IntensityDeviceId": "Mock002",
+            "NADeviceId": "Mock001",
+            "FilterDeviceId": "Mock001"
+          }
+        ],
+        "Zoom": 0.03,
+        "ScanRangeRatio": 1.0,
+        "TurrentDeviceId": null
+      }
+    ],
+    "CurrentCameraCoordId": "Align",
+    "cameraLight": {
+      "Align": 66.66666666666666,
+      "AlignExt": 66.66666666666666
+    },
+    "MotionRdy": 120,
+    "FrameInterval": 60,
+    "StageID": null
+  }
+}

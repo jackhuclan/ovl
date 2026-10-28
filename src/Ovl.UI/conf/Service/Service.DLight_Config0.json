@@ -1,0 +1,124 @@
+{
+  "LightConfigs": [
+    {
+      "Camera": 0,
+      "Name": "align",
+      "Lights": [
+        {
+          "Name": "white",
+          "CH": 0,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        },
+        {
+          "Name": "green",
+          "CH": 1,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        },
+        {
+          "Name": "amber",
+          "CH": 2,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        },
+        {
+          "Name": "black",
+          "CH": 3,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        },
+        {
+          "Name": "white",
+          "CH": 4,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        },
+        {
+          "Name": "green",
+          "CH": 5,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        },
+        {
+          "Name": "amber",
+          "CH": 6,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        },
+        {
+          "Name": "black",
+          "CH": 7,
+          "Srcs": [
+            {
+              "CH": 0,
+              "On": true
+            },
+            {
+              "CH": 1,
+              "On": true
+            }
+          ]
+        }
+      ],
+      "GroupSize": 4,
+      "Filters": []
+    }
+  ]
+}

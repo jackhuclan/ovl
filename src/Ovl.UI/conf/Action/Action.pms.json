@@ -1,0 +1,49 @@
+{
+  "Items": [
+    {
+      "IsSelected": true,
+      "Name": "Meas Light Age",
+      "ID": "meas_light_age",
+      "Service": "ServiceCalLightAge",
+      "Brief": "Meas Light Age",
+      "PfStat": 0,
+      "LatestTs": "0001-01-01T00:00:00",
+      "Interval": 0,
+      "UpdateMode": 0,
+	  "CameraID": 1,
+      "Arg": {
+        "CameraID": 0,
+        "Low": 0,
+        "High": 0,
+        "KDbls": {},
+        "KInts": {},
+        "KStrs": {},
+        "KObjs": {}
+      },
+      "Ret": null
+    },
+	
+	{
+      "IsSelected": true,
+      "Name": "Interf Contrast",
+      "ID": "interf_contrast",
+      "Service": "ServiceCalIContrast",
+      "Brief": "interf constrast",
+      "PfStat": 0,
+      "LatestTs": "0001-01-01T00:00:00",
+      "Interval": 0,
+      "UpdateMode": 0,
+	  "CameraID": 1,
+      "Arg": {
+        "CameraID": 0,
+        "Low": 0,
+        "High": 0,
+        "KDbls": { "min":0.0, "max":1.0  },
+        "KInts": {},
+        "KStrs": {},
+        "KObjs": {}
+      },
+      "Ret": null
+    }
+  ]
+}

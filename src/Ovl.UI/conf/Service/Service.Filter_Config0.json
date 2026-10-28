@@ -1,0 +1,17 @@
+{
+  "Motor": "filter",
+  "Filters": [
+    "White",
+    "Ivory",
+    "Burgundy",
+    "Maroon",
+    "Blue",
+    "Lime",
+    "Orange",
+    "WideNIR",
+    "NIR",
+    "Green",
+    "Yellow",
+    "Red"
+  ]
+}

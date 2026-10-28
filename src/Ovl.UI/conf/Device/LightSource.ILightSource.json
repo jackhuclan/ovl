@@ -1,0 +1,46 @@
+{
+  "DeviceConfigSet`1.ILightSource": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.LightSource.Interfaces.ILightSource, InteVega.CBB.LightSource.Interfaces]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.LightSource.MockLight.LightSourceConfig, InteVega.CBB.LightSource.MockLight",
+        "Host": "192.168.1.101",
+        "Port": 40001,
+        "HardwareInfo": {
+          "Manufacturer": "",
+          "HardwareId": "mock",
+          "Name": "mock",
+          "Description": null
+        },
+        "DeviceIdentity": {
+          "Id": "mock",
+          "Name": "mock",
+          "DeviceType": 0
+        },
+        "Id": "0",
+        "Manufacturer": "MockLight",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.LightSource.CCS.CcsConfig, InteVega.CBB.LightSource.CCS",
+        "Host": "192.168.1.101",
+        "Port": 40001,
+        "HardwareInfo": {
+          "Manufacturer": "CCS",
+          "HardwareId": "@0",
+          "Name": "CCS",
+          "Description": "CCS"
+        },
+        "DeviceIdentity": {
+          "Id": "ccs",
+          "Name": "ccs",
+          "DeviceType": 2
+        },
+        "Id": "0",
+        "Manufacturer": "megarobo",
+        "Disabled": true
+      }
+    ]
+  }
+}

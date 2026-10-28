@@ -1,0 +1,15 @@
+{
+  "WaitStable": 280,
+  "WaitEnd": 240,
+  "TrigStick": 100,
+  "TrigPulse": 50000,
+  "TrigPolarity": 1,
+  "VMax": 1000000,
+  "Acc": 10000000,
+  "SaDac": 5000000,
+  "mm2DacScale": 589000,
+  "OpenLoop": true,
+  "ByPass": true,
+  "Max": 24,
+  "Min": -24
+}

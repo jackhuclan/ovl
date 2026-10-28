@@ -1,0 +1,34 @@
+{
+  "Lights": [
+    {
+      "Camera": 0,
+      "CurCH": 0,
+      "ONs": {
+        "0": true,
+        "1": true
+      }
+    },
+    {
+      "Camera": 2,
+      "CurCH": 0,
+      "ONs": {
+        "2": false,
+        "3": false
+      }
+    },
+    {
+      "Camera": 1,
+      "CurCH": 0,
+      "ONs": {
+        "0": false
+      }
+    },
+    {
+      "Camera": 3,
+      "CurCH": 0,
+      "ONs": {
+        "0": false
+      }
+    }
+  ]
+}

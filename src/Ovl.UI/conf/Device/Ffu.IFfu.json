@@ -1,0 +1,44 @@
+{
+  "DeviceConfigSet`1.IFfu": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Ffu.Interface.IFfu, InteVega.CBB.Ffu.Intf]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.Ffu.MockFfu.MockFfuConfig, InteVega.CBB.Ffu.MockFfu",
+        "HardwareInfo": {
+          "Manufacturer": "mock",
+          "HardwareId": "@0",
+          "Name": "mock",
+          "Description": "mock"
+        },
+        "DeviceIdentity": {
+          "Id": "mock",
+          "Name": "FFU",
+          "DeviceType": 9
+        },
+        "Id": "0",
+        "Manufacturer": "MOCK-FFU",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Ffu.Sywork.SyworkConfig, InteVega.CBB.Ffu.Sywork",
+        "SlaveId": 10,
+        "BusID": "",
+        "HardwareInfo": {
+          "Manufacturer": "sywork",
+          "HardwareId": "@0",
+          "Name": "sywork",
+          "Description": "sywork"
+        },
+        "DeviceIdentity": {
+          "Id": "ffu",
+          "Name": "FFU",
+          "DeviceType": 9
+        },
+        "Id": "0",
+        "Manufacturer": "SYWORK",
+        "Disabled": true
+      }
+    ]
+  }
+}

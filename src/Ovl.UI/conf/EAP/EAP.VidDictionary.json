@@ -1,0 +1,538 @@
+{
+  "200": {
+    "Id": 200,
+    "Name": "PPID",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "201": {
+    "Id": 201,
+    "Name": "PPBODY",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "202": {
+    "Id": 202,
+    "Name": "LENGTH",
+    "Type": 0,
+    "Value": 0,
+    "Format": 44,
+    "IsEnable": false
+  },
+  "203": {
+    "Id": 203,
+    "Name": "NUMBEROFWAFERTOTAL",
+    "Type": 0,
+    "Value": 0,
+    "Format": 28,
+    "IsEnable": false
+  },
+  "204": {
+    "Id": 204,
+    "Name": "NUMBEROFWAFERPROCESSED",
+    "Type": 0,
+    "Value": 0,
+    "Format": 28,
+    "IsEnable": false
+  },
+  "205": {
+    "Id": 205,
+    "Name": "WAFERCOUNTINLOT",
+    "Type": 0,
+    "Value": 0,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "206": {
+    "Id": 206,
+    "Name": "WAFERID",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "207": {
+    "Id": 207,
+    "Name": "SLOTID",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "208": {
+    "Id": 208,
+    "Name": "PORTID",
+    "Type": 0,
+    "Value": 0,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "209": {
+    "Id": 209,
+    "Name": "DOORSTATE",
+    "Type": 0,
+    "Value": 0,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "210": {
+    "Id": 210,
+    "Name": "WAFERPOSITIONINLOT",
+    "Type": 0,
+    "Value": 0,
+    "Format": 28,
+    "IsEnable": false
+  },
+  "211": {
+    "Id": 211,
+    "Name": "REMOTECOMMAND",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "212": {
+    "Id": 212,
+    "Name": "SYSTEMSTATE",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "1005": {
+    "Id": 1005,
+    "Name": "ControlState",
+    "Type": 0,
+    "Value": 1,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "1008": {
+    "Id": 1008,
+    "Name": "PreviousProcessState",
+    "Type": 0,
+    "Value": 1,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "1009": {
+    "Id": 1009,
+    "Name": "ProcessState",
+    "Type": 0,
+    "Value": 1,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "1106": {
+    "Id": 1106,
+    "Name": "CTStatus",
+    "Type": 0,
+    "Value": 1,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "1109": {
+    "Id": 1109,
+    "Name": "LoaderStatus",
+    "Type": 0,
+    "Value": 1,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "1013": {
+    "Id": 1013,
+    "Name": "PPExecName",
+    "Type": 0,
+    "Value": 1,
+    "Format": 41,
+    "IsEnable": false
+  },
+  "2000": {
+    "Id": 2000,
+    "Name": "LotId",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "2001": {
+    "Id": 2001,
+    "Name": "PortId",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "2002": {
+    "Id": 2002,
+    "Name": "CurrentSlotId",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "2003": {
+    "Id": 2003,
+    "Name": "CurrentPatternId",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "2004": {
+    "Id": 2004,
+    "Name": "PatternName",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "2005": {
+    "Id": 2005,
+    "Name": "IsPassed",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "2006": {
+    "Id": 2006,
+    "Name": "OverlayX",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "2007": {
+    "Id": 2007,
+    "Name": "OverlayY",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "3000": {
+    "Id": 3000,
+    "Name": "MappingData",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "4000": {
+    "Id": 4000,
+    "Name": "Port1",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "4001": {
+    "Id": 4001,
+    "Name": "Port2",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "4002": {
+    "Id": 4002,
+    "Name": "Port",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "4025": {
+    "Id": 4025,
+    "Name": "Mdln",
+    "Type": 0,
+    "Value": "Mega OVL",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "4027": {
+    "Id": 4027,
+    "Name": "SoftRev",
+    "Type": 0,
+    "Value": "1.0",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "5000": {
+    "Id": 5000,
+    "Name": "CalculateType",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6000": {
+    "Id": 6000,
+    "Name": "ASML_Para_Type",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6001": {
+    "Id": 6001,
+    "Name": "ASML_WAFER_TRANS_X",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6002": {
+    "Id": 6002,
+    "Name": "ASML_WAFER_TRANS_Y",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6003": {
+    "Id": 6003,
+    "Name": "ASML_WAFER_EXPAND_X",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6004": {
+    "Id": 6004,
+    "Name": "ASML_WAFER_EXPAND_Y",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6005": {
+    "Id": 6005,
+    "Name": "ASML_WAFER_ROT",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6006": {
+    "Id": 6006,
+    "Name": "ASML_WAFER_N_ORTHO",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6007": {
+    "Id": 6007,
+    "Name": "ASML_SHOT_MAG",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6008": {
+    "Id": 6008,
+    "Name": "ASML_SHOT_ASYM_MAG",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6009": {
+    "Id": 6009,
+    "Name": "ASML_SHOT_ROT",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "6010": {
+    "Id": 6010,
+    "Name": "ASML_SHOT_ASYM_ROT",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7000": {
+    "Id": 7000,
+    "Name": "Nikon_Para_Type",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7001": {
+    "Id": 7001,
+    "Name": "Nikon_WAFER_OFST_X",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7002": {
+    "Id": 7002,
+    "Name": "Nikon_WAFER_OFST_Y",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7003": {
+    "Id": 7003,
+    "Name": "Nikon_WAFER_SCAL_X",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7004": {
+    "Id": 7004,
+    "Name": "Nikon_WAFER_SCAL_Y",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7005": {
+    "Id": 7005,
+    "Name": "Nikon_WAFER_ORTHO",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7006": {
+    "Id": 7006,
+    "Name": "Nikon_WAFER_ROT",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7007": {
+    "Id": 7007,
+    "Name": "Nikon_SHOT_SCAL_X",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7008": {
+    "Id": 7008,
+    "Name": "Nikon_SHOT_SCAL_Y",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7009": {
+    "Id": 7009,
+    "Name": "Nikon_SHOT_ORTHO",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "7010": {
+    "Id": 7010,
+    "Name": "Nikon_SHOT_ROT",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8000": {
+    "Id": 8000,
+    "Name": "Canon_Para_Type",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8001": {
+    "Id": 8001,
+    "Name": "Canon_WAFER_TX",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8002": {
+    "Id": 8002,
+    "Name": "Canon_WAFER_TY",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8003": {
+    "Id": 8003,
+    "Name": "Canon_WAFER_MX",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8004": {
+    "Id": 8004,
+    "Name": "Canon_WAFER_MY",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8005": {
+    "Id": 8005,
+    "Name": "Canon_WAFER_RX",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8006": {
+    "Id": 8006,
+    "Name": "Canon_WAFER_RY",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8007": {
+    "Id": 8007,
+    "Name": "Canon_SHOT_MX",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8008": {
+    "Id": 8008,
+    "Name": "Canon_SHOT_MY",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8009": {
+    "Id": 8009,
+    "Name": "Canon_SHOT_RX",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  },
+  "8010": {
+    "Id": 8010,
+    "Name": "Canon_SHOT_RY",
+    "Type": 0,
+    "Value": "",
+    "Format": 16,
+    "IsEnable": false
+  }
+}

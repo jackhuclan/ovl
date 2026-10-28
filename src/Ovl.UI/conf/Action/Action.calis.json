@@ -1,0 +1,193 @@
+{
+  "CaliItems": [
+    {
+      "Method": 0,
+      "Cls": "pixel size",
+      "Label": "align pixel size",
+      "ViewName": "PixelSizeView",
+      "Kvs": [
+        {
+          "Item1": "@camera",
+          "Item2": "0"
+        }
+      ],
+      "Desc": "pixel size",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/pixelsize.jpg"
+    },
+    {
+      "Method": 0,
+      "Cls": "pixel size",
+      "Label": "align ext pixel size",
+      "ViewName": "PixelSizeView",
+      "Kvs": [
+        {
+          "Item1": "@camera",
+          "Item2": "2"
+        }
+      ],
+      "Desc": "pixel size",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/pixelsize.jpg"
+    },
+    {
+      "Method": 0,
+      "Cls": "pixel size",
+      "Label": "meas pixel size",
+      "ViewName": "PixelSizeView",
+      "Kvs": [
+        {
+          "Item1": "@camera",
+          "Item2": "1"
+        }
+      ],
+      "Desc": "pixel size",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/pixelsize.jpg"
+    },
+    
+    {
+      "Method": 0,
+      "Cls": "cal station",
+      "Label": "cal station",
+      "ViewName": "CalStationControl",
+      "Kvs": [
+        
+      ],
+      "Desc": "cal station",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/stationmgr.jpg"
+    }, 
+    
+    {
+      "Method": 0,
+      "Cls": "align trans",
+      "Label": "align trans",
+      "ViewName": "AlignTransView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "0"
+          }
+      ],
+      "Desc": "align-meas",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/aligntrans.jpg"
+    },
+    
+    {
+      "Method": 0,
+      "Cls": "align trans",
+      "Label": "align ext trans",
+      "ViewName": "AlignTransView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "2"
+          }
+      ],
+      "Desc": "align ext-meas",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/aligntrans.jpg"
+    },
+    
+    {
+      "Method": 0,
+      "Cls": "center",
+      "Label": "rot center",
+      "ViewName": "RotCenterView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "1"
+          }
+      ],
+      "Desc": "meas rot center",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/rotcenter.jpg"
+    },
+	
+	{
+      "Method": 0,
+      "Cls": "zpzt",
+      "Label": "zpzt map",
+      "ViewName": "ZPztView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "1"
+          }
+      ],
+      "Desc": "zpzt maping",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/zpzt.jpg"
+    },
+	
+	{
+      "Method": 0,
+      "Cls": "SFO",
+      "Label": "image offset to interfer",
+      "ViewName": "FocusTransView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "1"
+          }
+      ],
+      "Desc": "z image - z interfer",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/sfo.jpg"
+    },
+    
+    {
+      "Method": 0,
+      "Cls": "z macro",
+      "Label": "Z Macro Focus",
+      "ViewName": "MacroFocusView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "1"
+          }
+      ],
+      "Desc": "z macro",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/macrofocus.jpg"
+    },
+	
+	{
+      "Method": 0,
+      "Cls": "light",
+      "Label": "meas light",
+      "ViewName": "LightAgeView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "1"
+          }
+      ],
+      "Desc": "meas light",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/lightage.jpg"
+    },
+    
+    {
+      "Method": 0,
+      "Cls": "focus",
+      "Label": "Interfere contrast",
+      "ViewName": "IContrastView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "1"
+          }
+      ],
+      "Desc": "interfere max - min",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/icontrast.jpg"
+    },
+    
+    {
+      "Method": 0,
+      "Cls": "Stage",
+      "Label": "Stage Jitter",
+      "ViewName": "DCView",
+      "Kvs": [
+          {
+              "Item1": "@camera",
+              "Item2": "1"
+          }
+      ],
+      "Desc": "xyz jitter",
+      "HelpImage": "/Megarobo.Ovl.Action.CalRes;component/res/dc.jpg"
+    }
+  ]
+}

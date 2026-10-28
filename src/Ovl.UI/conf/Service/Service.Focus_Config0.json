@@ -1,0 +1,53 @@
+{
+  "FocusCfg": {
+    "DefRoi": 100,
+    "WaferHeight": 730,
+    "UseFit": true,
+    "Asc": true,
+    "IsUseCurve": false,
+    "CurvePointCount": 5,
+    "PreTemplateScore": 0.9,
+    "AlignFocusOffset": 50,
+    "ZStepMin": 0.02,
+    "ZStepMax": 0.02,
+    "AlignMeter": {
+      "HRange": 1000,
+      "HStep": 50,
+      "LRange": 50,
+      "LStep": 5
+    },
+    "MeasMeter": {
+      "HRange": 1000,
+      "HStep": 50,
+      "LRange": 50,
+      "LStep": 5
+    },
+    "FineMeter": {
+      "HRange": 1000,
+      "HStep": 50,
+      "LRange": 50,
+      "LStep": 5
+    },
+    "FocusParamA": {
+      "Method": 5,
+      "ZoomFacotr": 0.3,
+      "OffsetRow": 2,
+      "OffsetCol": 2,
+      "LowerThreshold": 50
+    },
+    "FocusParamM": {
+      "Method": 5,
+      "ZoomFacotr": 0.3,
+      "OffsetRow": 2,
+      "OffsetCol": 2,
+      "LowerThreshold": 50
+    },
+    "FocusParamZPzt": {
+      "Method": 5,
+      "ZoomFacotr": 0.3,
+      "OffsetRow": 2,
+      "OffsetCol": 2,
+      "LowerThreshold": 50
+    }
+  }
+}

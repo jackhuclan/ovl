@@ -1,0 +1,167 @@
+{
+  "DeviceConfigSet`1.IMotorInterface": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Motor.Interfaces.IMotorInterface, InteVega.CBB.Motor.Interfaces]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      
+      {
+        "$type": "InteVega.CBB.Motor.MockMotor.MockMotorConfig, InteVega.CBB.Motor.MockMotor",
+        "HardwareInfo": {
+          "Manufacturer": "MockMotor",
+          "HardwareId": "1",
+          "Name": "1",
+          "Description": ""
+        },
+        "DeviceIdentity": {
+          "Id": "filter",
+          "Name": "",
+          "DeviceType": 7
+        },
+        "Id": "0",
+        "Manufacturer": "MockMotor",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Motor.MockMotor.MockMotorConfig, InteVega.CBB.Motor.MockMotor",
+        "HardwareInfo": {
+          "Manufacturer": "MockMotor",
+          "HardwareId": "2",
+          "Name": "2",
+          "Description": ""
+        },
+        "DeviceIdentity": {
+          "Id": "atten1",
+          "Name": "",
+          "DeviceType": 7
+        },
+        "Id": "1",
+        "Manufacturer": "MockMotor",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Motor.MockMotor.MockMotorConfig, InteVega.CBB.Motor.MockMotor",
+        "HardwareInfo": {
+          "Manufacturer": "MockMotor",
+          "HardwareId": "3",
+          "Name": "3",
+          "Description": ""
+        },
+        "DeviceIdentity": {
+          "Id": "atten2",
+          "Name": "",
+          "DeviceType": 7
+        },
+        "Id": "2",
+        "Manufacturer": "MockMotor",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Motor.Gsc.GscConfig, InteVega.CBB.Motor.Gsc",
+        "Com": "com3",
+        "Baud": 9600,
+        "HomeTmo": 30000,
+        "ReadyTmo": 30000,
+        "HardwareInfo": {
+          "Manufacturer": "GSC",
+          "HardwareId": "@0",
+          "Name": "GSC",
+          "Description": "GSC"
+        },
+        "DeviceIdentity": {
+          "Id": "GSC",
+          "Name": "GSC",
+          "DeviceType": 7
+        },
+        "Id": "0",
+        "Manufacturer": "GSC",
+        "Disabled": true
+      },
+      
+      {
+        "$type": "InteVega.CBB.Motor.Maxon.MaxonMotorConfig, InteVega.CBB.Motor.Maxon",
+        "HardwareInfo": {
+          "Manufacturer": "",
+          "HardwareId": "1",
+          "Name": "控制器ID",
+          "Description": null
+        },
+        "Identity": {
+          "Id": "atten1",
+          "Name": "atten",
+          "DeviceType": 7
+        },
+        "Manufacturer": "Maxon",
+        "Id": "1",
+        "Disabled": true,
+        "motorControllerConnParam": {
+          "deviceName": "EPOS4",
+          "protocolStackName": "MAXON SERIAL V2",
+          "interfaceName": "RS232",
+          "portName": "COM1",
+          "Baudrate": 115200,
+          "Timeout": 500
+        },
+        "MotorParams": {
+          "maxonFindHomeParam": {
+            "homingMethod": 23,
+            "homeingAcc": 50,
+            "speedForZeroSearch": 10,
+            "speedForSwitchSearch": 50,
+            "homeOffset": 0,
+            "currentThreshold": 500,
+            "homePosition": 0
+          },
+          "maxonPPmoveParams": {
+            "profileVelocity": 1000,
+            "profileAcceleration": 10000,
+            "profileDeceleration": 10000
+          }
+        }
+      },
+      
+      {
+        "$type": "InteVega.CBB.Motor.Maxon.MaxonMotorConfig, InteVega.CBB.Motor.Maxon",
+        "HardwareInfo": {
+          "Manufacturer": "",
+          "HardwareId": "1",
+          "Name": "控制器ID",
+          "Description": null
+        },
+        "Identity": {
+          "Id": "atten2",
+          "Name": "atten",
+          "DeviceType": 7
+        },
+        "Manufacturer": "Maxon",
+        "Id": "1",
+        "Disabled": true,
+        "motorControllerConnParam": {
+          "deviceName": "EPOS4",
+          "protocolStackName": "MAXON SERIAL V2",
+          "interfaceName": "RS232",
+          "portName": "COM1",
+          "Baudrate": 115200,
+          "Timeout": 500
+        },
+        "MotorParams": {
+          "maxonFindHomeParam": {
+            "homingMethod": 23,
+            "homeingAcc": 50,
+            "speedForZeroSearch": 10,
+            "speedForSwitchSearch": 50,
+            "homeOffset": 0,
+            "currentThreshold": 500,
+            "homePosition": 0
+          },
+          "maxonPPmoveParams": {
+            "profileVelocity": 1000,
+            "profileAcceleration": 10000,
+            "profileDeceleration": 10000
+          }
+        }
+      }
+    ]
+  }
+}

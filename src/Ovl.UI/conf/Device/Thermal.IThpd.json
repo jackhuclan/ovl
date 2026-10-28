@@ -1,0 +1,43 @@
+{
+  "DeviceConfigSet`1.IThpd": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Thpd.Interface.IThpd, InteVega.CBB.Thpd.IThpd]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.Thpd.MockThpd.MockThpdConfig, InteVega.CBB.Thpd.MockThpd",
+        "HardwareInfo": {
+          "Manufacturer": "mfdp",
+          "HardwareId": "@0",
+          "Name": "mfdp",
+          "Description": "mfdp"
+        },
+        "DeviceIdentity": {
+          "Id": "thpd",
+          "Name": "THPD",
+          "DeviceType": 13
+        },
+        "Id": "0",
+        "Manufacturer": "MOCK-THPD",
+        "Disabled": false
+      },
+      
+      {
+        "$type": "InteVega.CBB.Thpd.Mfdp.MfdpConfig, InteVega.CBB.Thpd.Mfdp",
+        "SlaveId": 10,
+        "HardwareInfo": {
+          "Manufacturer": "mfdp",
+          "HardwareId": "@0",
+          "Name": "mfdp",
+          "Description": "mfdp"
+        },
+        "DeviceIdentity": {
+          "Id": "thpd",
+          "Name": "THPD",
+          "DeviceType": 13
+        },
+        "Id": "0",
+        "Manufacturer": "MFDP",
+        "Disabled": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "DeviceConfigSet`1.IAPzt": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.APzt.Interface.IAPzt, InteVega.CBB.APzt.Interface]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      
+      {
+        "$type": "InteVega.CBB.APzt.Mock.MockAPztConfig, InteVega.CBB.APzt.Mock",
+        "HardwareInfo": {
+          "Manufacturer": "MockAPzt",
+          "HardwareId": "",
+          "Name": "",
+          "Description": ""
+        },
+        "DeviceIdentity": {
+          "Id": "mock",
+          "Name": "mock",
+          "DeviceType": 6
+        },
+        "Id": "0",
+        "Manufacturer": "MockAPzt",
+        "Disabled": false
+      },
+ 
+      {
+        "$type": "InteVega.CBB.APzt.JX.JxAPztConfig, InteVega.CBB.APzt.JX",
+        "Ip": "",
+        "Id": 0,
+        "HomeTmo": 0,
+        "WavId": 1,
+        
+        "Scale": -0.001,
+        "Mid": 200,
+        "HardwareInfo": {
+          "Manufacturer": "JxAPzt",
+          "HardwareId": "jx",
+          "Name": "jx",
+          "Description": "jx"
+        },
+        "DeviceIdentity": {
+          "Id": "zpzt",
+          "Name": "jx",
+          "DeviceType": 6
+        },
+        "Manufacturer": "JxAPzt",
+        "Disabled": true
+      }
+    ]
+  }
+}

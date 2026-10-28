@@ -1,0 +1,44 @@
+{
+  "DeviceConfigSet`1.IUps": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Ups.Interface.IUps, InteVega.CBB.Ups.Intf]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.Ups.MockUps.MockUpsConfig, InteVega.CBB.Ups.MockUps",
+        "HardwareInfo": {
+          "Manufacturer": "ups",
+          "HardwareId": "@0",
+          "Name": "ups",
+          "Description": "ups"
+        },
+        "DeviceIdentity": {
+          "Id": "ups",
+          "Name": "UPS",
+          "DeviceType": 12
+        },
+        "Id": "0",
+        "Manufacturer": "MOCK-UPS",
+        "Disabled": false
+      },
+      {
+        "$type": "InteVega.CBB.Ups.Spspm.SpspmConfig, InteVega.CBB.Ups.Spspm",
+        "Port": "com1",
+        "Baud": 2400,
+        "SmartTmo": 120000,
+        "HardwareInfo": {
+          "Manufacturer": "Schneider",
+          "HardwareId": "@0",
+          "Name": "ups",
+          "Description": "ups"
+        },
+        "DeviceIdentity": {
+          "Id": "ups",
+          "Name": "UPS",
+          "DeviceType": 12
+        },
+        "Id": "0",
+        "Manufacturer": "SCHNEIDER",
+        "Disabled": true
+      }
+    ]
+  }
+}

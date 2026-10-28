@@ -1,0 +1,24 @@
+{
+  "DeviceConfigSet`1.ITurrent": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.Turrent.ITurrent.ITurrent, InteVega.CBB.Turrent.ITurrent]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.Turrent.Mock.MockTurrentConfig, InteVega.CBB.Turrent.Mock",
+        "HardwareInfo": {
+          "Manufacturer": "MockTurrent",
+          "HardwareId": "",
+          "Name": "",
+          "Description": ""
+        },
+        "DeviceIdentity": {
+          "Id": "mockTurrent",
+          "Name": "mockTurrent",
+          "DeviceType": 7
+        },
+        "Id": "0",
+        "Manufacturer": "MockTurrent",
+        "Disabled": false
+      }
+    ]
+  }
+}

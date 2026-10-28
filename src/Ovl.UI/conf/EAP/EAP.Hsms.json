@@ -1,0 +1,13 @@
+{
+  "DeviceId": 0,
+  "IsActiveMode": false,
+  "RemoteAddress": "127.0.0.1",
+  "RemotePort": 5000,
+  "LocalPort": 2134,
+  "T3": 1,
+  "T5": 2,
+  "T6": 2,
+  "T7": 2,
+  "T8": 2,
+  "LinkTestInterval": 60
+}

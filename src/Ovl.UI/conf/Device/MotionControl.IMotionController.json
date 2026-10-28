@@ -1,0 +1,219 @@
+{
+  "DeviceConfigSet`1.IMotionController": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.MotionController.Device.IMotionController, InteVega.CBB.MotionController.Abstractions]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      
+      {
+        "$type": "InteVega.CBB.MotionController.MotionControllerConfig, InteVega.CBB.MotionController.Abstractions",
+        "Id": "Mock",
+        "Manufacturer": "MockMotionController",
+        "Disabled": false,
+        "Ip": "10.0.0.100",
+        "Port": 701,
+        "Name": "Stage Controller",
+        "AxisModels": [
+          {
+            "Id": "x",
+            "Name": "x轴",
+            "MappingIndex": 1,
+            "AxisParams": {
+              "Velocity": 50.0,
+              "Acceleration": 1000.0,
+              "Deceleration": 1000.0,
+              "Unit": "",
+              "Jerk": 5000.0,
+              "KillDeceleration": 5000.0,
+              "MaxLimit": 200.0,
+              "MinLimit": -125.0
+            },
+            "IsLightAxis": false,
+            "FlipDirection": false,
+            "Dir": 1
+          },
+          {
+            "Id": "y",
+            "Name": "y轴",
+            "MappingIndex": 0,
+            "AxisParams": {
+              "Velocity": 50.0,
+              "Acceleration": 1000.0,
+              "Deceleration": 1000.0,
+              "Unit": "",
+              "Jerk": 5000.0,
+              "KillDeceleration": 5000.0,
+              "MaxLimit": 210.0,
+              "MinLimit": -200.0
+            },
+            "IsLightAxis": false,
+            "FlipDirection": false,
+            "Dir": 1
+          },
+          {
+            "Id": "t",
+            "Name": "t轴",
+            "MappingIndex": 2,
+            "AxisParams": {
+              "Velocity": 5.0,
+              "Acceleration": 1000.0,
+              "Deceleration": 1000.0,
+              "Unit": "",
+              "Jerk": 1000.0,
+              "KillDeceleration": 1000.0,
+              "MaxLimit": 360.0,
+              "MinLimit": -360.0
+            },
+            "IsLightAxis": false,
+            "FlipDirection": false,
+            "Dir": 1
+          },
+          {
+            "Id": "z",
+            "Name": "z轴",
+            "MappingIndex": 5,
+            "AxisParams": {
+              "Velocity": 5.0,
+              "Acceleration": 1000.0,
+              "Deceleration": 1000.0,
+              "Unit": "",
+              "Jerk": 1000.0,
+              "KillDeceleration": 10000.0,
+              "MaxLimit": 15.0,
+              "MinLimit": -20.0
+            },
+            "IsLightAxis": false,
+            "FlipDirection": false,
+            "Dir": 1
+          }
+        ],
+        "IoFile": null,
+        "ScriptModels": null,
+        "IoMappingMode": 1,
+        "PegConfigs": null
+      },  
+    
+    
+      {
+        "$type": "InteVega.CBB.MotionController.MotionControllerConfig, InteVega.CBB.MotionController.Abstractions",
+        "Id": "acs",
+        "Manufacturer": "Acs",
+        "Disabled": true,
+        "Ip": "",
+        "Port": 701,
+        "Name": "Stage",
+        
+		"AxisModels": [
+          {
+            "Id": "X",
+            "Name": "x轴",
+            "MappingIndex": 0,
+            "AxisParams": {
+              "Velocity": 50.0,
+              "Acceleration": 100.0,
+              "Deceleration": 100.0,
+              "Unit": "",
+              "Jerk": 5000.0,
+              "KillDeceleration": 5000.0,
+              "MaxLimit": 191.0,
+              "MinLimit": -191.0
+            },
+            "IsLightAxis": false,
+            "FlipDirection": false,
+            "Dir": 1
+          },
+          {
+            "Id": "Y",
+            "Name": "y轴",
+            "MappingIndex": 4,
+            "AxisParams": {
+              "Velocity": 50.0,
+              "Acceleration": 100.0,
+              "Deceleration": 100.0,
+              "Unit": "",
+              "Jerk": 5000.0,
+              "KillDeceleration": 5000.0,
+              "MaxLimit": 181.0,
+              "MinLimit": -181.0
+            },
+            "IsLightAxis": false,
+            "FlipDirection": true,
+            "Dir": 1
+          },
+          {
+            "Id": "T",
+            "Name": "t轴",
+            "MappingIndex": 5,
+            "AxisParams": {
+              "Velocity": 90.0,
+              "Acceleration": 1000.0,
+              "Deceleration": 1000.0,
+              "Unit": "",
+              "Jerk": 1000.0,
+              "KillDeceleration": 1000.0,
+              "MaxLimit": 360.0,
+              "MinLimit": -360.0
+            },
+            "IsLightAxis": false,
+            "FlipDirection": false,
+            "Dir": 1
+          },
+          {
+            "Id": "Z",
+            "Name": "z轴",
+            "MappingIndex": 8,
+            "AxisParams": {
+              "Velocity": 5.0,
+              "Acceleration": 1000.0,
+              "Deceleration": 1000.0,
+              "Unit": "",
+              "Jerk": 1000.0,
+              "KillDeceleration": 10000.0,
+              "MaxLimit": 0.1,
+              "MinLimit": -8.6
+            },
+            "IsLightAxis": false,
+            "FlipDirection": false,
+            "Dir": 1
+          }
+          
+        ],
+
+        "IoFile": "../../data/configs/iomodels.json",
+		
+        "ScriptModels": null,
+        "IoMappingMode": 1,
+        
+		"PegConfigs": [
+        
+        {
+            "$type": "InteVega.CBB.MotionController.Acs.AcsPegConfig, InteVega.CBB.MotionController.Acs",
+            "PegMode":"meas",
+            "EngineSettings":[
+            {
+                "AxisId":"Z",
+                "EngToEncBitCode": 2,
+                "GpOutsBitCode": 0,
+                "OutputIndex": 9,
+                "PhysicalBitCode": 8
+            }
+            ]
+        },
+        
+        {
+            "$type": "InteVega.CBB.MotionController.Acs.AcsPegConfig, InteVega.CBB.MotionController.Acs",
+            "PegMode":"align",
+            "EngineSettings":[
+            {
+                "AxisId":"Z",
+                "EngToEncBitCode": 2,
+                "GpOutsBitCode": 0,
+                "OutputIndex": 8,
+                "PhysicalBitCode": 0
+            }
+            ]
+        }
+        
+        ]
+      }
+    ]
+  }
+}

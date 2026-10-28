@@ -1,0 +1,436 @@
+{
+  "5000": {
+    "Id": 5000,
+    "Text": "E0000",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5001": {
+    "Id": 5001,
+    "Text": "E0001 Turning power off.",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5002": {
+    "Id": 5002,
+    "Text": "E0002 EM switch pressed.",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5003": {
+    "Id": 5003,
+    "Text": "E0003 Insufficient main air......Reinitialize.",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5004": {
+    "Id": 5004,
+    "Text": "E0004 Spindle inverter error. Re - start the machine. ",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5005": {
+    "Id": 5005,
+    "Text": "",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5006": {
+    "Id": 5006,
+    "Text": "",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5007": {
+    "Id": 5007,
+    "Text": "E0007 UPS has been actuated.",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5008": {
+    "Id": 5008,
+    "Text": "E0008 Z EM is activated.",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5009": {
+    "Id": 5009,
+    "Text": "E0009 Initialize. ",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "11001": {
+    "Id": 11001,
+    "Text": "S0001 Positive pressure fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "11002": {
+    "Id": 11002,
+    "Text": "S0002 Negative pressure fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "11003": {
+    "Id": 11003,
+    "Text": "S0003 Ct Positive pressure fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "11004": {
+    "Id": 11004,
+    "Text": "S0004 Plasma fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "24001": {
+    "Id": 24001,
+    "Text": "X0001 Z-axis holding brake fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1001": {
+    "Id": 1001,
+    "Text": "M0001 Efem power fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "11005": {
+    "Id": 11005,
+    "Text": "S0005 Door fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "11006": {
+    "Id": 11006,
+    "Text": "S0006 Monitor fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "24002": {
+    "Id": 24002,
+    "Text": "X0002 Axis soft negative limit",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "24003": {
+    "Id": 24003,
+    "Text": "X0003 Axis soft positive limit",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "24004": {
+    "Id": 24004,
+    "Text": "X0004 Abnormal axis enabling",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12001": {
+    "Id": 12001,
+    "Text": "A0001 Acs cfg load fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12002": {
+    "Id": 12002,
+    "Text": "A0002 Acs open fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12003": {
+    "Id": 12003,
+    "Text": "A0003 Acs not inited",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12004": {
+    "Id": 12004,
+    "Text": "A0004 Acs emerged",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12005": {
+    "Id": 12005,
+    "Text": "A0005 Acs halted",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12006": {
+    "Id": 12006,
+    "Text": "A0006 Acs serve on timeout",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12007": {
+    "Id": 12007,
+    "Text": "A0007 Acs abort motion",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12008": {
+    "Id": 12008,
+    "Text": "A0008 Acs home timeout",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12009": {
+    "Id": 12009,
+    "Text": "A0009 Acs serv off in home",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12010": {
+    "Id": 12010,
+    "Text": "A0010 Error init AcsHome",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "12011": {
+    "Id": 12011,
+    "Text": "A0011 Acs power fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "24005": {
+    "Id": 24005,
+    "Text": "X0005 Axis fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1002": {
+    "Id": 1002,
+    "Text": "M0002 Efem cfg load_fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1003": {
+    "Id": 1003,
+    "Text": "M0003 Efem open fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1004": {
+    "Id": 1004,
+    "Text": "M0004 Efem init fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1005": {
+    "Id": 1005,
+    "Text": "M0005 Efem VAC fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1006": {
+    "Id": 1006,
+    "Text": "M0006 Efem CDA fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1007": {
+    "Id": 1007,
+    "Text": "M0007 Efem DPG fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1008": {
+    "Id": 1008,
+    "Text": "M0008 Efem FfuAlarm fail ",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1009": {
+    "Id": 1009,
+    "Text": "M0009 Efem IonizerAlarm fail ",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1010": {
+    "Id": 1010,
+    "Text": "M0010 Efem Mode fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1011": {
+    "Id": 1011,
+    "Text": "M0011 Efem DrivePower fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1012": {
+    "Id": 1012,
+    "Text": "M0012 Efem DoorStatus fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1013": {
+    "Id": 1013,
+    "Text": "M0013 Efem AreaSensor fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "1014": {
+    "Id": 1014,
+    "Text": "M0014 Efem UPSPower fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "13001": {
+    "Id": 13001,
+    "Text": "C0001 Camera open fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "13002": {
+    "Id": 13002,
+    "Text": "C0002 Camera cfg load fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "13003": {
+    "Id": 13003,
+    "Text": "C0003 Camera lose connect",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "13004": {
+    "Id": 13004,
+    "Text": "C0004 Camera debug image load fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "13005": {
+    "Id": 13005,
+    "Text": "C0005 Camera device not ready",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "14001": {
+    "Id": 14001,
+    "Text": "L0001 Light open fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "14002": {
+    "Id": 14002,
+    "Text": "L0002 Light cfg load fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "14003": {
+    "Id": 14003,
+    "Text": "L0003 Light communicate timeout",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "14004": {
+    "Id": 14004,
+    "Text": "L0004 Light invalid ch",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "14005": {
+    "Id": 14005,
+    "Text": "L0005 Light set fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "15001": {
+    "Id": 15001,
+    "Text": "O0001 Data load fail",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "15002": {
+    "Id": 15002,
+    "Text": "O0002 Common running now",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "15003": {
+    "Id": 15003,
+    "Text": "O0003 Common not inited",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "15004": {
+    "Id": 15004,
+    "Text": "O0004 Common not opened",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "11049": {
+    "Id": 11049,
+    "Text": "Kerf center position error.",
+    "IsSet": true,
+    "IsEnable": true,
+    "Code": 128
+  },
+  "5567": {
+    "Id": 5567,
+    "Text": "Wafer washing water error.",
+    "IsSet": false,
+    "IsEnable": true,
+    "Code": 0
+  }
+}

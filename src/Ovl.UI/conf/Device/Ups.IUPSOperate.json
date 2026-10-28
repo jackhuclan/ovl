@@ -1,0 +1,57 @@
+{
+  "DeviceConfigSet`1.IUPSOperate": {
+    "$type": "InteVega.CBB.Hal.DeviceConfigSet`1[[InteVega.CBB.UPS.Interface.IUPSOperate, InteVega.CBB.UPS.Interface]], InteVega.CBB.Hal.Abstractions",
+    "Configs": [
+      {
+        "$type": "InteVega.CBB.UPS.Schneider.UPSConfig, InteVega.CBB.UPS.Schneider",
+        "Id": "1",
+        "Manufacturer": "Schneider",
+        "Disabled": true,
+        "ProtocolInfo": {
+          "$type": "InteVega.CBB.CommunicationApi.SerialInfo, InteVega.CBB.CommunicationApi",
+          "PortName": "COM1",
+          "BaudRate": 2400,
+          "DataBit": 8,
+          "Parity": 0,
+          "StopBits": 1,
+          "RtsEnable": false,
+          "HeadByte": 0,
+          "Encoding": {
+            "$type": "System.Text.ASCIIEncoding+ASCIIEncodingSealed, System.Private.CoreLib",
+            "IsSingleByte": true,
+            "BodyName": "us-ascii",
+            "EncodingName": "US-ASCII",
+            "HeaderName": "us-ascii",
+            "WebName": "us-ascii",
+            "WindowsCodePage": 1252,
+            "IsBrowserDisplay": false,
+            "IsBrowserSave": false,
+            "IsMailNewsDisplay": true,
+            "IsMailNewsSave": true,
+            "EncoderFallback": {
+              "$type": "System.Text.EncoderReplacementFallback, System.Private.CoreLib",
+              "DefaultString": "?",
+              "MaxCharCount": 1
+            },
+            "DecoderFallback": {
+              "$type": "System.Text.DecoderReplacementFallback, System.Private.CoreLib",
+              "DefaultString": "?",
+              "MaxCharCount": 1
+            },
+            "IsReadOnly": true,
+            "CodePage": 20127
+          },
+          "IsHex": false,
+          "HexSplit": "",
+          "MsgEnds": [
+            "DQo=",
+            "Ow0K",
+            "Ow0=",
+            "Cg==",
+            "Ow=="
+          ]
+        }
+      }
+    ]
+  }
+}

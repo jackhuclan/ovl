@@ -1,0 +1,24 @@
+{
+  "MeasureDataCustomConfig": {
+    "$type": "InteVega.CBB.DomainService.Api.Models.MeasureDataCustomConfig, InteVega.CBB.DomainService.Api",
+    "Factor": 1,
+    "IsSelectedRawData": false,
+    "IsVisibleRawData": true,
+    "IsSelectedOVLData": true,
+    "IsVisibleOVLData": true,
+    "IsSelectedTISRawData": false,
+    "IsVisibleTISRawData": false,
+    "IsSelectedErrorData": false,
+    "IsVisibleErrorData": true,
+    "IsSelectedLotStatistics_Misreg": false,
+    "IsVisibleLotStatistics_Misreg": false,
+    "IsSelectedLotStatistics_TIS": false,
+    "IsVisibleLotStatistics_TIS": false,
+    "IsSelectedWaferStatistics": false,
+    "IsVisibleWaferStatistics": true,
+    "IsSelectedBFCDResultsStatistics": false,
+    "IsVisibleBFCDResultsStatistics": true,
+    "IsSelectedJobQmeritData": false,
+    "IsVisibleJobQmeritData": false
+  }
+}

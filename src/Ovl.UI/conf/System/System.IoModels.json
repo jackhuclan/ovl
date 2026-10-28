@@ -1,0 +1,1154 @@
+[
+  {
+    "Id": "Door1State",
+    "Name": "1#门锁状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Door2State",
+    "Name": "2#门锁状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN1_2",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "EMO-1State",
+    "Name": "EMO-1状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "EMO-2State",
+    "Name": "EMO-2状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 4,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "KM0State",
+    "Name": "KM0状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 5,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "KM1State",
+    "Name": "KM1状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 6,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "TotalPressureState",
+    "Name": "总正气压检测",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "IN_1",
+      "VarBitIndex": 7,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StageNegativePressureState",
+    "Name": "STAGE负压检测",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "PumpNegativePressureState",
+    "Name": "抽排负压检测",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "EfemNegativePressureState",
+    "Name": "EFEM负压检测",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "PressureSensor_inside",
+    "Name": "内圈负压检测 ",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "PressureSensor_outside",
+    "Name": "外圈负压检测 ",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 4,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN2_5",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 5,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN2_6",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 6,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN2_7",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "IN_2",
+      "VarBitIndex": 7,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN3_0",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN3_1",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Exit1",
+    "Name": "安全门1锁定状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Exit2",
+    "Name": "安全门2锁定状态",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN3_4",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 4,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "ExitApply",
+    "Name": "安全门申请",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 5,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN3_6",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 6,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyIN3_7",
+    "Name": "离子风棒报警",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "IN_3",
+      "VarBitIndex": 7,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "InterLock0",
+    "Name": "EFEM臂安全信号",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "IN_4",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "InterLock1",
+    "Name": "EFEM门关信号",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "IN_4",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "InterLock2",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "IN_4",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "InterLock3",
+    "Name": "备用",
+    "ActV": 0,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "IN_4",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "SignalLamp_Red",
+    "Name": "信号灯柱_红",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "SignalLamp_Yellow",
+    "Name": "信号灯柱_黄",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "SignalLamp_Green",
+    "Name": "信号灯柱_绿",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "SignalLamp_Blue",
+    "Name": "信号灯柱_蓝",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "SignalLamp_Buzzer",
+    "Name": "信号灯柱_蜂鸣长鸣",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 4,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut1_5",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 5,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Door1Close",
+    "Name": "1#门锁控制",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 6,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Door2Close",
+    "Name": "2#门锁控制",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 1,
+      "VarName": "OUT_1",
+      "VarBitIndex": 7,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut2_0",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "ExitOpen",
+    "Name": "安全门开门申请",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut2_2",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut2_3",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut2_4",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 4,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut2_5",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 5,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Pressure_inside",
+    "Name": "内圈负压控制",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 6,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Pressure_outside",
+    "Name": "外圈负压控制",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 2,
+      "VarName": "OUT_2",
+      "VarBitIndex": 7,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut3_0",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut3_1",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "IonWindRod",
+    "Name": "离子风棒控制",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Doorlock_safetyrelay_reset",
+    "Name": "门锁安继复位",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "Appliance_lighting",
+    "Name": "设备照明",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 4,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut3_5",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 5,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut3_6",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 6,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut3_7",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 3,
+      "VarName": "OUT_3",
+      "VarBitIndex": 7,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "ArmExtendEnable0",
+    "Name": "给EFEM允许进入信号",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "OUT_4",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "DoorOpen0",
+    "Name": "给EFEM门开信号",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "OUT_4",
+      "VarBitIndex": 1,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut4_2",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "OUT_4",
+      "VarBitIndex": 2,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyOut4_3",
+    "Name": "备用",
+    "ActV": 1,
+    "IoMapping": {
+      "Index": 4,
+      "VarName": "OUT_4",
+      "VarBitIndex": 3,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": false
+    },
+    "Value": false
+  },
+  {
+    "Id": "IOMappingSucceed",
+    "Name": "IO映射状态",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "IOMappingSucceed",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "HomeOK_X",
+    "Name": "X轴回零",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "HomeOK_X",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "HomeOK_Y",
+    "Name": "Y轴回零",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "HomeOK_Y",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "HomeOK_Z",
+    "Name": "Z轴回零",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "HomeOK_Z",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "HomeOK_T",
+    "Name": "T轴回零",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "HomeOK_T",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "IOInitSucceed",
+    "Name": "门锁安继上电初始化",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "IOInitSucceed",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "PowerOnCommand",
+    "Name": "尚未加发送上电初始化指令",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "PowerOnCommand",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "IOInitErrorID",
+    "Name": "上电失败错误代码",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "IOInitErrorID",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "TotalPressureValue",
+    "Name": "总正压",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_0",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": "({0}/32767)*100",
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "StageNegativePressureValue",
+    "Name": "STAGE负压值",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_1",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": "({0}/32767)*200-100",
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "PumpNegativePressureValue",
+    "Name": "抽排负压值",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_2",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": "({0}/32767)*200-100",
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "EfemNegativePressureValue",
+    "Name": "EFEM负压值",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_3",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": "({0}/32767)*200-100",
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "InsideNegativePressureValue",
+    "Name": "内圈负压值",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_4",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": "({0}/32767)*200-100",
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "OutsideNegativePressureValue",
+    "Name": "外圈负压值",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_5",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": "({0}/32767)*200-100",
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyAI_6",
+    "Name": "备用",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_6",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  },
+  {
+    "Id": "StandbyAI_7",
+    "Name": "备用",
+    "ActV": 2,
+    "IoMapping": {
+      "Index": 0,
+      "VarName": "AIN_7",
+      "VarBitIndex": 0,
+      "MinValue": 0.0,
+      "MaxValue": 0.0,
+      "Formula": null,
+      "Unit": null,
+      "IsInnerIO": true
+    },
+    "Value": false
+  }
+]

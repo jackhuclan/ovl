@@ -1,0 +1,27 @@
+[
+  {
+    "Stream": 6,
+    "Function": 11,
+    "MethodName": "MeasureReport"
+  },
+  {
+    "Stream": 5,
+    "Function": 1,
+    "MethodName": "InternalSendAlarmReport"
+  },
+  {
+    "Stream": 6,
+    "Function": 11,
+    "MethodName": "MappingResReport"
+  },
+  {
+    "Stream": 6,
+    "Function": 11,
+    "MethodName": "ReportEvent"
+  },
+  {
+    "Stream": 6,
+    "Function": 11,
+    "MethodName": "ReportCarrierInProperPlacement"
+  }
+]    
