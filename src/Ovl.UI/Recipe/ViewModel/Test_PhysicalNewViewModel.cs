@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Prism.Services.Dialogs;
 
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.EventAggregators;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class Test_PhysicalNewViewModel : Test_SettingsViewModelBase

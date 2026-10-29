@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+      xmlns:local="clr-namespace:Ovl.UI.Recipe"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
       xmlns:converter="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"

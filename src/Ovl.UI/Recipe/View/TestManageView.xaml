@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:comControl="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
-    xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:control="clr-namespace:Ovl.UI.Controls"
     xmlns:cvt="clr-namespace:Ovl.UI.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:handy="https://handyorg.github.io/handycontrol"

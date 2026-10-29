@@ -16,7 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WinCopies.Util;
 
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Extensions;
 namespace Ovl.UI.Recipe.ViewModel
 {
 

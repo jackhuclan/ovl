@@ -27,8 +27,8 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 
 using Ovl.UI.Recipe.View;
-using Ovl.UI.ViewModels.Bases;
-using Ovl.UI.ViewModels.Interface;
+using Ovl.UI.Bases;
+using Ovl.UI.Interface;
 namespace Ovl.UI.Recipe.ViewModel;
 
 public partial class RecipeWindowViewModel : ObservableObject, IDisposable

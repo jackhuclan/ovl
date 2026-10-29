@@ -20,7 +20,7 @@ using System.Windows;
 using System.Windows.Threading;
 
 using Ovl.UI.Recipe.View;
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.EventAggregators;
 using DataModels = Marvel.DataModels;
 namespace Ovl.UI.Recipe.ViewModel
 {

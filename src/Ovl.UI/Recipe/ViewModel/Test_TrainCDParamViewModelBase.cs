@@ -39,7 +39,7 @@ using Wafer.Algorithm.Common.DoNet;
 using WinCopies.Util;
 
 using Ovl.UI.Recipe.View;
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Extensions;
 namespace Ovl.UI.Recipe.ViewModel
 {
 

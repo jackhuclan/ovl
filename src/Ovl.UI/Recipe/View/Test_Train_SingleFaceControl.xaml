@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="clr-namespace:HandyControl.Controls;assembly=HandyControl"
     xmlns:local="clr-namespace:Ovl.UI.Recipe.View"
-    xmlns:localControl="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:localControl="clr-namespace:Ovl.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:stagecontorl1="clr-namespace:InteVega.CBB.StageControlModule.Views.CameraView;assembly=InteVega.CBB.StageControlModule"

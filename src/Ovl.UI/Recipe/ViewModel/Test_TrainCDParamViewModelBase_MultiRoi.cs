@@ -17,7 +17,7 @@ using System.Linq;
 using System.Windows;
 using Wafer.Algorithm.Common.DoNet;
 
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Extensions;
 namespace Ovl.UI.Recipe.ViewModel
 {
     /// <summary>

@@ -35,8 +35,8 @@ using Wafer.Algorithm.Common.DoNet;
 using Point = HPImageViewer.Core.Primitives.Point;
 using Marvel.Application.Services;
 
-using Ovl.UI.ViewModels.Controls;
-using Ovl.UI.ViewModels.Models;
+using Ovl.UI.Controls;
+using Ovl.UI.Models;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class Test_TrainViewModel_Old : Test_TrainViewModelBase<TestInfo_BiB>

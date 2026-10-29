@@ -32,8 +32,8 @@ using System.Threading.Tasks;
 using System.Windows;
 
 
-using Ovl.UI.ViewModels.Controls;
-using Ovl.UI.ViewModels.Models;
+using Ovl.UI.Controls;
+using Ovl.UI.Models;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public abstract partial class Test_TrainOverlayViewModel<T> : Test_TrainViewModelBase<T> where T : TestInfo_Overlay

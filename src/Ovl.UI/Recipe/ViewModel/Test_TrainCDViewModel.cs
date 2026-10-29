@@ -37,8 +37,8 @@ using WinCopies.Util;
 
 
 
-using Ovl.UI.ViewModels.Controls;
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Controls;
+using Ovl.UI.Extensions;
 using DataModels = Marvel.DataModels;
 namespace Ovl.UI.Recipe.ViewModel
 {

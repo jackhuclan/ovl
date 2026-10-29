@@ -7,7 +7,7 @@ using Prism.Services.Dialogs;
 using System;
 using Wafer.Algorithm.Common.DoNet;
 
-using Ovl.UI.ViewModels.Controls;
+using Ovl.UI.Controls;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class CorrectionValueSettingDialogViewModel : ObservableObject, IDialogAware

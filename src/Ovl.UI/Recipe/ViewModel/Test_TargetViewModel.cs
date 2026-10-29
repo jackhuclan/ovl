@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.EventAggregators;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public  partial  class Test_TargetViewModel:Test_SettingsViewModelBase 

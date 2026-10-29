@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.EventAggregators;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public class Test_SettingsViewModelBase : ObservableObject

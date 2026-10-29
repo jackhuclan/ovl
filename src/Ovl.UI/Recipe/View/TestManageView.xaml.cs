@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Ovl.UI.Recipe.ViewModel;
-using Ovl.UI.ViewModels.Recipe.ViewModel;
+using Ovl.UI.Recipe.ViewModel;
 namespace Ovl.UI.Recipe.View
 {
     /// <summary>

@@ -10,7 +10,7 @@ using System.Threading;
 using System.Windows.Threading;
 
 using InteVega.CBB.LightSource.Interfaces;
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.EventAggregators;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class Test_PhysicalViewModel:Test_SettingsViewModelBase 

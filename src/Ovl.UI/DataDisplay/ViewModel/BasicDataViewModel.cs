@@ -22,7 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-using Ovl.UI.ViewModels.Bases;
+using Ovl.UI.Bases;
 namespace Ovl.UI.DataDisplay.ViewModel
 {
     public partial class BasicDataViewModel : ObservableObject, IDisposable

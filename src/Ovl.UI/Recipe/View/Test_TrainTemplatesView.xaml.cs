@@ -3,7 +3,7 @@ using InteVega.CBB.TemplateMatchingModule.Views;
 using System.Windows;
 using System.Windows.Controls;
 
-using Ovl.UI.ViewModels.Controls;
+using Ovl.UI.Controls;
 namespace Ovl.UI.Recipe.View
 {
     /// <summary>

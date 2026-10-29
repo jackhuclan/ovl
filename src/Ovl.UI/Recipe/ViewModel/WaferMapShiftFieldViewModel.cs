@@ -1,4 +1,4 @@
-﻿using Bases = Ovl.UI.ViewModels.Bases;
+﻿using Bases = Ovl.UI.Bases;
 using CommunityToolkit.Mvvm.ComponentModel;
 using InteVega.CBB.Prism.UI.Extensions.MessageBox;
 using Marvel.DataModels.Recipe;

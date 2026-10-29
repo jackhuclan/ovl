@@ -2,7 +2,7 @@
     x:Class="Ovl.UI.Recipe.View.AddTestView_OM40"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:control="clr-namespace:Ovl.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
 

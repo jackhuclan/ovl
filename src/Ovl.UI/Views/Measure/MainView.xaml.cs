@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Ovl.UI.Common.Controls;
 
 using Ovl.UI.DataDisplay.ViewModel;
-using Ovl.UI.ViewModels.Measure;
+using Ovl.UI.Measure;
 namespace Ovl.UI.Views.Measure;
 
 /// <summary>

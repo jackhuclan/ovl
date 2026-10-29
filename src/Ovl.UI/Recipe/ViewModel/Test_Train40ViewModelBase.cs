@@ -53,9 +53,9 @@ using InteVega.CBB.MotionProof.Abstraction;
 using Wafer.Algorithm.Common.DoNet;
 
 using Ovl.UI.Recipe.View;
-using Ovl.UI.ViewModels.Controls;
-using Ovl.UI.ViewModels.Models;
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Controls;
+using Ovl.UI.Models;
+using Ovl.UI.Extensions;
 namespace Ovl.UI.Recipe.ViewModel
 {
     internal partial class Test_Train40ViewModelBase : Test_TrainViewModelBase<TestInfo40>

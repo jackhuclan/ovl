@@ -1,17 +1,17 @@
-<UserControl
+﻿<UserControl
     x:Class="Ovl.UI.Views.Measure.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:controls="clr-namespace:Ovl.UI.Common.Controls;assembly=Ovl.UI.Common"
-    xmlns:convert="clr-namespace:Ovl.UI.Common.Converters;assembly=Ovl.UI.Common"
+    xmlns:controls="clr-namespace:Ovl.UI.Common.Controls"
+    xmlns:convert="clr-namespace:Ovl.UI.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dataDisplay="clr-namespace:Ovl.UI.Views.DataDisplay"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Ovl.UI.Views.Measure.Controls"
     xmlns:model="clr-namespace:Ovl.Biz.Common.Measure.Models;assembly=Ovl.Biz.Common"
-    xmlns:viewmodel="clr-namespace:Ovl.UI.ViewModels.Measure;assembly=Ovl.UI.ViewModels"
+    xmlns:viewmodel="clr-namespace:Ovl.UI.Measure"
     d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
     d:DesignHeight="850"
     d:DesignWidth="1800"
@@ -29,11 +29,11 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
-        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Button.xaml" />
-        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Label.xaml" />
-        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGrid.xaml" />
-        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Border.xaml" />
-        <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/TextBlock.xaml" />
+        <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Button.xaml" />
+        <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Label.xaml" />
+        <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/DataGrid.xaml" />
+        <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Border.xaml" />
+        <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/TextBlock.xaml" />
       </ResourceDictionary.MergedDictionaries>
 
       <Style TargetType="TextBlock">

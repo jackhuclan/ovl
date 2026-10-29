@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Data="clr-namespace:Ovl.UI.Views.DataDisplay"
-    xmlns:convert="clr-namespace:Ovl.UI.Common.Converters;assembly=Ovl.UI.Common"
+    xmlns:convert="clr-namespace:Ovl.UI.Common.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:handy="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:Ovl.UI.Views.DataDisplay"
@@ -18,11 +18,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Button.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Label.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGrid.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Border.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/TextBlock.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/DataGrid.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Border.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/TextBlock.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <convert:BoolToStringConverter x:Key="BoolToStringConverter" />
             <Style x:Key="BorderStyle_Local1" TargetType="Border">

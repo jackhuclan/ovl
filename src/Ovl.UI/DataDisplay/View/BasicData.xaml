@@ -6,7 +6,7 @@
     xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:handy="https://handyorg.github.io/handycontrol"
-    xmlns:local="clr-namespace:Ovl.UI.ViewModels.DataDisplay;assembly=Ovl.UI.ViewModels"
+    xmlns:local="clr-namespace:Ovl.UI.DataDisplay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:Ovl.UI.DataDisplay.ViewModel"
     d:DataContext="{d:DesignInstance Type=viewmodel:BasicDataViewModel}"

@@ -1,16 +1,15 @@
-<Solution>
-  <Project Path="src/Ovl.Biz.Common/Ovl.Biz.Common.csproj" />
-  <Project Path="src/Ovl.Biz.Services/Ovl.Biz.Services.csproj" />
-  <Project Path="src/Ovl.UI/Ovl.UI.csproj" />
-  <Project Path="src/Ovl.UI.Common/Ovl.UI.Common.csproj" />
-  <Project Path="src/Ovl.UI.Common.ViewModels/Ovl.UI.Common.ViewModels.csproj" />
-  <Project Path="src/Ovl.UI.ViewModels/Ovl.UI.ViewModels.csproj" />
-  <Project Path="tests/Ovl.Biz.Common.Tests/Ovl.Biz.Common.Tests.csproj" />
-  <Project Path="src/Ovl.Thirdlib/Ovl.Thirdlib.csproj" />
-  <!-- 配方/系统配置层源码保留在 packages（含 vendor 适配）；EasyConfig 已移回 marvel 历史项目，经 SystemConfig 间接直接引用 -->
-  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe/InteVega.CBB.Recipe.csproj" />
+﻿<Solution>
+  <Folder Name="/解决方案项/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Interface/InteVega.CBB.Recipe.Interface.csproj" />
   <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Model/InteVega.CBB.Recipe.Model.csproj" />
-  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.csproj" />
+  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe/InteVega.CBB.Recipe.csproj" />
   <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.Interface/InteVega.CBB.SystemConfig.Interface.csproj" />
+  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.csproj" />
+  <Project Path="src/Ovl.Biz.Common/Ovl.Biz.Common.csproj" />
+  <Project Path="src/Ovl.Biz.Services/Ovl.Biz.Services.csproj" />
+  <Project Path="src/Ovl.Thirdlib/Ovl.Thirdlib.csproj" />
+  <Project Path="src/Ovl.UI/Ovl.UI.csproj" />
+  <Project Path="tests/Ovl.Biz.Common.Tests/Ovl.Biz.Common.Tests.csproj" />
 </Solution>

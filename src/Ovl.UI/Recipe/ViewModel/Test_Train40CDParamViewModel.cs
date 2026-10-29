@@ -27,7 +27,7 @@ using InteVega.CBB.MotionProof.Abstraction;
 using Wafer.Algorithm.Common.DoNet;
 using WinCopies.Util;
 
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Extensions;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class Test_Train40CDParamViewModel : Test_TrainCDParamViewModelBase

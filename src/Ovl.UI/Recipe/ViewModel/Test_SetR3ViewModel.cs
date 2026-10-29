@@ -20,7 +20,7 @@ using HPImageViewer.Core;
 using Megarobo.Ovl.Service.IntfFn.fn;
 using System.Linq;
 
-using Ovl.UI.ViewModels.Controls;
+using Ovl.UI.Controls;
 using DataModels = Marvel.DataModels;
 namespace Ovl.UI.Recipe.ViewModel
 {

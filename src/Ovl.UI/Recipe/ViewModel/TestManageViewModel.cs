@@ -22,9 +22,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-using Ovl.UI.ViewModels.Recipe.ViewModel;
-using Ovl.UI.ViewModels.EventAggregators;
-using Ovl.UI.ViewModels.Recipe.Factory;
+using Ovl.UI.Recipe.ViewModel;
+using Ovl.UI.EventAggregators;
+using Ovl.UI.Recipe.Factory;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class TestManageViewModel: RecipeElementViewModelBase

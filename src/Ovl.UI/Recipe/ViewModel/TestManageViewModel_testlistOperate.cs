@@ -21,9 +21,9 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using Ovl.UI.Recipe.View;
-using Ovl.UI.ViewModels.Recipe.Factory;
-using Ovl.UI.ViewModels.Recipe.ViewModel;
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.Recipe.Factory;
+using Ovl.UI.Recipe.ViewModel;
+using Ovl.UI.EventAggregators;
 namespace Ovl.UI.Recipe.ViewModel
 {
     partial class TestManageViewModel: RecipeElementViewModelBase
@@ -50,7 +50,7 @@ namespace Ovl.UI.Recipe.ViewModel
             string name = IdentityHelper.NewName("test", TestManageList, x => x.Name);
 
             // Use factory to create appropriate view model
-            var viewModel = _addTestViewFactory?.CreateViewModel(name) ?? new Ovl.UI.ViewModels.Recipe.ViewModel.AddTestViewModel(name);
+            var viewModel = _addTestViewFactory?.CreateViewModel(name) ?? new Ovl.UI.Recipe.ViewModel.AddTestViewModel(name);
 
             viewModel.Title = "Add Test";
             viewModel.FunCheckName = () =>
@@ -228,7 +228,7 @@ namespace Ovl.UI.Recipe.ViewModel
             var test = testManageInfo.TestInfo;
 
             // Use factory to create appropriate view model
-            var viewModel = _addTestViewFactory?.CreateViewModel(test.Name) ?? new Ovl.UI.ViewModels.Recipe.ViewModel.AddTestViewModel(test.Name);
+            var viewModel = _addTestViewFactory?.CreateViewModel(test.Name) ?? new Ovl.UI.Recipe.ViewModel.AddTestViewModel(test.Name);
 
             viewModel.Title = $"Rename Test: {test.Name}";
             viewModel.IsRename = true;

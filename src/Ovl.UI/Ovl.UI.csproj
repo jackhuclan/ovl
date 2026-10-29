@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="InteVega.CBB.Common" />
     <PackageReference Include="HandyControl" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
@@ -27,17 +30,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ovl.Biz.Common\Ovl.Biz.Common.csproj" />
     <ProjectReference Include="..\Ovl.Biz.Services\Ovl.Biz.Services.csproj" />
-    <ProjectReference Include="..\Ovl.UI.Common\Ovl.UI.Common.csproj" />
-    <ProjectReference Include="..\Ovl.UI.Common.ViewModels\Ovl.UI.Common.ViewModels.csproj" />
-    <ProjectReference Include="..\Ovl.UI.ViewModels\Ovl.UI.ViewModels.csproj" />
     <!-- 自 packages 搬入的配方/系统配置层（M4b 深度配方编辑的基础） -->
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Interface\InteVega.CBB.Recipe.Interface.csproj" />
+    <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Model\InteVega.CBB.Recipe.Model.csproj" />
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Ui\InteVega.CBB.Recipe.Ui.csproj" />
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.SystemConfig\InteVega.CBB.SystemConfig\InteVega.CBB.SystemConfig.csproj" />
     <!-- marvel 历史工程直引（引用解析规则：packages 找不到去 marvel） -->
     <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.DomainLib\InteVega.CBB.DomainLib.csproj" />
+    <ProjectReference Include="..\..\..\marvel\OpenInteVega\InteVega.CBB.Prism.UI.Extensions\InteVega.CBB.Prism.UI.Extensions.csproj" />
+    <ProjectReference Include="..\..\..\marvel\OpenInteVega\ovl_services\Megarobo.Ovl.Service.IntfFn\Megarobo.Ovl.Service.IntfFn.csproj" />
     <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.DomainService.Api\InteVega.CBB.DomainService.Api.csproj" />
     <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.MotionController.Ui\InteVega.CBB.MotionController.Ui.csproj" />
     <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.StageControlModule\InteVega.CBB.StageControlModule.csproj" />
@@ -110,6 +114,8 @@
   <!-- 嵌入资源：XAML 通过 pack URI（/Ovl.UI;component/Assets/...）引用 -->
   <ItemGroup>
     <Resource Include="Assets\ImageViewer.png" />
+    <!-- 自 Ovl.UI.Common 合并：mega.png（Common/Resources/Icons 下相对引用） -->
+    <Resource Include="Common\Assets\mega.png" />
     <Resource Include="Resources\Images\img_jit%402x.png" />
     <Resource Include="Resources\Images\img_jit%403x.png" />
     <Resource Include="Resources\Languages\ViewDict_ch.xaml">

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 
 using Ovl.UI.Recipe.ViewModel;
-using Ovl.UI.ViewModels.Recipe.ViewModel;
+using Ovl.UI.Recipe.ViewModel;
 namespace Ovl.UI.Resources.Converter
 {
     internal class TestTypeConverter : IValueConverter

@@ -1,4 +1,4 @@
-﻿using Bases = Ovl.UI.ViewModels.Bases;
+﻿using Bases = Ovl.UI.Bases;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HPImageViewer.Core;

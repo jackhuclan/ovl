@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows.Threading;
 
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.EventAggregators;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class Test_DataCullingNewViewModel : Test_SettingsViewModelBase

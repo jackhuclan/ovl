@@ -9,7 +9,7 @@
     xmlns:hc="clr-namespace:HandyControl.Controls;assembly=HandyControl"
     xmlns:ioc="http://prismlibrary.com/"
     xmlns:local="clr-namespace:Ovl.UI.Recipe.View"
-    xmlns:localControl="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+    xmlns:localControl="clr-namespace:Ovl.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:stageViewModels="clr-namespace:InteVega.CBB.StageControlModule.ViewModels;assembly=InteVega.CBB.StageControlModule"

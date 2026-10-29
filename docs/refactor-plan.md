@@ -101,3 +101,21 @@
 - 去 Prism 化后 DialogService/Region 调用需改写为自研导航（约 20 个功能页）。
 - 厂内 NuGet（InteVega.CBB.* / Megarobo.Ovl.*）与 3rdlib dll（ACS/Dalsa/Epos/MvCamera）继续引用，不做替换。
 - 迁移 View 时 XAML 样式原样保留。
+
+## 架构调整（2026-10-29）：UI 层收敛为单工程
+
+为消除 XAML 跨程序集引用在 VS 设计时/标记编译（MC30）与运行时 DI 解析上的不稳定，将三个 UI 相关工程并入 `Ovl.UI`：
+
+| 原工程 | 归并方式 |
+|---|---|
+| `Ovl.UI.ViewModels` | 28 个独有文件迁入 `Ovl.UI` 对应业务目录；命名空间 `Ovl.UI.ViewModels.*` → `Ovl.UI.*`；删除工程 |
+| `Ovl.UI.Common` | 全量迁入 `Ovl.UI/Common/`（Controls、Converters、Resources/Themes、Assets）；pack URI `/Ovl.UI.Common;component/` → `/Ovl.UI;component/Common/`；删除工程 |
+| `Ovl.UI.Common.ViewModels` | 仅含占位 `CommonModule`，无实际代码，直接删除 |
+
+同步处理：
+- 全部 `clr-namespace` 去掉同程序集 `assembly=` 限定；重复类型（`EnumSubmitMode`）去重；`Ovl.UI.Common.Converters.Common` 等错误命名空间后缀修正。
+- 依赖合并：`CommunityToolkit.Mvvm`、`Microsoft.Extensions.DependencyInjection`、`InteVega.CBB.Common` 等包引用与 `Ovl.Biz.Common`、`Recipe.Model`、`Prism.UI.Extensions`、`IntfFn` 等工程引用并入 `Ovl.UI.csproj`。
+- 启动期 DI 缺失补齐（`App.xaml.cs`）：`IMainRunThread`（`MainRunThreadStub`）、`IPipeCommunicatorService`（`PipeCommunicatorStub`）、`IMessageBoxService`（`MessageBoxService`）、`AddEasyConfig()`、SystemConfig 三件套（`ISystemConfigCollection`/`ISystemConfigService`/`IConfigLoader`）。
+
+验收：全解决方案 `Debug` 构建 0 错误、48/48 测试通过、`Ovl.UI.exe` 启动稳定运行（窗口正常显示）。
+

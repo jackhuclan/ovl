@@ -1,4 +1,4 @@
-﻿using Bases = Ovl.UI.ViewModels.Bases;
+﻿using Bases = Ovl.UI.Bases;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HPImageViewer;
@@ -45,7 +45,7 @@ using System.Windows.Media.Imaging;
 using InteVega.CBB.MotionProof.Abstraction;
 
 
-using Ovl.UI.ViewModels.Controls;
+using Ovl.UI.Controls;
 namespace Ovl.UI.Defect.ViewModel
 {
     public partial class DefectDetectViewModel : Bases.ViewModelBase

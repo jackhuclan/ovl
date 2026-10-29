@@ -12,14 +12,14 @@
           xmlns:prism="http://prismlibrary.com/"
          xmlns:controls="clr-namespace:InteVega.CBB.ComUI.Controls;assembly=InteVega.CBB.ComUI"
  
- xmlns:dataDisplay="clr-namespace:Ovl.UI.ViewModels.DataDisplay;assembly=Ovl.UI.ViewModels"
- xmlns:dataModel="clr-namespace:Ovl.UI.ViewModels.DataDisplay;assembly=Ovl.UI.ViewModels"
+ xmlns:dataDisplay="clr-namespace:Ovl.UI.DataDisplay"
+ xmlns:dataModel="clr-namespace:Ovl.UI.DataDisplay"
  xmlns:hc="https://handyorg.github.io/handycontrol"
  xmlns:hpImageViewer="clr-namespace:HPImageViewer;assembly=HPImageViewer"
  xmlns:ioc="http://prismlibrary.com/"
  
- xmlns:maincontrol="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
- xmlns:mainview="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+ xmlns:maincontrol="clr-namespace:Ovl.UI.Controls"
+ xmlns:mainview="clr-namespace:Ovl.UI.Recipe"
  
  
              mc:Ignorable="d" 

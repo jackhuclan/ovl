@@ -19,7 +19,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Marvel.WaferMapCommon;
-using Ovl.UI.ViewModels.Controls;
+using Ovl.UI.Controls;
 using InteVega.CBB.Recipe;
 
 using DataModels = Marvel.DataModels;

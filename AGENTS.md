@@ -2,10 +2,7 @@
 
 ## 工程结构
 ```
-src/Ovl.UI/                  UI层（WinExe启动壳）：App.xaml.cs 仅做 Host 构建与 DI 装配，禁止业务逻辑；包含所有业务 View
-src/Ovl.UI.ViewModels/       UI 层引用的 ViewModels
-src/Ovl.UI.Common/           通用控件层：通用控件的 View
-src/Ovl.UI.Common.ViewModels/  通用控件层引用的 ViewModels
+src/Ovl.UI/                  UI层（WinExe启动壳，唯一 UI 工程）：App.xaml.cs 仅做 Host 构建与 DI 装配，禁止业务逻辑；包含全部业务 View、ViewModel、通用控件与主题资源（Common/ 由原 Ovl.UI.Common 并入）
 src/Ovl.Biz.Services/        业务服务层（net10.0）：服务接口与实现
 src/Ovl.Biz.Repository/      数据持久层（net10.0）：数据持久层接口与实现，包括 *db、*.DAL、*DBContext 这样的
 src/Ovl.Biz.Common/          通用层：业务通用类
@@ -25,7 +22,8 @@ Ovl.slnx                     解决方案文件
 ## 代码规范
 - 详细风格见 `.editorconfig`（命名、缩进、表达式主体、文件作用域命名空间等）。
 - 所有 `.cs` 文件中的 namespace 一律采用**文件范围限定**（file-scoped）：`namespace X;`，不使用块级 `namespace X { ... }`。
-- **命名空间与项目名一致性**：`src/` 下所有项目的根命名空间必须与项目名一致（如 `Ovl.UI`、`Ovl.UI.ViewModels`、`Ovl.Biz.Common`）。例外（豁免）：`packages/` 目录内的 vendor 项目，以及直接引用的 marvel/OpenInteVega 历史项目——保持其原有命名空间不动。
+- **命名空间与项目名一致性**：`src/` 下所有项目的根命名空间必须与项目名一致（如 `Ovl.UI`、`Ovl.Biz.Common`、`Ovl.Biz.Services`）。例外（豁免）：`packages/` 目录内的 vendor 项目，以及直接引用的 marvel/OpenInteVega 历史项目——保持其原有命名空间不动。
+- **UI 层单工程**：View、ViewModel、通用控件/转换器/主题资源全部位于 `Ovl.UI` 一个程序集内（原 `Ovl.UI.ViewModels`、`Ovl.UI.Common`、`Ovl.UI.Common.ViewModels` 已合并删除）。因此 XAML 中引用这些类型时**禁止带 `assembly=` 限定**（同程序集带限定会报 MC3066/MC3074）。
 - 提交前清理多余 `using`（隐式全局 using 已覆盖的 `System.*` 不要再写）。
 - MVVM 使用 CommunityToolkit.Mvvm（`[ObservableProperty]` / `[RelayCommand]`）；命令 `CanExecute` 依赖的属性必须挂 `[NotifyCanExecuteChangedFor]`，否则按钮状态不刷新。
 - 命名：私有字段与静态私有字段均为 `_camelCase`（不用 s_ 前缀）；接口用 I 前缀。
@@ -42,7 +40,7 @@ Ovl.slnx                     解决方案文件
 ## UI 架构约定
 - `App.xaml.cs` 仅做 Host 构建（Microsoft.Extensions.Hosting）与 DI 装配，禁止业务逻辑；页面 VM 经 `NavigationService` 注册表（导航键 → VM 类型）从 DI 解析。
 - 新增功能页步骤：① 在 `NavigationService.Registry` 登记导航键与 VM 类型；② 在 `ShellWindow.xaml` 资源中登记 VM→View 的 DataTemplate；③ VM 实现 `IPageViewModel`。
-- XAML 引用其他程序集中的类型时，xmlns 必须带 `assembly=` 限定（如 `clr-namespace:Ovl.UI.ViewModels.Placeholder;assembly=Ovl.UI.ViewModels`），否则 WPF 标记编译报 MC3050。
+- XAML 引用**外部程序集**（marvel/packages 的 vendor 工程）中的类型时，xmlns 必须带 `assembly=` 限定（如 `clr-namespace:InteVega.CBB.StageControlModule.Views;assembly=InteVega.CBB.StageControlModule`），否则报 MC3050；引用 `Ovl.UI` 自身的类型时**不得**带限定。
 - Sidebar 菜单键与 `NavigationService` 注册键保持一致（ShellViewModel.Items）。
 - Sidebar 为**纯图标模式**（宽 52px）：仅显示图标不显示文字，文字经 ToolTip（Placement=Right）悬停提示；图标用 Segoe MDL2 Assets 线性字形，选中态浅蓝底（#E8F0FE）+ 蓝色图标（#1A73E8）+ 左侧指示条，圆角 8。
 - 功能页一律在右侧内容区**内嵌展示**，仅确认/警告/错误类消息保留弹窗；原版 ShowDialog 功能页迁移时按此收敛。

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-using Ovl.UI.ViewModels.Dialogs;
+using Ovl.UI.Dialogs;
 namespace Ovl.UI.Services;
 
 /// <summary>

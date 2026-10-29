@@ -6,7 +6,7 @@
               xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:prism="http://prismlibrary.com/"
             xmlns:mtc="clr-namespace:Marvel.TargetSelectionControl.Control;assembly=Marvel.TargetSelectionControl"
-             xmlns:control="clr-namespace:Ovl.UI.ViewModels.Controls;assembly=Ovl.UI.ViewModels"
+             xmlns:control="clr-namespace:Ovl.UI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="800">
   <UserControl.Resources>

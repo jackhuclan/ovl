@@ -15,7 +15,7 @@ using Ovl.UI.Recipe.ViewModel;
 using Ovl.UI.WaferHandler.View;
 using Ovl.UI.WaferHandler.ViewModel;
 using DataModels = Marvel.DataModels;
-using Ovl.UI.ViewModels.Controls;
+using Ovl.UI.Controls;
 namespace Ovl.UI
 {
     public static class MainModuleByPrismExtension

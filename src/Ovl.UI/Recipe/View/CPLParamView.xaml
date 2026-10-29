@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:resources="clr-namespace:InteVega.CBB.StageControlModule.ViewModels;assembly=InteVega.CBB.StageControlModule"
-             xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+             xmlns:local="clr-namespace:Ovl.UI.Recipe"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Visibility="{Binding IsEnableCPL,Converter={StaticResource OtvCVT}}"  >
   <Grid x:Name="grid">

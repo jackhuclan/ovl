@@ -7,7 +7,7 @@
     xmlns:converts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
-    xmlns:local="clr-namespace:Ovl.UI.ViewModels.Recipe;assembly=Ovl.UI.ViewModels"
+    xmlns:local="clr-namespace:Ovl.UI.Recipe"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model_enum="clr-namespace:Marvel.DataModels.Enums;assembly=Marvel.DataModels"
     xmlns:prism="http://prismlibrary.com/"

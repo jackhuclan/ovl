@@ -1,4 +1,4 @@
-﻿using Bases = Ovl.UI.ViewModels.Bases;
+﻿using Bases = Ovl.UI.Bases;
 using CommunityToolkit.Mvvm.ComponentModel;
 using InteVega.CBB.CommonLib.Helpers;
 using InteVega.CBB.Recipe;
@@ -12,7 +12,7 @@ using Marvel.Application.Extentions;
 using InteVega.CBB.Prism.UI.Extensions.MessageBox;
 using InteVega.CBB.User.Interface;
 
-using Ovl.UI.ViewModels.Interface;
+using Ovl.UI.Interface;
 namespace Ovl.UI.Recipe.ViewModel
 {
     /// <summary>

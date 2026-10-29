@@ -10,7 +10,7 @@ using Prism.Services.Dialogs;
 using System;
 
 using Marvel.WaferMapCommon;
-using Ovl.UI.ViewModels.EventAggregators;
+using Ovl.UI.EventAggregators;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public partial class Test_TargetSettingViewModel : Test_TrainViewModelBase

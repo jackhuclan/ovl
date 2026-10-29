@@ -34,7 +34,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Media3D;
 
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Extensions;
 namespace Ovl.UI.Recipe.ViewModel
 {
     internal partial class Test_Train40ViewModel_DoubleFace : Test_Train40ViewModelBase

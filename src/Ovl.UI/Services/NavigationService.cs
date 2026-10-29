@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-using Ovl.UI.ViewModels.Navigation;
-using Ovl.UI.ViewModels.Measure;
-using Ovl.UI.ViewModels.Placeholder;
+using Ovl.UI.Navigation;
+using Ovl.UI.Measure;
+using Ovl.UI.Placeholder;
 namespace Ovl.UI.Services;
 
 /// <summary>
@@ -20,13 +20,13 @@ public sealed class NavigationService(IServiceProvider services) : INavigationSe
             ["WaferHandler"] = (typeof(PlaceholderViewModel), "Wafer Handler"),
             ["Diagnostics"] = (typeof(PlaceholderViewModel), "Diagnostics"),
             ["Batch"] = (typeof(PlaceholderViewModel), "Batch"),
-            ["Recipe"] = (typeof(Ovl.UI.ViewModels.Recipe.RecipeViewModel), "Recipe"),
-            ["Result"] = (typeof(Ovl.UI.ViewModels.Tools.ResultViewModel), "Result"),
-            ["Setting"] = (typeof(Ovl.UI.ViewModels.Setting.SettingViewModel), "Setting"),
-            ["Help"] = (typeof(Ovl.UI.ViewModels.Tools.HelpViewModel), "Help"),
+            ["Recipe"] = (typeof(Ovl.UI.Recipe.RecipeViewModel), "Recipe"),
+            ["Result"] = (typeof(Ovl.UI.Tools.ResultViewModel), "Result"),
+            ["Setting"] = (typeof(Ovl.UI.Setting.SettingViewModel), "Setting"),
+            ["Help"] = (typeof(Ovl.UI.Tools.HelpViewModel), "Help"),
             ["Motion"] = (typeof(PlaceholderViewModel), "Motion"),
             ["Defect"] = (typeof(PlaceholderViewModel), "Defect"),
-            ["Alarm"] = (typeof(Ovl.UI.ViewModels.Tools.AlarmViewModel), "Alarm"),
+            ["Alarm"] = (typeof(Ovl.UI.Tools.AlarmViewModel), "Alarm"),
         };
 
     public object? Current { get; private set; }

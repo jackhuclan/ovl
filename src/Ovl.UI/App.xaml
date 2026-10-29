@@ -1,4 +1,4 @@
-<Application x:Class="Ovl.UI.App"
+﻿<Application x:Class="Ovl.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              ShutdownMode="OnMainWindowClose">
@@ -8,14 +8,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Icons/IconTemplateDictionary.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/IconStyles.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Button.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Label.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGrid.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/DataGridSmall.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/Border.xaml" />
-                <ResourceDictionary Source="/Ovl.UI.Common;component/Resources/Themes/TextBlock.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Icons/IconTemplateDictionary.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/IconStyles.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Button.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Label.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/DataGrid.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/DataGridSmall.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/Border.xaml" />
+                <ResourceDictionary Source="/Ovl.UI;component/Common/Resources/Themes/TextBlock.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

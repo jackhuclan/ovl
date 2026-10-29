@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Ovl.UI.Recipe.View;
-using Ovl.UI.ViewModels.Extensions;
+using Ovl.UI.Extensions;
 namespace Ovl.UI.Recipe.ViewModel
 {
     public abstract partial class Test_TrainOverlayViewModel<T>
