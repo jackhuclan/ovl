@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:handy="https://handyorg.github.io/handycontrol"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Ovl.UI.Views.Recipe"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="800"
@@ -119,9 +120,11 @@
                                 Background="Transparent"
                                 CornerRadius="3"
                                 ToolTip="{Binding Name}">
-                                <Border.InputBindings>
-                                    <MouseBinding Command="{Binding DataContext.SelectItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" MouseAction="LeftClick" />
-                                </Border.InputBindings>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Style.Triggers>

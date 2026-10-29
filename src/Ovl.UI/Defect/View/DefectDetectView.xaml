@@ -13,7 +13,6 @@
     xmlns:localControl="clr-namespace:Ovl.UI.Controls"
     xmlns:main="clr-namespace:Ovl.UI.Recipe"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
     xmlns:recipe="clr-namespace:InteVega.CBB.Recipe.Ui.View;assembly=InteVega.CBB.Recipe.Ui"
     xmlns:stagetcontorl="clr-namespace:InteVega.CBB.StageControlModule.Views;assembly=InteVega.CBB.StageControlModule"
     MinHeight="600"
@@ -32,17 +31,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <prism:Dialog.WindowStyle>
-        <Style TargetType="Window">
-            <!--  窗体的宽和高根据内容的大小设置  -->
-            <Setter Property="Width" Value="1280" />
-            <Setter Property="Height" Value="700" />
-            <!--  不允许调整窗体尺寸  -->
-            <!--<Setter Property="ResizeMode" Value="NoResize" />-->
-            <!--  设置窗体的启动位置在屏幕中间  -->
-            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
-        </Style>
-    </prism:Dialog.WindowStyle>
     <b:Interaction.Triggers>
         <extensions:RoutedEventTrigger RoutedEvent="hp:ImageView.ImageDoubleClicked">
             <b:InvokeCommandAction Command="{Binding HandleImageDoubleClickedCommand}" PassEventArgsToCommand="True" />

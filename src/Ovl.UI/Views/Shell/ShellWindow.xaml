@@ -13,6 +13,8 @@
         xmlns:toolViews="clr-namespace:Ovl.UI.Views.Tools"
         xmlns:alarmVm="clr-namespace:Ovl.UI.Tools"
         xmlns:alarmViews="clr-namespace:Ovl.UI.Views.Alarm"
+        xmlns:defectVm="clr-namespace:Ovl.UI.Defect.ViewModel"
+        xmlns:defectViews="clr-namespace:Ovl.UI.Defect.View"
         Title="Ovl 上位机"
         Width="1280" Height="800"
         MinWidth="1000" MinHeight="640"
@@ -38,6 +40,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type alarmVm:AlarmViewModel}">
             <alarmViews:AlarmView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type defectVm:DefectDetectViewModel}">
+            <defectViews:DefectDetectView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:PlaceholderViewModel}">
             <views:PlaceholderView />

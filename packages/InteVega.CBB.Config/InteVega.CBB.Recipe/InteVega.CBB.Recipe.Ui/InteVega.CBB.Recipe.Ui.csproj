@@ -34,7 +34,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\InteVega.CBB.User\InteVega.CBB.User.Interface\InteVega.CBB.User.Interface.csproj" />
 		<!-- vendor 适配：Marvel.Agent.Core(IAIToolService) 已按需求移除 -->
-		<ProjectReference Include="..\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
+		<!-- 指向 marvel 原工程：与 Marvel.Application 保持同一份，避免同身份程序集双工程导致 deps 丢条目 -->
+		<ProjectReference Include="..\..\..\..\..\marvel\OpenInteVega\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

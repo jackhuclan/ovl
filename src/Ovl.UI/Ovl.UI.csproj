@@ -33,7 +33,9 @@
     <ProjectReference Include="..\Ovl.Biz.Common\Ovl.Biz.Common.csproj" />
     <ProjectReference Include="..\Ovl.Biz.Services\Ovl.Biz.Services.csproj" />
     <!-- 自 packages 搬入的配方/系统配置层（M4b 深度配方编辑的基础） -->
-    <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
+    <!-- 注意：手工程 InteVega.CBB.Recipe 必须与 marvel/Marvel.Application 指向同一份，
+         否则同身份程序集出现两个工程，deps.json 会丢弃该条目导致运行时 FileNotFoundException -->
+    <ProjectReference Include="..\..\..\marvel\OpenInteVega\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe\InteVega.CBB.Recipe.csproj" />
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Interface\InteVega.CBB.Recipe.Interface.csproj" />
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Model\InteVega.CBB.Recipe.Model.csproj" />
     <ProjectReference Include="..\..\packages\InteVega.CBB.Config\InteVega.CBB.Recipe\InteVega.CBB.Recipe.Ui\InteVega.CBB.Recipe.Ui.csproj" />

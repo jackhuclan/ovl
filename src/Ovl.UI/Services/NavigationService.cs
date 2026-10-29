@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 using Ovl.UI.Navigation;
 using Ovl.UI.Measure;
@@ -25,7 +26,7 @@ public sealed class NavigationService(IServiceProvider services) : INavigationSe
             ["Setting"] = (typeof(Ovl.UI.Setting.SettingViewModel), "Setting"),
             ["Help"] = (typeof(Ovl.UI.Tools.HelpViewModel), "Help"),
             ["Motion"] = (typeof(PlaceholderViewModel), "Motion"),
-            ["Defect"] = (typeof(PlaceholderViewModel), "Defect"),
+            ["Defect"] = (typeof(Ovl.UI.Defect.ViewModel.DefectDetectViewModel), "Defect"),
             ["Alarm"] = (typeof(Ovl.UI.Tools.AlarmViewModel), "Alarm"),
         };
 
@@ -41,13 +42,46 @@ public sealed class NavigationService(IServiceProvider services) : INavigationSe
             throw new ArgumentException($"未注册的导航键：{key}", nameof(key));
         }
 
-        var viewModel = services.GetRequiredService(entry.VmType);
-        if (viewModel is IPageViewModel page)
+        try
         {
-            page.Title = entry.Title;
-        }
+            var viewModel = services.GetRequiredService(entry.VmType);
+            if (viewModel is IPageViewModel page)
+            {
+                page.Title = entry.Title;
+            }
 
-        Current = viewModel;
-        CurrentChanged?.Invoke(this, EventArgs.Empty);
+            Current = viewModel;
+            CurrentChanged?.Invoke(this, EventArgs.Empty);
+        }
+        catch (Exception ex)
+        {
+            // 页面 VM 构造失败时 WPF 绑定会静默吞掉异常，页面停留原样很难排查，故落盘一份可诊断日志
+            WriteNavigationError(key, entry.VmType, ex);
+
+            // 回退到占位页：保证内容区切换到目标模块（并显性提示未完成），而不是停留在上一个页面
+            var fallback = services.GetService<PlaceholderViewModel>();
+            if (fallback is not null)
+            {
+                fallback.Title = $"{entry.Title}（迁移中）";
+                Current = fallback;
+                CurrentChanged?.Invoke(this, EventArgs.Empty);
+                return;
+            }
+
+            throw;
+        }
+    }
+
+    private static void WriteNavigationError(string key, Type vmType, Exception ex)
+    {
+        try
+        {
+            var path = Path.Combine(Path.GetTempPath(), "ovl-nav-error.log");
+            File.AppendAllText(path, $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] navigate '{key}' -> {vmType.FullName}{Environment.NewLine}{ex}{Environment.NewLine}{new string('-', 80)}{Environment.NewLine}");
+        }
+        catch
+        {
+            // 诊断日志失败不得影响导航流程
+        }
     }
 }
