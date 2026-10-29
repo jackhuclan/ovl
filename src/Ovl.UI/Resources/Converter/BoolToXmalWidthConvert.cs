@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 
@@ -9,7 +8,7 @@ internal class BoolToXmalWidthConvert : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if(value is  bool BoolValue)
+        if (value is bool BoolValue)
         {
             return BoolValue ? 0 : GridLength.Auto;
         }

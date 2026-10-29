@@ -1,8 +1,5 @@
-﻿using System.Globalization;
-using System.Text;
+using System.Globalization;
 using System.Windows.Data;
-using Marvel.DataModels.Recipe;
-using Marvel.DataModels.Recipe.CD;
 
 using Ovl.UI.Recipe.ViewModel;
 

@@ -1,10 +1,9 @@
 using System.Globalization;
-using System.Text;
 using System.Windows.Data;
 
 namespace Ovl.UI.Resources.Converter;
 
-public class BoolToStringConverter: IValueConverter
+public class BoolToStringConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
