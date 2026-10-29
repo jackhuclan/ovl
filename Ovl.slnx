@@ -1,15 +1,25 @@
-﻿<Solution>
-  <Folder Name="/解决方案项/">
+<Solution>
+  <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="AGENTS.md" />
+    <File Path="docs/conf-mapping.md" />
+    <File Path="docs/PRD.md" />
+    <File Path="docs/prompts.md" />
+    <File Path="docs/refactor-plan.md" />
+    <File Path="docs/unused-list.md" />
   </Folder>
-  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Interface/InteVega.CBB.Recipe.Interface.csproj" />
-  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Model/InteVega.CBB.Recipe.Model.csproj" />
-  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe/InteVega.CBB.Recipe.csproj" />
-  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.Interface/InteVega.CBB.SystemConfig.Interface.csproj" />
-  <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.csproj" />
-  <Project Path="src/Ovl.Biz.Common/Ovl.Biz.Common.csproj" />
-  <Project Path="src/Ovl.Biz.Services/Ovl.Biz.Services.csproj" />
-  <Project Path="src/Ovl.Thirdlib/Ovl.Thirdlib.csproj" />
-  <Project Path="src/Ovl.UI/Ovl.UI.csproj" />
-  <Project Path="tests/Ovl.Biz.Common.Tests/Ovl.Biz.Common.Tests.csproj" />
+  <Folder Name="/src/">
+    <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Interface/InteVega.CBB.Recipe.Interface.csproj" />
+    <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe.Model/InteVega.CBB.Recipe.Model.csproj" />
+    <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.Recipe/InteVega.CBB.Recipe/InteVega.CBB.Recipe.csproj" />
+    <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.Interface/InteVega.CBB.SystemConfig.Interface.csproj" />
+    <Project Path="packages/InteVega.CBB.Config/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig/InteVega.CBB.SystemConfig.csproj" />
+    <Project Path="src/Ovl.Biz.Common/Ovl.Biz.Common.csproj" />
+    <Project Path="src/Ovl.Biz.Services/Ovl.Biz.Services.csproj" />
+    <Project Path="src/Ovl.Thirdlib/Ovl.Thirdlib.csproj" />
+    <Project Path="src/Ovl.UI/Ovl.UI.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ovl.Biz.Common.Tests/Ovl.Biz.Common.Tests.csproj" />
+  </Folder>
 </Solution>
