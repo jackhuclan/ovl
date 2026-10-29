@@ -10,6 +10,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ovl.Biz.Common\Ovl.Biz.Common.csproj" />
+    <!-- 设备特征（EFEM）：接口来自 marvel 历史工程，直接项目引用（AGENTS.md 引用解析规则） -->
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.DomainService.Api\InteVega.CBB.DomainService.Api.csproj" />
+    <ProjectReference Include="..\..\..\marvel\DomainService\InteVega.CBB.MachineSystem.Interface\InteVega.CBB.MachineSystem.Interface.csproj" />
+    <ProjectReference Include="..\..\..\marvel\Marvel.AppModels\Marvel.DataModels\Marvel.DataModels.csproj" />
+    <ProjectReference Include="..\..\..\marvel\OpenInteVega\ovl_services\Megarobo.Ovl.Service.IntfFn\Megarobo.Ovl.Service.IntfFn.csproj" />
+    <ProjectReference Include="..\..\..\marvel\OpenInteVega\ovl_device\InteVega.CBB.Hal\InteVega.CBB.Hal.Abstractions\InteVega.CBB.Hal.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\marvel\OpenInteVega\ovl_package\Megarobo.Ovl.Type\Megarobo.Ovl.Type.csproj" />
   </ItemGroup>
 
 </Project>

@@ -18,13 +18,20 @@ using Marvel.Application.Services;
 using Marvel.DataModels.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Ovl.UI.Navigation;
 using Ovl.UI.WaferHandler.View;
 using Prism.Services.Dialogs;
 
 namespace Ovl.UI.WaferHandler.ViewModel;
 
-public partial class WaferHandlerViewModel : WaferHandlerViewModelBase
+public partial class WaferHandlerViewModel : WaferHandlerViewModelBase, IPageViewModel
 {
+    /// <summary>页面标题（导航服务写入）。</summary>
+    public string Title { get; set; } = "Wafer Handler";
+
+    /// <summary>EFEM 运行日志面板的 ViewModel（由 EFEMLogView 通过 DataContext 绑定）。</summary>
+    public EFEMLogViewModel? EfemLog { get; }
+
     public virtual string JitImageSource =>
       "pack://application:,,,/Ovl.UI;Component/Resources/Images/img_jit@2x.png";
     [ObservableProperty]
@@ -83,6 +90,9 @@ public partial class WaferHandlerViewModel : WaferHandlerViewModelBase
         _vacuumService = serviceProvider.GetService<IVacuumService>();
 
         Load();
+
+        // 日志面板 VM：原版由 Prism 容器注入 EFEMLogView，改为父 VM 持有并向下绑定 DataContext
+        EfemLog = serviceProvider.GetService<EFEMLogViewModel>();
 
         if (_vacuumService != null && _vacuumService is VacuumService100)
         {

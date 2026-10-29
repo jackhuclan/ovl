@@ -1,45 +1,20 @@
-﻿<Window
+﻿<UserControl
     x:Class="Ovl.UI.WaferHandler.View.WaferHandlerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:convert="clr-namespace:Ovl.UI.Resources.Converter"
     xmlns:converts="clr-namespace:InteVega.CBB.ComUI.ValueConverts;assembly=InteVega.CBB.ComUI"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:d="http://schemas.openxmlformats.org/expression/blend/2008"
     xmlns:handy="https://handyorg.github.io/handycontrol"
     xmlns:hc="https://handyorg.github.io/handycontrol"
-    xmlns:icon="clr-namespace:InteVega.CBB.Prism.UI.Extensions.Icon;assembly=InteVega.CBB.Prism.UI.Extensions"
-    xmlns:local="clr-namespace:Ovl.UI.WaferHandler.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
-    xmlns:viewModel="clr-namespace:Ovl.UI.WaferHandler.ViewModel"
     xmlns:wafer="clr-namespace:Ovl.UI.WaferHandler.View"
-    Title="Wafer Handler"
-    Width="800"
-    Height="450"
     AllowDrop="True"
-    Closing="Window_Closing"
-    DataContext="{prism:ContainerProvider {x:Type viewModel:WaferHandlerViewModel}}"
-    Loaded="Window_Loaded"
-    WindowState="Maximized"
+    Loaded="WaferHandlerView_Loaded"
     mc:Ignorable="d">
-    <!--
-        xmlns:views="clr-namespace:InteVega.CBB.Log.Views;assembly=InteVega.CBB.Log"
-        xmlns:viewModels="clr-namespace:InteVega.CBB.Log.ViewModels;assembly=InteVega.CBB.Log"
-    -->
 
-    <Window.CommandBindings>
-        <CommandBinding Command="{x:Static ApplicationCommands.Stop}" Executed="EscCommand" />
-    </Window.CommandBindings>
-
-    <Window.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/Label.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Ovl.UI;component/Resources/Themes/DataGrid.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <converts:ObjectToBool x:Key="ObjectToBool" />
             <convert:PortItemToStringConverter x:Key="PortItemToString" />
             <Style x:Key="WaferPortLabelStyle" TargetType="Label">
@@ -137,7 +112,7 @@
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -491,7 +466,7 @@
                                 Maximum="360"
                                 Minimum="0"
                                 DecimalPlaces="1"
-                                Style="{StaticResource NumericUpDownExtend}"
+                                Style="{DynamicResource NumericUpDownExtend}"
                                 Value="{Binding WaferOrientaion}" />
                             <Button
                                 Grid.Row="1"
@@ -604,7 +579,7 @@
                         </StackPanel>
                         <!--<StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
               <TextBlock Text="移动速度：" TextAlignment="Center" Margin="0,8,0,0"></TextBlock>
-              <hc:NumericUpDown Height="24" Margin="0,0,10,0" Style="{StaticResource NumericUpDownExtend}" Width="80" Minimum="0"></hc:NumericUpDown>
+              <hc:NumericUpDown Height="24" Margin="0,0,10,0" Style="{DynamicResource NumericUpDownExtend}" Width="80" Minimum="0"></hc:NumericUpDown>
               <Button Content="应用" IsEnabled="{Binding ButtonIsEnable}" Style="{DynamicResource NormalButtonStyle}" Width="60" Command="{Binding SetMovementSpeedCommand}"></Button>
             </StackPanel>-->
                     </Grid>
@@ -634,7 +609,7 @@
                     Style="{DynamicResource Container_PortLabelStyle}"
                     Tag="Operation Log">
                     <Border Margin="0">
-                        <wafer:EFEMLogView/>
+                        <wafer:EFEMLogView DataContext="{Binding EfemLog}" />
                     </Border>
                 </Label>
             </Grid>
@@ -645,4 +620,4 @@
             VerticalAlignment="Bottom"
             hc:Growl.Token="WaferHandleMessage" />
     </Grid>
-</Window>
+</UserControl>

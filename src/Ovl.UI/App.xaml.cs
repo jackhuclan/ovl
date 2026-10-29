@@ -5,18 +5,18 @@ using IntellVega.CBB.EasyConfig;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ovl.Biz.Services;
-using Ovl.UI.Services;
-using Ovl.UI.Views.Shell;
-
+using Ovl.Biz.Services.Equipment;
 using Ovl.UI.DataDisplay.ViewModel;
 using Ovl.UI.Dialogs;
 using Ovl.UI.Measure;
 using Ovl.UI.Navigation;
 using Ovl.UI.Placeholder;
 using Ovl.UI.Recipe;
+using Ovl.UI.Services;
 using Ovl.UI.Setting;
 using Ovl.UI.Shell;
 using Ovl.UI.Tools;
+using Ovl.UI.Views.Shell;
 
 namespace Ovl.UI;
 
@@ -71,6 +71,8 @@ public partial class App : Application
                 services.AddSingleton<InteVega.CBB.SystemConfig.Interface.ISystemConfigService, InteVega.CBB.SystemConfig.SystemConfigService>();
                 services.AddSingleton<InteVega.CBB.SystemConfig.Interface.IConfigLoader, InteVega.CBB.SystemConfig.ConfigLoader>();
                 services.AddEquipment("OM300", context.Configuration);
+                // EFEM 设备服务：缓存管理器已迁入 Ovl.Biz.Services，真空/在位/传输当前为模拟实现（真机属 RealDevice 阶段）
+                services.AddEfemServices(context.Configuration);
                 services.AddMeasureStubs();
                 // 主运行线程桩：真机运行线程（MainRunThread_100/300/40）待 RealDevice 硬件工厂阶段接入
                 services.AddSingleton<Marvel.Interfaces.Application.IMainRunThread, MainRunThreadStub>();
@@ -80,6 +82,8 @@ public partial class App : Application
                 // UI 基础设施
                 services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<IDialogService, DialogService>();
+                // vendor VM（如 WaferHandlerViewModelBase）构造时 GetRequiredService<Prism IDialogService>()
+                services.AddSingleton<Prism.Services.Dialogs.IDialogService, PrismDialogServiceAdapter>();
                 services.AddSingleton<ShellViewModel>();
                 services.AddTransient<PlaceholderViewModel>();
                 services.AddSingleton<MainViewModel>();
@@ -94,13 +98,18 @@ public partial class App : Application
                 services.AddSingleton<InteVega.CBB.DomainService.Api.Interfaces.IVisionServiceManager,
                     InteVega.CBB.DomainLib.Services.VisionServiceManager>();
                 // 无硬件环境的 vendor 服务占位：让业务页 VM 构造函数可完成（真机实现属 RealDevice 阶段）
-                services.AddSingleton(_ => Ovl.UI.Services.Stubs.NullServiceProxy.Create<Marvel.Interfaces.Application.IWaferService>());
-                services.AddSingleton(_ => Ovl.UI.Services.Stubs.NullServiceProxy.Create<Marvel.Interfaces.Application.IAlignmentService>());
-                services.AddSingleton(_ => Ovl.UI.Services.Stubs.NullServiceProxy.Create<Marvel.Interfaces.Application.IDefectDataService>());
-                services.AddSingleton(_ => Ovl.UI.Services.Stubs.NullServiceProxy.Create<Megarobo.Ovl.Service.IntfFn.fn.IMotionControllerService>());
-                services.AddSingleton(_ => Ovl.UI.Services.Stubs.NullServiceProxy.Create<Megarobo.Ovl.Service.IntfFn.IServiceCalData>());
-                services.AddSingleton(_ => Ovl.UI.Services.Stubs.NullServiceProxy.Create<InteVega.CBB.DomainService.Api.Interfaces.IFocusService>());
-                services.AddSingleton(_ => Ovl.UI.Services.Stubs.NullServiceProxy.Create<InteVega.CBB.DomainService.Api.Interfaces.IAsyncAblePztService>());
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<Marvel.Interfaces.Application.IWaferService>());
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<Marvel.Interfaces.Application.IAlignmentService>());
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<Marvel.Interfaces.Application.IDefectDataService>());
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<Megarobo.Ovl.Service.IntfFn.fn.IMotionControllerService>());
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<Megarobo.Ovl.Service.IntfFn.IServiceCalData>());
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<InteVega.CBB.DomainService.Api.Interfaces.IFocusService>());
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<InteVega.CBB.DomainService.Api.Interfaces.IAsyncAblePztService>());
+                // Wafer Handler 页面（原 marvel WaferHandlerView，已改为内嵌 UserControl）
+                services.AddSingleton<Ovl.UI.WaferHandler.ViewModel.WaferHandlerViewModel>();
+                services.AddSingleton<Ovl.UI.WaferHandler.ViewModel.EFEMLogViewModel>();
+                // 日志显示接收服务由 vendor 日志模块提供，新外壳尚未接入，先以占位代理满足构造
+                services.AddSingleton(_ => Ovl.Biz.Services.Equipment.DefaultServiceProxy.Create<InteVega.CBB.Log.Display.Interfaces.ILogDisplaySinkService>());
                 // Defect 缺陷检测页（原 marvel Defect/View/DefectDetectView）
                 services.AddTransient<Ovl.UI.Defect.ViewModel.DefectDetectViewModel>();
             })

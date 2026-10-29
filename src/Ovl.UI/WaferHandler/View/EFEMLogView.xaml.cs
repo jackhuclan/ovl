@@ -9,6 +9,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using CommunityToolkit.Mvvm.ComponentModel;
+using InteVega.CBB.CommonLib.Helpers;
 using Ovl.UI.WaferHandler.ViewModel;
 
 namespace Ovl.UI.WaferHandler.View;
@@ -31,8 +33,19 @@ public partial class EFEMLogView : UserControl
     }
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        var  efemLogViewModel = DataContext as EFEMLogViewModel;
-        if (efemLogViewModel == null) return;
-        efemLogViewModel.Init();
+        if (DataContext is not EFEMLogViewModel efemLogViewModel)
+        {
+            return;
+        }
+
+        try
+        {
+            efemLogViewModel.Init();
+        }
+        catch (Exception ex)
+        {
+            // 新外壳尚未初始化厂内日志库（InteVegaLogHelper）时 Init 会抛错，不能因此拖垮整页
+            LogHelper.LogError(ex, "EFEMLog 初始化失败");
+        }
     }
 }

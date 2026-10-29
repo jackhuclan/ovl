@@ -7,12 +7,10 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Ovl.UI.WaferHandler.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
     xmlns:vm="clr-namespace:Ovl.UI.WaferHandler.ViewModel"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Loaded="Window_Loaded"
-    DataContext="{prism:ContainerProvider {x:Type vm:EFEMLogViewModel}}"
     mc:Ignorable="d">
 
     <UserControl.Resources>

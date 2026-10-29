@@ -19,7 +19,7 @@ public sealed class NavigationService(IServiceProvider services) : INavigationSe
         {
             ["Measure"] = (typeof(MainViewModel), "Home"),
             ["StageControl"] = (typeof(PlaceholderViewModel), "Stage Control"),
-            ["WaferHandler"] = (typeof(PlaceholderViewModel), "Wafer Handler"),
+            ["WaferHandler"] = (typeof(Ovl.UI.WaferHandler.ViewModel.WaferHandlerViewModel), "Wafer Handler"),
             ["Diagnostics"] = (typeof(PlaceholderViewModel), "Diagnostics"),
             ["Batch"] = (typeof(PlaceholderViewModel), "Batch"),
             ["Recipe"] = (typeof(Ovl.UI.Recipe.RecipeViewModel), "Recipe"),

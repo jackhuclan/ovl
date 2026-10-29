@@ -10,11 +10,12 @@ using Ovl.UI.WaferHandler.ViewModel;
 namespace Ovl.UI.WaferHandler.View;
 
 /// <summary>
-/// IndexView.xaml 的交互逻辑
+/// Wafer Handler 页面（原 marvel <c>WaferHandlerView</c>，由独立 Window 改为内嵌 UserControl）。
 /// </summary>
-public partial class WaferHandlerView : Window
+public partial class WaferHandlerView : UserControl
 {
-    SlotItem _selectSlotItem;
+    private SlotItem? _selectSlotItem;
+
     public WaferHandlerView()
     {
         InitializeComponent();
@@ -72,26 +73,12 @@ public partial class WaferHandlerView : Window
         }
     }
 
-    private void EscCommand(object sender, ExecutedRoutedEventArgs arg)
+    private void WaferHandlerView_Loaded(object sender, RoutedEventArgs e)
     {
-        Close();
-    }
-
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        var waferHandlerViewModel = DataContext as WaferHandlerViewModel;
-        if (waferHandlerViewModel == null) return;
-        waferHandlerViewModel.ViewLoaded();
-    }
-
-    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-    {
-        if (sender is FrameworkElement frameworkElement && frameworkElement.DataContext is WaferHandlerViewModel viewModel && !viewModel.CanClose)
+        if (DataContext is WaferHandlerViewModel waferHandlerViewModel)
         {
-            e.Cancel = true;
+            waferHandlerViewModel.ViewLoaded();
         }
-
-        LogHelper.LogInfo($"WaferHandler View Closing, e.Cancel={e.Cancel}");
     }
 
     private void Slot_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
