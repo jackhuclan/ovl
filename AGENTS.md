@@ -25,7 +25,12 @@ Ovl.slnx                     解决方案文件
 - **命名空间与项目名一致性**：`src/` 下所有项目的根命名空间必须与项目名一致（如 `Ovl.UI`、`Ovl.Biz.Common`、`Ovl.Biz.Services`）。例外（豁免）：`packages/` 目录内的 vendor 项目，以及直接引用的 marvel/OpenInteVega 历史项目——保持其原有命名空间不动。
 - **UI 层单工程**：View、ViewModel、通用控件/转换器/主题资源全部位于 `Ovl.UI` 一个程序集内（原 `Ovl.UI.ViewModels`、`Ovl.UI.Common`、`Ovl.UI.Common.ViewModels` 已合并删除）。因此 XAML 中引用这些类型时**禁止带 `assembly=` 限定**（同程序集带限定会报 MC3066/MC3074）。
 - 提交前清理多余 `using`（隐式全局 using 已覆盖的 `System.*` 不要再写）。
+  - ⚠️ **WPF 工程（`UseWPF=true`）的隐式 using 集合更小**：SDK 刻意排除了 `System.IO` 与 `System.Net.Http`（避免 `System.IO.Path` 与 `System.Windows.Shapes.Path` 冲突），这两个命名空间在 `Ovl.UI` 里必须显式 `using`；非 WPF 工程（`Ovl.Biz.Common` / `Ovl.Biz.Services` / `tests`）才可省略。批量清理 using 时必须按项目类型区分。
+- using 排序遵循 `.editorconfig`（`dotnet_sort_system_directives_first`）：`System.*` 在前，其余按字母序，别名 `using X = Y;` 置于最后；using 区块与 `namespace` 声明之间留一个空行。
+- `[ObservableProperty]` 标注的字段一律 `private`（可见性交给生成的属性），字段名为 `_camelCase`。
 - MVVM 使用 CommunityToolkit.Mvvm（`[ObservableProperty]` / `[RelayCommand]`）；命令 `CanExecute` 依赖的属性必须挂 `[NotifyCanExecuteChangedFor]`，否则按钮状态不刷新。
+  - 派生属性随源属性变化时用 `[NotifyPropertyChangedFor(nameof(Xxx))]`，不要再手写 `OnPropertyChanged(nameof(Xxx))` + 手写 `NotifyXxxCommands()` 组合。
+  - 若 `CanExecute` 依赖的是子对象内部属性（如 `JobItem.LotId`），`NotifyCanExecuteChangedFor` 覆盖不到，保留显式 `XxxCommand.NotifyCanExecuteChanged()` 刷新入口（如 `AddJobViewModel.RefreshSaveState`）。
 - 命名：私有字段与静态私有字段均为 `_camelCase`（不用 s_ 前缀）；接口用 I 前缀。
 - 所有项目使用 .NET 10。
 

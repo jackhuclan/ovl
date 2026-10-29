@@ -282,3 +282,57 @@ Prism.Ioc.ContainerLocator.SetContainerExtension(() => containerExtension);
 - 裸 `DataModels.` / `Bases.` 短名依赖 Marvel 父命名空间链，迁移后必须用 `using` 别名。
 - 构建用全路径 `"/c/Program Files/dotnet/dotnet.exe"`，并先 `export ProgramFiles ProgramW6432 LOCALAPPDATA ProgramData`。
 - `dotnet build` 的 `MSB3246`（PE image does not have metadata）来自 `Ovl.Thirdlib` 里的原生 DLL，属正常噪音。
+
+---
+
+## 13. 代码整洁化：批量改写的安全套路（2026-10-29）
+
+一次性把 277 个 `.cs` 收敛到 `.editorconfig` 规范，踩过的坑与已验证的做法：
+
+### 13.1 块级 namespace → 文件作用域
+
+不要手改。脚本化四步，**按"改结构 → 编译 → 再改风格"分两轮**最稳：
+
+1. 定位 `namespace X` 行；若花括号不在同一行，删除紧随其后的 `{` 行。
+2. 从文件末尾向前找第一个**位于第 0 列**的 `}`，即命名空间结束花括号；删除它（删除前确认其后只剩空行）。
+3. 正文整体去掉 4 个空格缩进（`if line.startswith("    "): line[4:]`）。
+4. 声明行改 `namespace X;`，并在其后补一个空行。
+
+前置校验（不满足就跳过该文件、单独处理）：文件内 `namespace` 只出现一次、无跨行逐字字符串（`@"` 结尾行）、无顶层 `#if` 包裹命名空间。本次 208 个文件全部满足，无一个需要手工改。
+
+### 13.2 清理隐式 using：**必须按项目类型分组**
+
+这是本轮最大的坑。`ImplicitUsings=enable` 的集合不是全局统一的：
+
+| 项目类型 | 隐式命名空间集合 |
+| --- | --- |
+| 普通 SDK（`Ovl.Biz.Common` / `Ovl.Biz.Services` / `tests`） | System、System.Collections.Generic、System.IO、System.Linq、System.Net.Http、System.Threading、System.Threading.Tasks |
+| WPF（`UseWPF=true`，即 `Ovl.UI`） | 上式**去掉 `System.IO` 与 `System.Net.Http`** |
+
+直接验证方式：看生成文件 `obj/<cfg>/<tfm>/<项目名>.GlobalUsings.g.cs`。
+若对 WPF 工程也按普通集合删 `using System.IO;`，会一次性炸出上百条 `CS0103: Path / File`——本轮真实发生过，回滚重跑才解决。
+
+### 13.3 去重 / 排序 using 时**绝不能正则匹配全文**
+
+`using var stream = ...;` 和 `using (var x = ...)` 也以 `using` 开头。按"`using X;`"去重会把方法体里的 `using var` 声明当重复项删掉，
+表现为 `CS0103: 当前上下文中不存在名称 imageInner`，且只在个别方法里出现，很难定位。
+
+三条约约束即可安全：
+- 只处理**命名空间声明之前**的行；
+- 正则排除 `using var ` / `using (` / `using static `；
+- 应用前后各 grep 一次 `^\s*using (var|\(|await)` 计数，数量不变才算通过（本轮 47 → 47）。
+
+排序键按 Roslyn 规则：`System.*` 为 0 组，普通 using 为 1 组，别名 `using X = Y;` 为 2 组，组内小写字母序。
+
+### 13.4 `[ObservableProperty]` 字段可见性
+
+`public` 字段改 `private` 是安全的机械操作（生成的属性仍是 public）；同程序集内引用字段的代码不受影响，
+跨类引用会在编译期暴露，改用生成的属性名即可。本轮 51 处全部一次通过。
+
+### 13.5 `dotnet format` 在 WPF 工程上不可用
+
+`dotnet format style src/Ovl.UI/Ovl.UI.csproj` 在本仓库直接抛 `MSBuildWorkspace.TryApplyChanges` 异常（WPF `_wpftmp.csproj` 临时工程导致），
+且即使加 `--diagnostics IDE0003` 仍会跑全量 IMPORTS 检查。结论：**WPF 工程不要指望 `dotnet format`，用脚本 + 编译验证**。
+
+`this.` 限定（`dotnet_style_qualification_for_field=false`）同理没有可靠的自动化手段——移除时若外层存在同名局部变量/参数会**静默改成绑定局部变量**（不报错），
+属 suggestion 级规则，建议保持现状而非冒险批改。

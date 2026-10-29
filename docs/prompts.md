@@ -116,3 +116,6 @@
 - 本地运行不起来（附 IDE 错误列表截图：MC30 找不到 StageControlModule/TemplateMatchingModule 中的控件类型）。
 - 请将 Ovl.UI.ViewModels 项目中的所有文件全部迁移到 Ovl.UI 项目中，完成后删除该独立项目，并同步修改所有受影响的命名空间声明及引用语句，确保迁移后项目能正确编译且不残留旧命名空间的引用。
 - 请将 Ovl.UI.Common.ViewModels 和 Ovl.UI.Common 两个项目合并进 Ovl.UI 项目中，完成后删除该独立项目，包括迁移相关代码和依赖，更新所有引用、命名空间及项目引用配置，并确保合并后整个解决方案可正常编译且现有功能不受影响。
+
+## 2026-10-29（代码整洁化）
+- 先整洁我们现有的代码。代码规范：详细风格见 `.editorconfig`；所有 `.cs` 的 namespace 一律文件作用域；`src/` 下项目根命名空间与项目名一致（`packages/` 与 marvel/OpenInteVega 直引项目豁免）；UI 层单工程，XAML 引用自身类型禁带 `assembly=` 限定；提交前清理多余 using（隐式全局 using 已覆盖的 `System.*` 不再写）；MVVM 用 CommunityToolkit.Mvvm，`CanExecute` 依赖属性必须挂 `[NotifyCanExecuteChangedFor]`；私有字段与静态私有字段统一 `_camelCase`（不用 `s_`），接口 I 前缀；所有项目 .NET 10。
