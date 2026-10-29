@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
-namespace Ovl.UI.Excute.ViewModel
+namespace Ovl.UI.Excute.ViewModel;
+
+internal class HomeViewModel
 {
-    internal class HomeViewModel
-    {
-    }
 }

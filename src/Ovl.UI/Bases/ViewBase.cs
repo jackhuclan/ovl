@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows.Controls;
 
-namespace Ovl.UI.Bases
+namespace Ovl.UI.Bases;
+
+internal class ViewBase:UserControl
 {
-    internal class ViewBase:UserControl
-    {
-    }
 }

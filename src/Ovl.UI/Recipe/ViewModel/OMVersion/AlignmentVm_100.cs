@@ -6,7 +6,6 @@ using InteVega.CBB.Recipe.Interface;
 using Marvel.DataModels.Recipe;
 using Megarobo.Ovl.Type;
 using Prism.Services.Dialogs;
-using System;
 
 namespace Ovl.UI.Recipe.ViewModel.OMVersion;
 

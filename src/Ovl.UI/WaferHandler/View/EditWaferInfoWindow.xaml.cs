@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,22 +9,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using Ovl.UI.WaferHandler.ViewModel;
-namespace Ovl.UI.WaferHandler.View
+
+namespace Ovl.UI.WaferHandler.View;
+
+/// <summary>
+/// EditWaferInfoWindow.xaml 的交互逻辑
+/// </summary>
+public partial class EditWaferInfoWindow : Window
 {
-    /// <summary>
-    /// EditWaferInfoWindow.xaml 的交互逻辑
-    /// </summary>
-    public partial class EditWaferInfoWindow : Window
+    public EditWaferInfoWindow()
     {
-        public EditWaferInfoWindow()
-        {
-            InitializeComponent();
-        }
-        public EditWaferInfoWindow(EditWaferInfoViewModel viewModel)
-        {
-            InitializeComponent();
-            DataContext = viewModel;
-            viewModel.CloseAction = result => DialogResult = result;
-        }
+        InitializeComponent();
+    }
+    public EditWaferInfoWindow(EditWaferInfoViewModel viewModel)
+    {
+        InitializeComponent();
+        DataContext = viewModel;
+        viewModel.CloseAction = result => DialogResult = result;
     }
 }

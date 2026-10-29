@@ -63,9 +63,15 @@ public sealed partial class MainViewModel : ObservableObject, IPageViewModel, ID
     private RunningJobDataAndStatistics _jobRuningDataList = new();
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(EditJobCommand))]
     private JobInfoModel? _selectedJob;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsRunning))]
+    [NotifyPropertyChangedFor(nameof(IsIdle))]
+    [NotifyCanExecuteChangedFor(nameof(RunJobCommand))]
+    [NotifyCanExecuteChangedFor(nameof(StopJobCommand))]
+    [NotifyCanExecuteChangedFor(nameof(PauseCommand))]
     private EnumRunState _runStatus = EnumRunState.IDLE;
 
     [ObservableProperty]
@@ -351,9 +357,6 @@ public sealed partial class MainViewModel : ObservableObject, IPageViewModel, ID
 
         RunStatusStr = GetDescription(RunStatus);
         IsEnable = RunStatus is not EnumRunState.EMERGENCY_STOP;
-        OnPropertyChanged(nameof(IsRunning));
-        OnPropertyChanged(nameof(IsIdle));
-        NotifyRunCommands();
     }
 
     private void OnProgressChanged(object? sender, EventArgs e)
@@ -367,14 +370,6 @@ public sealed partial class MainViewModel : ObservableObject, IPageViewModel, ID
     {
         WaferProgress = $"{WaferProgressValue:0}%";
         TargetProgress = $"{TargetProgressValue:0}%";
-    }
-
-    private void NotifyRunCommands()
-    {
-        RunJobCommand.NotifyCanExecuteChanged();
-        StopJobCommand.NotifyCanExecuteChanged();
-        PauseCommand.NotifyCanExecuteChanged();
-        EditJobCommand.NotifyCanExecuteChanged();
     }
 
     private void UpdateJobQueueState()

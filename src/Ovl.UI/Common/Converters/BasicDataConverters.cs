@@ -30,7 +30,7 @@ public sealed class BoolToStringConverter : IValueConverter
 
 /// <summary>
 /// Lot 统计数值换算（键 LotStatisticsDataUnitFactorConverter）。原样移植自
-/// Marvel.Main.Resources.Converter.LotStatisticsDataUnitFactorConverter：
+/// Ovl.UI.Resources.Converter.LotStatisticsDataUnitFactorConverter：
 /// MultiBinding [数值, 单位系数]，输出 value / factor，格式 "0.0000"。
 /// </summary>
 public sealed class LotStatisticsDataUnitFactorConverter : IMultiValueConverter

@@ -1,17 +1,12 @@
-﻿using Marvel.Application.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+using Marvel.Application.Exceptions;
 
-namespace Ovl.UI.Execute.ViewModel
+namespace Ovl.UI.Execute.ViewModel;
+
+public class DebugViewModel : Bases.ViewModelBase
 {
-    public class DebugViewModel : Bases.ViewModelBase
+    public DebugViewModel(RunArgBase runArg)
     {
-        public DebugViewModel(RunArgBase runArg) 
-        {
-        }
-
     }
+
 }

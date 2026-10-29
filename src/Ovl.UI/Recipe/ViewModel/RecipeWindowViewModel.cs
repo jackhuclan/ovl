@@ -1,4 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using InteVega.CBB.CommonLib.Helpers;
 using InteVega.CBB.ComUI.Event;
@@ -16,19 +21,11 @@ using Marvel.DataModels.Recipe;
 using Marvel.Interfaces.Application;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
 
-using Ovl.UI.Recipe.View;
 using Ovl.UI.Bases;
 using Ovl.UI.Interface;
+using Ovl.UI.Recipe.View;
+
 namespace Ovl.UI.Recipe.ViewModel;
 
 public partial class RecipeWindowViewModel : ObservableObject, IDisposable
@@ -46,7 +43,7 @@ public partial class RecipeWindowViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     int _width;
     [ObservableProperty]
-    public string _imgSouce;
+    private string _imgSouce;
     [ObservableProperty]
     Visibility _isShowContent = Visibility.Collapsed;
     [ObservableProperty]
@@ -401,5 +398,5 @@ public partial class RecipeWindowViewModel : ObservableObject, IDisposable
 public partial class TabItemView : ObservableObject
 {
     [ObservableProperty]
-    public object _tabItem;
+    private object _tabItem;
 }

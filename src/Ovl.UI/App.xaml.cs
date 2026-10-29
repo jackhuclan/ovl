@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
+using System.Windows;
 using IntellVega.CBB.EasyConfig;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +17,7 @@ using Ovl.UI.Recipe;
 using Ovl.UI.Setting;
 using Ovl.UI.Shell;
 using Ovl.UI.Tools;
+
 namespace Ovl.UI;
 
 /// <summary>

@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,19 +9,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Ovl.UI.Recipe.View
+namespace Ovl.UI.Recipe.View;
+
+/// <summary>
+/// SummaryView.xaml 的交互逻辑
+/// </summary>
+public partial class SummaryView : UserControl
 {
-    /// <summary>
-    /// SummaryView.xaml 的交互逻辑
-    /// </summary>
-    public partial class SummaryView : UserControl
+    ~SummaryView()
     {
-        ~SummaryView() 
-        { 
-        }
-        public SummaryView()
-        {
-            InitializeComponent();
-        }
+    }
+    public SummaryView()
+    {
+        InitializeComponent();
     }
 }

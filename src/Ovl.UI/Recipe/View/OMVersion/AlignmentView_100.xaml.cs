@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 
 using Ovl.UI.Recipe.ViewModel.OMVersion;
+
 namespace Ovl.UI.Recipe.View.OMVersion;
 
 /// <summary>

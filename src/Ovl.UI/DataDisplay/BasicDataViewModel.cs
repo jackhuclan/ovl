@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,7 +16,7 @@ public sealed record JobAlarmRow(int Index, DateTime RestoreTime, string Message
 public sealed record LogItem(DateTime OperateTime, string Level, string Source, string Message);
 
 /// <summary>
-/// 主界面左下角 BasicData 面板 ViewModel（对应原 Marvel.Main.DataDisplay.ViewModel.BasicDataViewModel，
+/// 主界面左下角 BasicData 面板 ViewModel（对应原 Ovl.UI.DataDisplay.ViewModel.BasicDataViewModel，
 /// 并吸收原 LogViewModel 的绑定面——本地实现中 Log 视图继承本 DataContext，不再经 Prism 容器解析）。
 /// 数据源为内存演示数据；真实数据接入（历史结果 / 报警 / 日志服务）随后续里程碑替换。
 /// </summary>

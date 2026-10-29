@@ -5,6 +5,7 @@ using Ovl.UI.Common.Controls;
 
 using Ovl.UI.DataDisplay.ViewModel;
 using Ovl.UI.Measure;
+
 namespace Ovl.UI.Views.Measure;
 
 /// <summary>

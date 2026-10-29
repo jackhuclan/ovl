@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,16 +9,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Ovl.UI.Controls
+namespace Ovl.UI.Controls;
+
+/// <summary>
+/// ChartResult_ovl.xaml 的交互逻辑
+/// </summary>
+public partial class ChartResult_ovl : UserControl
 {
-    /// <summary>
-    /// ChartResult_ovl.xaml 的交互逻辑
-    /// </summary>
-    public partial class ChartResult_ovl : UserControl
+    public ChartResult_ovl()
     {
-        public ChartResult_ovl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

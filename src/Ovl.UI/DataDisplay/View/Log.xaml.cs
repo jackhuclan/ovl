@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,16 +9,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Ovl.UI.DataDisplay.View
+namespace Ovl.UI.DataDisplay.View;
+
+/// <summary>
+/// Log.xaml 的交互逻辑
+/// </summary>
+public partial class Log : UserControl
 {
-    /// <summary>
-    /// Log.xaml 的交互逻辑
-    /// </summary>
-    public partial class Log : UserControl
+    public Log()
     {
-        public Log()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,3 +1,4 @@
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using InteVega.CBB.Common;
@@ -19,11 +20,7 @@ using Megarobo.Ovl.Service.IntfFn.fn;
 using Megarobo.Ovl.Type;
 using Microsoft.Extensions.DependencyInjection;
 using Prism.Services.Dialogs;
-using System;
-using System.Threading.Tasks;
-using System.Windows;
 using Wafer.Algorithm.Common.DoNet;
-
 
 namespace Ovl.UI.Recipe.ViewModel.OMVersion;
 
@@ -324,7 +321,7 @@ public partial class AlignmentVmBase : RecipeElementViewModelBase
 
     protected void MoveToTemplateMark()
     {
-        //已经有手动移到模板位置，不需要再自动移动了 
+        //已经有手动移到模板位置，不需要再自动移动了
         //if (AlignmentMarkPos != Point2d.Zero)
         //{
         //   // _alignmentService.MoveTo(AlignmentMarkPos);

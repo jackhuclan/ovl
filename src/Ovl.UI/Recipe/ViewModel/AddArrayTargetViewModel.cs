@@ -1,42 +1,37 @@
-﻿using Bases = Ovl.UI.Bases;
+﻿using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Marvel.DataModels.Recipe;
 using Prism.Services.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bases = Ovl.UI.Bases;
 
-namespace Ovl.UI.Recipe.ViewModel
+namespace Ovl.UI.Recipe.ViewModel;
+
+internal partial class AddArrayTargetViewModel : Bases.ViewModelBase
 {
-    internal partial class AddArrayTargetViewModel : Bases.ViewModelBase
+    [ObservableProperty]
+    TestInfoBase _test;
+
+    [ObservableProperty]
+    TargetArrayLocation _arrayTarget;
+
+    /// <summary>
+    /// 检查名称是否正常
+    /// </summary>
+    public Func<bool> FunSave;
+    [RelayCommand]
+    public void SaveData()
     {
-        [ObservableProperty]
-        TestInfoBase _test;
-
-        [ObservableProperty]
-        TargetArrayLocation _arrayTarget;
-
-        /// <summary>
-        /// 检查名称是否正常
-        /// </summary>
-        public Func<bool> FunSave;
-        [RelayCommand]
-        public void SaveData()
+        var res = FunSave?.Invoke();
+        if (false == res)
         {
-            var res = FunSave?.Invoke();
-            if (false == res)
-            {
-                return;
-            }
-            RaiseRequestClose(new DialogResult());
+            return;
         }
-        [RelayCommand]
-        public void Close()
-        {
-            RaiseRequestClose(new DialogResult());
-        }
+        RaiseRequestClose(new DialogResult());
+    }
+    [RelayCommand]
+    public void Close()
+    {
+        RaiseRequestClose(new DialogResult());
     }
 }

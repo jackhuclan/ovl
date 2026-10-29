@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,30 +10,30 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Ovl.UI.Recipe.ViewModel;
-namespace Ovl.UI.Recipe.View
+
+namespace Ovl.UI.Recipe.View;
+
+/// <summary>
+/// Test_Physical.xaml 的交互逻辑
+/// </summary>
+public partial class Test_Physical : UserControl
 {
-    /// <summary>
-    /// Test_Physical.xaml 的交互逻辑
-    /// </summary>
-    public partial class Test_Physical : UserControl
+    public Test_Physical()
     {
-        public Test_Physical()
-        {
-            InitializeComponent();
-            this.Loaded += Test_DataCulling_Loaded;
-            this.Unloaded += Test_DataCulling_Unloaded;
-        }
+        InitializeComponent();
+        this.Loaded += Test_DataCulling_Loaded;
+        this.Unloaded += Test_DataCulling_Unloaded;
+    }
 
-        Test_SettingsViewModelBase vm;
-        private void Test_DataCulling_Loaded(object sender, RoutedEventArgs e)
-        {
-            vm = (Test_SettingsViewModelBase)DataContext;
-            vm.Subscribe();
-        }
+    Test_SettingsViewModelBase vm;
+    private void Test_DataCulling_Loaded(object sender, RoutedEventArgs e)
+    {
+        vm = (Test_SettingsViewModelBase)DataContext;
+        vm.Subscribe();
+    }
 
-        private void Test_DataCulling_Unloaded(object sender, RoutedEventArgs e)
-        {
-            vm.UnSubscribe();
-        }
+    private void Test_DataCulling_Unloaded(object sender, RoutedEventArgs e)
+    {
+        vm.UnSubscribe();
     }
 }
