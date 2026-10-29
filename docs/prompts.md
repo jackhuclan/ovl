@@ -119,3 +119,9 @@
 
 ## 2026-10-29（代码整洁化）
 - 先整洁我们现有的代码。代码规范：详细风格见 `.editorconfig`；所有 `.cs` 的 namespace 一律文件作用域；`src/` 下项目根命名空间与项目名一致（`packages/` 与 marvel/OpenInteVega 直引项目豁免）；UI 层单工程，XAML 引用自身类型禁带 `assembly=` 限定；提交前清理多余 using（隐式全局 using 已覆盖的 `System.*` 不再写）；MVVM 用 CommunityToolkit.Mvvm，`CanExecute` 依赖属性必须挂 `[NotifyCanExecuteChangedFor]`；私有字段与静态私有字段统一 `_camelCase`（不用 `s_`），接口 I 前缀；所有项目 .NET 10。
+
+## 2026-10-29（Wafer Handler 迁移与内嵌）
+- Wafer Handler 的 view 在 Ovl.UI 项目 `src/Ovl.UI/WaferHandler/View/WaferHandlerView.xaml`，viewmodel 在 `src/Ovl.UI/WaferHandler/ViewModel/WaferHandlerViewModel.cs`，先完成迁移 Wafer Handler，积累经验。
+- 这些通过 `serviceProvider.GetService` 获得的 service 都是注入的，看能否迁移到新项目的 Ovl.Biz.Services 项目中（附截图：`IEfemStorageManager`、`ITransferService`、`IVacuumService`、`IEfemService`、`IDeviceContext<IEfem>`、`ILoggerFactory`、`IWaferPresenceManager` 等）。
+- Wafer Handler 的 view 通过点击 sidebar 的 Wafer Handler 的 button 嵌入右侧内容区域。
+- 先把 Wafer Handler 的 view 通过点击 sidebar 的 Wafer Handler 的 button 嵌入右侧内容区域，运行起来看看是否功能正常。

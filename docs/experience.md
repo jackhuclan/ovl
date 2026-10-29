@@ -17,7 +17,7 @@
 | Help | `Help` | 占位级 | 仅"打开目录"页 |
 | Alarm | `Alarm` | 已完成 | 演示数据列表 |
 | StageControl | `StageControl` | **未迁移** | Ovl.UI 无对应目录，需从 marvel `DomainService/InteVega.CBB.StageControlModule` 迁入 |
-| WaferHandler | `WaferHandler` | **未接线** | View/VM 已在仓库，未注册导航 |
+| WaferHandler | `WaferHandler` | 已完成 | 已由 Window 改 UserControl 内嵌；EFEM 服务已分层到 `Ovl.Biz.Services`；Operation Log 为空（日志助手未初始化） |
 | Diagnostics（Cal/PM） | `Diagnostics` | **未迁移** | Ovl.UI 无对应目录 |
 | Batch | `Batch` | **未接线** | `Job/` 下 View/VM 已在仓库 |
 | Defect | `Defect` | **未接线** | `Defect/` 下 View/VM 已在仓库 |
@@ -336,3 +336,128 @@ Prism.Ioc.ContainerLocator.SetContainerExtension(() => containerExtension);
 
 `this.` 限定（`dotnet_style_qualification_for_field=false`）同理没有可靠的自动化手段——移除时若外层存在同名局部变量/参数会**静默改成绑定局部变量**（不报错），
 属 suggestion 级规则，建议保持现状而非冒险批改。
+
+---
+
+## 14. Wafer Handler 内嵌实战：从独立 Window 到 Shell 子页（2026-10-29）
+
+本节是第 1–3 节的可执行细化版，按"照着做就能跑起来"的顺序排列。范例成果：侧边栏点 `Wafer Handler` → 右侧内容区出现完整页面，
+Port1/Port2 各 25 格料位、EFEM Device Operation、Stage、Aligner、Robot、右侧 EFEM 示意图、Operation Log、底部 Load/Unload/Map 全部正常渲染。
+
+### 14.1 XAML 改造清单（逐条照删/照改）
+
+| 动作 | 具体内容 | 踩坑点 |
+| --- | --- | --- |
+| 根元素 | `<Window ...>` → `<UserControl ...>`；`</Window>` → `</UserControl>` | 尾部闭合标签容易漏改 |
+| 删属性 | `Title` `Width` `Height` `WindowState` `WindowStyle` `ResizeMode` `Icon` `Closing` `Closed` `AllowDrop` 保留 | `Loaded` 保留，但语义变了（见 14.2） |
+| 删 `xmlns` | `xmlns:prism`、`xmlns:local`、`xmlns:icon`、`xmlns:viewModel`（只服务于已删属性的） | 删 `xmlns` 前先全文搜该前缀，避免误删仍在用的 |
+| 删 `DataContext` | `DataContext="{prism:ContainerProvider {x:Type vm:Xxx}}"` | 见 14.3 |
+| 删 `<Window.CommandBindings>` | 整段删除（Shell 里 KeyBinding 会与全局冲突） | 若绑的是页内命令，改在 View 内挂 `InputBindings` |
+| `<Window.Resources>` | → `<UserControl.Resources>` | 标签名同步改，不是只改外层 |
+| 视图级 `MergedDictionaries` | 删除（样式已由 `App.xaml` 全局合并 HandyControl + Themes/Icons） | 保留了会重复加载、且相对路径在嵌入后可能失效 |
+| `StaticResource` | → `DynamicResource` | 父级合并字典里的键用 `StaticResource` 在**子控件模板重建时**可能找不到；`DynamicResource` 缺失时静默降级不崩 |
+
+### 14.2 `Loaded` 语义变化与 `ViewLoaded()`
+
+`Window.Loaded` 只触发一次；`UserControl.Loaded` 在**每次重新放入视觉树**（切页、`ContentControl` 换模板）时都会触发。
+因此：
+
+```csharp
+private void WaferHandlerView_Loaded(object sender, RoutedEventArgs e)
+{
+    if (DataContext is WaferHandlerViewModel vm)
+    {
+        vm.ViewLoaded();
+    }
+}
+```
+
+要求 `ViewLoaded()` 必须**幂等**（重复调用不能重复注册事件、重复订阅串口、重复启动定时器）。
+本页 `ViewLoaded()` 只做"确保缓存已初始化 + 刷新料位绑定"两件事，所以重复触发无害。
+
+### 14.3 子视图的 DataContext 由父 VM 下发，不要各自去容器里捞
+
+`EFEMLogView` 原本也是 `DataContext="{prism:ContainerProvider {x:Type vm:EFEMLogViewModel}}"`。
+如果父 View 已被 `DataTemplate` 创建，子视图**仍在 XAML 里自己解析 VM**，会绕开 DI 生命周期管理，并且在
+DryIoc 容器里没注册时直接抛 `ContainerResolutionException` 导致**点页面进程无提示退出**（事件日志 Id 1026）。
+
+正确做法：父 VM 持子 VM 属性，父 XAML 显式绑定。
+
+```csharp
+// WaferHandlerViewModel
+public EFEMLogViewModel? EfemLog { get; }   // 构造函数里 serviceProvider.GetService<EFEMLogViewModel>()
+```
+```xml
+<!-- WaferHandlerView.xaml -->
+<wafer:EFEMLogView DataContext="{Binding EfemLog}" />
+```
+```xml
+<!-- EFEMLogView.xaml：只留根元素，删掉 xmlns:prism 与 DataContext -->
+<UserControl ...>
+```
+
+同时在 `App.xaml.cs` 里把 `EFEMLogViewModel` 注册为**单例**（与 marvel `MainModule.cs` 的 `RegisterSingleton` 一致），
+否则每次切页都会新建一份日志 VM，历史日志丢失。
+
+### 14.4 vendor VM 的 Prism `IDialogService` 构造依赖
+
+`WaferHandlerViewModelBase`（marvel 原版基类）构造函数里 `GetRequiredService<Prism.Services.Dialogs.IDialogService>()`。
+去 Prism 化后容器里没有这个注册 → 启动即崩：`InvalidOperationException: No service for type 'Prism.Services.Dialogs.IDialogService'`。
+
+处理：保留 Prism 接口类型（只是 vendor 的编译期依赖），提供一个**不弹窗只记日志**的适配器并在 `App` 注册：
+
+```csharp
+public sealed class PrismDialogServiceAdapter(ILogger<PrismDialogServiceAdapter>? logger = null) : IDialogService
+{
+    public void ShowDialog(string name, IDialogParameters parameters, Action<IDialogResult> callback) => NotifyPending(name);
+    // Show(...) / ShowDialog(...) 其余重载同理：记录"该弹窗尚未迁移"
+}
+```
+
+原则：**接口签名照抄，行为降级为"记一条警告"**。这样 vendor VM 能构造成功，交互缺口变成日志里的显式 TODO，
+而不是启动崩溃或静默无响应。
+
+### 14.5 `DefaultServiceProxy` 的 `overrides`：给桩服务按方法名定制返回值
+
+`DispatchProxy` 默认对所有方法返回 `default`，但 UI 上一旦出现 `default(WaferSize)` 就会显示 `None` 这类脏数据。
+`DefaultServiceProxy.Create<T>(overrides)` 允许按**方法名**覆写：
+
+```csharp
+services.TryAddSingleton(_ => DefaultServiceProxy.Create<IEfemService>(
+    new Dictionary<string, Func<object?[]?, object?>>
+    {
+        [nameof(IEfemService.GetLoadPortSize)] = _ => WaferSize.INCH_12,
+    }));
+```
+
+适用判定：**只在 UI 上有可见表现、且无业务副作用**的读方法（尺寸、枚举、显示名）。有状态、有副作用的方法不要这样糊，
+应当真写一个 `SimulatedXxx` 实现（如 `SimulatedVacuumService`、`SimulatedWaferPresenceManager`）。
+
+### 14.6 模拟服务的分层边界（本轮定版）
+
+| 类型 | 落位 | 理由 |
+| --- | --- | --- |
+| 纯缓存/状态管理（`EfemStorageManager`） | `Ovl.Biz.Services/Equipment`，**真实现** | 无硬件依赖，逻辑值得复用；`ILogger<T>` + `System.Text.Json`，路径与旧版一致 `%ProgramData%\Megarobo\.ovl\cache` |
+| 有业务语义的模拟（真空、在位） | `Ovl.Biz.Services/Equipment`，`SimulatedXxx` 实现 | 要让页面跳过落片风险确认等分支，必须给出确定值 |
+| 设备通信/传输（`IEfemService`、`ITransferService`、`IDeviceContext<T>`） | `DefaultServiceProxy` 占位 | 真机才有的语义，先保证能跑 |
+| 第三方 UI 服务（`ILogDisplaySinkService`） | `DefaultServiceProxy` 占位 | 日志面板迁移前无落点 |
+
+统一收口在 `EfemServiceCollectionExtensions.AddEfemServices()`，`App.xaml.cs` 只调一行——
+后续接真机时**只改这一个文件**，把 `Simulated*` / 代理替换成 `RealDevice` 实现即可。
+
+### 14.7 内嵌页的自动化验证（可复用到后续每个页面）
+
+侧边栏是自定义模板 `ListBox`，UIA **没有** `SelectionItemPattern`，`InvokePattern` 不可用。可靠套路：
+
+1. 轮询 `Process.MainWindowHandle` 直到非零（最多 40s），再 `AutomationElement.FromHandle`；
+2. 遍历 `ListItem`，取 `BoundingRectangle` 中心坐标，`SetCursorPos` + `mouse_event` 合成点击；
+3. 判定条件用**该页独有的类型名**（如 `WaferHandler.ViewModel.SlotItem` 出现在 UIA 树里），而不是"文本数量变了"；
+4. 首点击可能不生效（`texts` 仍是 Home），**最多重试 4 次**再判失败；
+5. 用 `PrintWindow(hwnd, hdc, 2)` 抓图做人工复核，避免"UIA 有元素但布局错乱"被漏过。
+
+### 14.8 本轮遗留（后续要接的）
+
+- Operation Log 表格为空：`InteVegaLogHelper` 未初始化；`EFEMLogView.xaml.cs` 的 `Init()` 已包 `try/catch`，不能让它拖垮整页。
+- Stage / Arm 料位点不显示晶圆：`GetTrackState` 走桩返回 `null`。
+- `WaferHandler40View` / `WaferHandler600View` 仍是 `Window` 且用 `prism:ContainerProvider`，多机型策略未接。
+- 编译仍有约 305 条警告（多为 vendor 工程的 `MSB3246` 原生 DLL 与 nullable），296 处 `MVVMTK0034`（直接引用 `[ObservableProperty]` 后备字段导致通知不触发）待清。
